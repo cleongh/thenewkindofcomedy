@@ -12,6 +12,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
         /// Deficinión de parametros
         this.velocity = 400.0;
         this.stopDistance = 5.0;
+        this.usingNavmesh = false;
+        this.navMesh = null;
         //Variables internas
         this._isMoving = false;
         this._targetX = this.x;
@@ -43,19 +45,25 @@ export default class Player extends Phaser.GameObjects.Sprite {
         console.log('down X '+pointer.downX + " Y "+pointer.downY);
         this._targetX = pointer.downX;
         this._targetY = pointer.downY;
-        let xdist = new Phaser.Math.Vector2(this._targetX,this._targetY);
-        let pos = new Phaser.Math.Vector2(this.x,this.y);
-        let direction = xdist.subtract(pos);
-        let mod = direction.length();
-        direction = direction.normalize();
-
-        //console.log('velocity X '+(this.velocity*direction.x) + " Y "+(this.velocity*direction.y));
-        if(mod > this.stopDistance)
+        let destination = new Phaser.Math.Vector2(this._targetX,this._targetY);
+        if(this.usingNavmesh && this.navMesh != null)
         {
-            this.body.setVelocityX(this.velocity*direction.x);
-            this.body.setVelocityY(this.velocity*direction.y);
+            goTo(destination);
         }
-
+        else
+        {
+            let pos = new Phaser.Math.Vector2(this.x,this.y);
+            let direction = destination.subtract(pos);
+            let mod = direction.length();
+            direction = direction.normalize();
+    
+            //console.log('velocity X '+(this.velocity*direction.x) + " Y "+(this.velocity*direction.y));
+            if(mod > this.stopDistance)
+            {
+                this.body.setVelocityX(this.velocity*direction.x);
+                this.body.setVelocityY(this.velocity*direction.y);
+            }
+        }
     }
 
     checkStop(t,dt)
@@ -69,6 +77,25 @@ export default class Player extends Phaser.GameObjects.Sprite {
         {
             this.body.setVelocityX(0);
             this.body.setVelocityY(0);
+        }
+    }
+
+    setNavmesh(navmesh)
+    {
+        this.navMesh = navmesh;
+    }
+
+    goTo(targetPoint) 
+    {
+        if(this.navMesh == null)
+            this.currentTarget = null;
+        else{
+            // Find a path to the target
+            this.path = this.navMesh.findPath(new Phaser.Math.Vector2(this.x, this.y), targetPoint);
+        
+            // If there is a valid path, grab the first point from the path and set it as the target
+            if (this.path && this.path.length > 0) this.currentTarget = this.path.shift();
+            else this.currentTarget = null;
         }
     }
 
