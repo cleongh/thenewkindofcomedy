@@ -7,7 +7,9 @@ import player from '../assets/sprites/player.png'
 import upstairs from '../assets/sprites/upstairs.png'
 import walls from '../assets/sprites/walls.png'
 // import client from '../assets/sprites/client.png'
-import alex_idle from '../assets/sprites/alex_idle.png'
+import pelirroja from '../assets/sprites/characters/pelirroja.png'
+
+// import alex from '../assets/sprites/alex.png'
 // import wallfloor from '../assets/sprites/wall-floor.png'
 /**
  * Escena para la precarga de los assets que se usarán en el juego.
@@ -17,47 +19,39 @@ import alex_idle from '../assets/sprites/alex_idle.png'
  * sobre cómo hacer una barra de progreso.
  */
 export default class Boot extends Phaser.Scene {
-  /**
-   * Constructor de la escena
-   */
-  constructor() {
-    super('boot');
-  }
+    /**
+     * Constructor de la escena
+     */
+    constructor() {
+        super('boot');
+    }
 
-  /**
-   * Carga de los assets del juego
-   */
-  preload() {
-    // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
-    // this.load.setPath('assets/sprites/');
-    // this.load.image('platform', platform);
-    // this.load.image('base', base);
-      this.load.image('upstairs', upstairs);
-      this.load.image('walls', walls);
-      this.load.image('player', player);
-      // this.load.image('client', client);
-      this.load.image('alex_idle', alex_idle);
-      // this.load.image('wallfloor', wallfloor)
+    /**
+     * Carga de los assets del juego
+     */
+    preload() {
+        // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
+        // this.load.setPath('assets/sprites/');
+        // this.load.image('platform', platform);
+        // this.load.image('base', base);
+        this.load.image('upstairs', upstairs);
+        this.load.image('walls', walls);
+        this.load.image('player', player);
+        // this.load.image('alex_idle', alex_idle);
+        // this.load.image('wallfloor', wallfloor)
 
-      this.load.spritesheet('alex_idle', alex_idle, { frameWidth: 48, frameHeight: 48,startFrame:0, endFrame: 3 });
+        this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
 
-      // const config = {
-      //       key: 'idle',
-      //       frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 23, first: 23 }),
-      //       frameRate: 20,
-      //       repeat: -1
-      //   };
+    }
 
-      //   this.anims.create(config);
+    create() {  
+        this.anims.create( {
+            key: 'idle',
+            frames: this.anims.generateFrameNumbers('pelirroja', { start: 2, end: 3 }),
+            frameRate: 2,
+            repeat: -1
+        });
 
-  }
-
-  /**
-   * Creación de la escena. En este caso, solo cambiamos a la escena que representa el
-   * nivel del juego
-   */
-    create() {
-        
-    this.scene.start('level1');
-  }
+        this.scene.start('level1');
+    }
 }
