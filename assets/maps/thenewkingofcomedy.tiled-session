@@ -42,5 +42,5 @@
         "level1.tmj"
     ],
     "tileset.embedInMap": true,
-    "tileset.type": 1
+    "tileset.type": 0
 }
