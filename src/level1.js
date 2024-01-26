@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import Level from './level.js'
-import Client from './client.js'
+// import Client from './client.js'
 
 import map from '../assets/maps/level1.json'
 
@@ -25,7 +25,10 @@ export default class Level1 extends Level {
         this.map.createLayer('suelo', upstairs)
         this.map.createLayer('paredes', wall)
         
-        this.map.createFromObjects('objetos', {gid: 1, key: 'player'})
+        const clients = this.map.createFromObjects('objetos', {gid: 1, key: 'alex'})
+        for(let c of clients) {
+            c.play('idle')
+        }
     }
 
 }
