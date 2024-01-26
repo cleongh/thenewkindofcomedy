@@ -5,7 +5,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
+
+        this.scene.input.on('pointerdown', this.onClick, this);
     }
+
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
@@ -21,6 +24,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
         // else {
         //     this.body.setVelocityX(0);
         // }
+    }
+
+
+    onClick(pointer)
+    {
+        console.log('down '+pointer);
     }
 
 }
