@@ -21,6 +21,11 @@ export default class Menu extends Phaser.Scene {
             on('pointerdown', () =>  {
                 this.scene.start('level1')
             })
+
+        this.add.text(500, 120, "créditos").setInteractive().
+            on('pointerdown', () =>  {
+                this.scene.start('credits')
+            })
     // this.add.text(500, 250, 'Se acabó!\nPulsa cualquier tecla para volver a jugar')
     //     .setOrigin(0.5, 0.5)  // Colocamos el pivote en el centro de cuadro de texto 
     //     .setAlign('center');  // Centramos el texto dentro del cuadro de texto
