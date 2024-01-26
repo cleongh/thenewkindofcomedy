@@ -27,6 +27,7 @@ export interface LaughtAtProps {
 export default class LaughAt extends BasePuzzle {
   private symbolsClicked: number = 0;
   private selectedSymbols: SelectedSymbol[];
+  private sortedSymbols: SelectedSymbol[];
   private puzzleResult: "ongoing" | "success" | "failure" = "ongoing";
 
   /**
@@ -45,7 +46,9 @@ export default class LaughAt extends BasePuzzle {
       manualSequences[Phaser.Math.Between(0, manualSequences.length - 1)];
 
     this.selectedSymbols = this.pickRandomElements(selectedManualSequence, 4);
-    console.log(this.selectedSymbols);
+    this.sortedSymbols = [...this.selectedSymbols].sort(
+      (a, b) => a.index - b.index
+    );
   } // init
 
   /**
@@ -92,7 +95,7 @@ export default class LaughAt extends BasePuzzle {
         // En realidad esto no debería hacer falta, pero por si las moscas...
         if (this.puzzleResult !== "ongoing") return;
         // ¿coincide el índice pulsado con el siguiente que nos tocaría?
-        if (index === this.selectedSymbols[this.symbolsClicked].index) {
+        if (index === this.sortedSymbols[this.symbolsClicked].index) {
           // aumentamos la cuenta de cuántos símbolos llevamos clickados con éxito.
           this.symbolsClicked++;
 
