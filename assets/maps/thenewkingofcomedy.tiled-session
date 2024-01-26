@@ -42,5 +42,9 @@
         "level1.tmj"
     ],
     "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 48,
+        "width": 48
+    },
     "tileset.type": 0
 }

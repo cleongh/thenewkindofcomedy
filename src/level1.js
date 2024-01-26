@@ -23,11 +23,13 @@ export default class Level1 extends Level {
         super.create()
         this.add.text(10, 10, "nivel 1")
         this.map = this.make.tilemap({ key: 'tilemap',
-                                     tileWidth: 64, 
-  tileHeight: 64})
+                                     tileWidth: 48, 
+  tileHeight: 48})
 
-        const tileset  = this.map.addTilesetImage('wall-floor', 'wallfloor');
-        this.map.createLayer('suelo', tileset)
+        const wall  = this.map.addTilesetImage('wall', 'wallfloor');
+        const upstairs  = this.map.addTilesetImage('upstairs', 'upstairs');
+        this.map.createLayer('suelo', upstairs)
+                this.map.createLayer('paredes', wall)
         
         this.map.createFromObjects('objetos', {gid: 1, key: 'player'})
         // const conId1 = 
