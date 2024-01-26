@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Level from './level.js'
+import Client from './client.js'
 
 import map from '../assets/maps/level1.json'
 
@@ -22,9 +23,10 @@ export default class Level1 extends Level {
         super.create()
         this.add.text(10, 10, "nivel 1")
         this.map = this.make.tilemap({ key: 'tilemap' })
-        
-        const conId1 = this.map.createFromObjects('objetos', {class: "persona"})
-        console.log(conId1)
+
+        this.map.createFromObjects('objetos', {gid: 1, key: 'player'})
+        // const conId1 = 
+        // console.log(conId1)
         
     }
 

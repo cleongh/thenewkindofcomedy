@@ -31,7 +31,7 @@
             }
         }
     },
-    "frame.defaultDuration": 60,
+    "frame.defaultDuration": 250,
     "last.imagePath": "/home/cleon/juegos/thenewkingofcomedy/assets/sprites",
     "map.lastUsedFormat": "json",
     "map.layerDataFormat": null,

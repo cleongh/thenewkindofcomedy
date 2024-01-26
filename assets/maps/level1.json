@@ -8,16 +8,40 @@
          "name":"objetos",
          "objects":[
                 {
-                 "height":0,
-                 "id":1,
+                 "gid":1,
+                 "height":64,
+                 "id":3,
                  "name":"",
-                 "point":true,
                  "rotation":0,
-                 "type":"persona",
+                 "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":243.174781874472,
-                 "y":237.770897832817
+                 "width":64,
+                 "x":210.666666666667,
+                 "y":329.333333333333
+                }, 
+                {
+                 "gid":1,
+                 "height":64,
+                 "id":4,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":384,
+                 "y":480
+                }, 
+                {
+                 "gid":1,
+                 "height":64,
+                 "id":5,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":645.333333333333,
+                 "y":309.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -26,24 +50,35 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":2,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
  "tileheight":32,
  "tilesets":[
         {
-         "columns":16,
+         "columns":0,
          "firstgid":1,
-         "image":"..\/sprites\/player-spritesheet.png",
-         "imageheight":32,
-         "imagewidth":512,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
          "margin":0,
-         "name":"player-spritesheet",
+         "name":"elements",
          "spacing":0,
-         "tilecount":16,
-         "tileheight":32,
-         "tilewidth":32
+         "tilecount":1,
+         "tileheight":64,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"..\/sprites\/player.png",
+                 "imageheight":64,
+                 "imagewidth":64,
+                 "type":"persona"
+                }],
+         "tilewidth":64
         }],
  "tilewidth":32,
  "type":"map",
