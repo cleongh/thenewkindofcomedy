@@ -10,6 +10,7 @@ export default class Level1 extends Level {
      */
     constructor() {
         super('level1', 50, 50);
+        
     }
 
     preload() {
@@ -29,12 +30,13 @@ export default class Level1 extends Level {
         const wall  = this.map.addTilesetImage('wall', 'wallfloor');
         const upstairs  = this.map.addTilesetImage('upstairs', 'upstairs');
         this.map.createLayer('suelo', upstairs)
-                this.map.createLayer('paredes', wall)
+        let walls = this.map.createLayer('paredes', wall)
+        let obstacle = this.map.createLayer('obstacle', wall)
         
         this.map.createFromObjects('objetos', {gid: 1, key: 'player'})
         // const conId1 = 
         // console.log(conId1)
-        
+        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", this.map, [walls,obstacle]);
     }
 
 }
