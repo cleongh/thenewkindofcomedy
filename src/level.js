@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-import Player from './player.js'
+import Player from './levels/player.js'
 import Table from './levels/table.js'
 
 export default class Level extends Phaser.Scene {
@@ -19,14 +19,14 @@ export default class Level extends Phaser.Scene {
         /* Tiempo de show */        
         this.timerText = this.add.text(this.game.config.width/2, 50, this.showTime)
 
-        this.player = new Player(this, this.xp, this.xp)
-        this.add.existing(this.player)
-
         // esto habrá que pillarlo por los tiles
         this.tableGroup = this.add.group();
         for(let i=0; i<this.tables; i++){
             this.tableGroup.add(new Table(this, i*50, i*50));
         }
+
+        this.player = new Player(this, this.xp, this.xp)
+        this.player.setDepth(10);
     }
 
     update(t, dt){

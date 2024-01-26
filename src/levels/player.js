@@ -6,6 +6,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
         this.scene.physics.add.existing(this); //Escena física
+        this.scene.add.existing(this) // lo meto en la la lógica
         this.scene.input.on('pointerdown', this.onClick, this);
         this.body.setAllowGravity(false);
         /// Deficinión de parametros
