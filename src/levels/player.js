@@ -11,8 +11,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.setAllowGravity(false);
         /// Deficinión de parametros
         this.velocity = 400.0;
-        this.stopDistance = 20.0;
-
+        this.stopDistance = 5.0;
         //Variables internas
         this._isMoving = false;
         this._targetX = this.x;
