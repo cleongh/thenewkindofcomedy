@@ -7,7 +7,9 @@ import player from '../assets/sprites/player.png'
 import upstairs from '../assets/sprites/upstairs.png'
 import walls from '../assets/sprites/walls.png'
 // import client from '../assets/sprites/client.png'
-import alex from '../assets/sprites/alex.png'
+import pelirroja from '../assets/sprites/characters/pelirroja.png'
+
+// import alex from '../assets/sprites/alex.png'
 // import wallfloor from '../assets/sprites/wall-floor.png'
 /**
  * Escena para la precarga de los assets que se usarán en el juego.
@@ -35,23 +37,20 @@ export default class Boot extends Phaser.Scene {
         this.load.image('upstairs', upstairs);
         this.load.image('walls', walls);
         this.load.image('player', player);
-        // this.load.image('client', client);
         // this.load.image('alex_idle', alex_idle);
         // this.load.image('wallfloor', wallfloor)
 
-        this.load.spritesheet('alex', alex, { frameWidth: 48, frameHeight: 80, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
 
     }
 
-    create() {
-        const config = {
+    create() {  
+        this.anims.create( {
             key: 'idle',
-            frames: this.anims.generateFrameNumbers('alex', { start: 2, end: 3 }),
+            frames: this.anims.generateFrameNumbers('pelirroja', { start: 2, end: 3 }),
             frameRate: 2,
             repeat: -1
-        };
-
-        this.anims.create(config);
+        });
 
         this.scene.start('level1');
     }
