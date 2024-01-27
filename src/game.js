@@ -4,6 +4,8 @@ import Win from "./win.js";
 import Credits from "./credits.js";
 import Lose from "./lose.js";
 import Level1 from "./level1.js";
+import Level2 from "./level2.js";
+import Level3 from "./level3.js";
 // import Level2 from './level2.js';
 // import Level3 from './level3.js';
 // import End from './end.js';
@@ -35,6 +37,8 @@ let config = {
         Boot,
         Menu,
         Level1,
+        Level2,
+        Level3,
         Credits,
         Win,
         Lose,
