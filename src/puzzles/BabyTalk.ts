@@ -21,12 +21,12 @@ export type BabyTalkManualCombination = {
 // Posiciones en las que se van a colocar los iconos de los botones con las acciones.
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 0, y: -250 },
-  { x: 0, y: -150 },
-  { x: 0, y: -50 },
-  { x: 0, y: 50 },
-  { x: 0, y: 150 },
-  { x: 0, y: 250 },
+  { x: 300, y: -250 },
+  { x: 300, y: -150 },
+  { x: 300, y: -50 },
+  { x: 300, y: 50 },
+  { x: 300, y: 150 },
+  { x: 300, y: 250 },
 ];
 
 /**
@@ -127,6 +127,10 @@ export default class BabyTalk extends BasePuzzle {
     this.soundTracks[0].play();
     console.log(this.selectedCombination);
 
+    let baby = this.add.sprite(-350, 0, 'babyCry', 0).setScale(9);
+    this.container.add(baby);
+    baby.play('cry_baby');
+
     // Instanciamos un botón con el icono de cada una de las acciones disponibles
     babyActions.forEach((babyAction, i) => {
       const babyActionButton = this.add.text(
@@ -150,6 +154,7 @@ export default class BabyTalk extends BasePuzzle {
         // ¿coincide el índice pulsado con bueno?
         if (babyAction === this.selectedCombination.correctAction) {
           this.emitter.particleTint = 0x00ff00
+          baby.play("laugh_baby");
           this.endPuzzle(true);
           this.puzzleResult = "success";
         } else {
