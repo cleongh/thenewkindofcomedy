@@ -112,7 +112,7 @@ export default class Level extends Phaser.Scene {
                 player.setBored(false)
 
                 console.log(this.number_musicians)
-                const minijuego = 'BabyTalk'//zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                const minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
                 this.player.setEnableInput(false) // al lanzar el puzzle el jugador ya no debe moverse hasta que se cierre o termine el puzzle
                 console.log("PLAYER NOOOO MOVE")
                 this.scene.launch(minijuego, {
