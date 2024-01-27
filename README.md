@@ -47,3 +47,7 @@ En la carpeta `.vscode/` hay una configuración para usar Visual Studio Code, ta
 ## TypeScript
 
 TypeScript está automáticamente habilitado (gracias a Parcel). Para usarlo, simplemente hay que crear archivos con extensión `.ts`.
+
+## Licencias
+
+<https://musical-artifacts.com/artifacts/2999>

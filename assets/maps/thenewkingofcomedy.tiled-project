@@ -31,6 +31,19 @@
             ]
         },
         {
+            "color": "#ffff0000",
+            "drawFill": true,
+            "id": 8,
+            "members": [
+            ],
+            "name": "collide",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object"
+            ]
+        },
+        {
             "color": "#ff4aa400",
             "drawFill": true,
             "id": 7,

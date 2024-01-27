@@ -64,6 +64,10 @@ export default class Level extends Phaser.Scene {
         // const objetos =
         const clients =
               this.map.createFromObjects('objetos', { type: 'cliente', classType: Client })
+
+        const colliders =
+              this.map.createFromObjects('objetos', { type: 'collide', classType: Phaser.GameObjects.Zone })
+        
         
         // clients.forEach(obj => {
         //     obj.play('idle_barbudo')
