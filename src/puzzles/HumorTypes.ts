@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import BasePuzzle, { BasePuzzleProps } from "./BasePuzzle";
+import { colors } from "../colors";
 
 export const humorTypes = [
   "Negro",
@@ -287,7 +288,7 @@ export default class HumorTypes extends BasePuzzle {
         emitZone5,
         emitZone6,
       ],
-      tint: 0xffffff,
+      tint: colors.hover,
     });
     // Instanciamos un botón con el icono de cada uno de los tipos de humor seleccionados.
     this.selectedHumorTypes.forEach((humorType, i) => {
@@ -308,12 +309,12 @@ export default class HumorTypes extends BasePuzzle {
         if (this.puzzleResult !== "ongoing") return;
         // ¿coincide el índice pulsado con bueno?
         if (i === this.humorTypeToPress) {
-          this.emitter.particleTint = 0x00ff00;
+          this.emitter.particleTint = colors.right;
           this.endPuzzle(true);
           this.puzzleResult = "success";
         } else {
           // nos hemos equivocado, acaba el puzzle en fracaso.
-          this.emitter.particleTint = 0xff0000;
+          this.emitter.particleTint = colors.wrong;
           this.endPuzzle(false);
           this.puzzleResult = "failure";
         }
