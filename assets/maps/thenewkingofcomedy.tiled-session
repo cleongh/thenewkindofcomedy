@@ -16,11 +16,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.33,
-            "selectedLayer": 4,
+            "scale": 0.4726,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1057.5757575757575,
-                "y": 651.5151515151515
+                "x": 725.7723233178162,
+                "y": 672.8734659331358
             }
         },
         "level1.json#character": {
@@ -30,11 +30,17 @@
         "level1.json#elements": {
             "dynamicWrapping": false
         },
+        "level1.json#interiors": {
+            "scaleInDock": 0.5673
+        },
         "level1.json#kitchen": {
-            "scaleInDock": 0.5
+            "scaleInDock": 0.75
         },
         "level1.json#musicos": {
             "dynamicWrapping": true
+        },
+        "level1.json#paredes3d": {
+            "scaleInDock": 1.3884
         },
         "level1.json#player-spritesheet": {
             "dynamicWrapping": false
@@ -106,5 +112,5 @@
         "height": 48,
         "width": 48
     },
-    "tileset.type": 1
+    "tileset.type": 0
 }

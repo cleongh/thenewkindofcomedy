@@ -6,6 +6,8 @@ import Phaser from "phaser";
 import player from "../assets/sprites/player.png";
 import upstairs from "../assets/sprites/upstairs.png";
 import walls from "../assets/sprites/walls.png";
+import paredes3d from "../assets/sprites/paredes3d.png";
+// import interiors from "../assets/sprites/interiors.png";
 import kitchen from "../assets/sprites/kitchen.png";
 // import client from '../assets/sprites/client.png'
 
@@ -157,7 +159,9 @@ export default class Boot extends Phaser.Scene {
     // this.load.image('platform', platform);
     // this.load.image('base', base);
     this.load.image("upstairs", upstairs);
-    this.load.image("walls", walls);
+      this.load.image("walls", walls);
+      this.load.image("paredes3d", paredes3d);
+      // this.load.image("interiors", interiors);      
     this.load.image("kitchen", kitchen);
     this.load.image("player", player);
     // this.load.image('alex_idle', alex_idle);
