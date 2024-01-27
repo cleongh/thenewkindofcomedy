@@ -24,6 +24,9 @@ import seniora from "../assets/sprites/characters/seniora.png";
 import sherif from "../assets/sprites/characters/sherif.png";
 /* ----- PERSONAJES FIN -----*/
 
+import musica from "url:../assets/music/king/export/king.ogg"
+
+
 /* ----- PERSONAJES PUZZLE LAUGH_AT-----*/
 import character0 from "../assets/sprites/puzzles/rietede/character0.png";
 import character1 from "../assets/sprites/puzzles/rietede/character1.png";
@@ -118,7 +121,9 @@ export default class Boot extends Phaser.Scene {
   /**
    * Carga de los assets del juego
    */
-  preload() {
+    preload() {
+
+        this.load.audio('musica', musica);
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     // this.load.setPath('assets/sprites/');
     // this.load.image('platform', platform);
@@ -399,6 +404,7 @@ export default class Boot extends Phaser.Scene {
       });
     }
 
-    this.scene.start("level1");
+      this.scene.start("level1");
+      // this.scene.start("menu");
   }
 }
