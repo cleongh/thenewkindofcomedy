@@ -22,6 +22,9 @@ import playero from "../assets/sprites/characters/playero.png";
 import policeman from "../assets/sprites/characters/policeman.png";
 import seniora from "../assets/sprites/characters/seniora.png";
 import sherif from "../assets/sprites/characters/sherif.png";
+import guitarrista from "../assets/sprites/guitarrista.png";
+import bateria from "../assets/sprites/bateria.png";
+import piano from "../assets/sprites/piano.png";
 /* ----- PERSONAJES FIN -----*/
 
 import musica from "../assets/music/king.ogg";
@@ -144,7 +147,10 @@ export default class Boot extends Phaser.Scene {
     // this.load.image('wallfloor', wallfloor)
 
     this.load.image("brownFrame", brownFrame);
-    this.load.image("exitIcon", exitIcon);
+      this.load.image("exitIcon", exitIcon);
+      this.load.image("guitarrista", guitarrista);
+      this.load.image("bateria", bateria);
+                  this.load.image("piano", piano);
     this.load.image("flare", flare);
 
     this.load.spritesheet("characterDerecha", characterDerecha, {
