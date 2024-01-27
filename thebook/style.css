@@ -10,7 +10,7 @@
             height: 60px;
     }
 }
-#primera-base {
+#primera-base-paso1 {
     text-align: center;
     .primera-base-header{
         background-color: black;
@@ -19,5 +19,12 @@
     }
     tr.primera-base-row td{
         height: 40px;
+    }
+}
+
+#primera-base-paso2 {
+    td.word{
+        text-align: center;
+        font-weight: 700;
     }
 }
