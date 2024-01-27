@@ -3,7 +3,7 @@ import { ManualWordLayouts, ManualWordSequences } from "./WhoGoesFirst";
 export const wordLayouts: ManualWordLayouts = {
   PRÓXIMA: 2,
   VOY: 1,
-  PRIMERO: 6,
+  PRIMERO: 5,
   HAYA: 1,
   VAYA: 5,
   VA: 2,
