@@ -50,6 +50,11 @@ import character18 from "../assets/sprites/puzzles/rietede/character18.png";
 import character19 from "../assets/sprites/puzzles/rietede/character20.png";
 /* ----- PERSONAJES PUZZLE LAUGH_AT FIN -----*/
 
+/* ----- PERSONAJE BEBÉ PUZZLE SONIDOS*/
+import babyCry from "../assets/sprites/babyCry.png";
+import babyLaugh from "../assets/sprites/babyLaugh.png";
+/* ----- PERSONAJE BEBÉ PUZZLE SONIDOS FIN*/
+
 /* ----- UI -----*/
 import brownFrame from "../assets/ui/brown.png";
 import exitIcon from "../assets/ui/exit.png";
@@ -138,6 +143,19 @@ export default class Boot extends Phaser.Scene {
     this.load.image("brownFrame", brownFrame);
     this.load.image("exitIcon", exitIcon);
     this.load.image("flare", flare);
+
+    this.load.spritesheet("babyLaugh", babyLaugh, {
+      frameWidth: 48,
+      frameHeight: 96,
+      startFrame: 0,
+      endFrame: 0,
+    });
+    this.load.spritesheet("babyCry", babyCry, {
+      frameWidth: 48,
+      frameHeight: 96,
+      startFrame: 0,
+      endFrame: 4,
+    });
 
     this.load.spritesheet("pelirroja", pelirroja, {
       frameWidth: 48,
@@ -391,7 +409,7 @@ export default class Boot extends Phaser.Scene {
     });
 
     /**
-     * Personajes del pizzle LaughAt
+     * Personajes del puzzle LaughAt
      */
     const laughPuzzleCharacters = 19;
     for (let i = 0; i < laughPuzzleCharacters; i++) {
@@ -404,7 +422,27 @@ export default class Boot extends Phaser.Scene {
       });
     }
 
+     /**
+     * Personajes del puzzle BabyTalk
+     */
+    this.anims.create({
+      key: "cry_baby",
+      frames: this.anims.generateFrameNumbers("babyCry", { start: 0, end: 3 }),
+      frameRate: 4,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "laugh_baby",
+      frames: this.anims.generateFrameNumbers("babyLaugh", { start: 0, end: 0 }),
+      frameRate: 4,
+      repeat: -1,
+    });
+
       this.scene.start("level1");
       // this.scene.start("menu");
   }
+
+  
+
 }

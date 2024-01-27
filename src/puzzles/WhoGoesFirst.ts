@@ -121,7 +121,7 @@ export default class WhoGoesFirst extends BasePuzzle {
     const display = this.add.text(230, 100, this.displayWord, {
       color: "white",
       fontSize: "18px",
-      fontFamily: "serif",
+      fontFamily: "minecraftia",
     });
 
     // Instanciamos un botón con el icono de cada uno de los personajes seleccionados.
@@ -135,7 +135,7 @@ export default class WhoGoesFirst extends BasePuzzle {
         {
           color: "white",
           fontSize: "14px",
-          fontFamily: "serif",
+          fontFamily: "minecraftia",
         }
       );
       characterButton.setInteractive();

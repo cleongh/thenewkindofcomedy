@@ -21,12 +21,12 @@ export type BabyTalkManualCombination = {
 // Posiciones en las que se van a colocar los iconos de los botones con las acciones.
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 0, y: -250 },
-  { x: 0, y: -150 },
-  { x: 0, y: -50 },
-  { x: 0, y: 50 },
-  { x: 0, y: 150 },
-  { x: 0, y: 250 },
+  { x: 300, y: -250 },
+  { x: 300, y: -150 },
+  { x: 300, y: -50 },
+  { x: 300, y: 50 },
+  { x: 300, y: 150 },
+  { x: 300, y: 250 },
 ];
 
 /**
@@ -107,12 +107,12 @@ export default class BabyTalk extends BasePuzzle {
   create() {
     super.create();
 
-    const emitZone1 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[0].x+this.container.x-200, screenPositions[0].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone2 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[1].x+this.container.x-200, screenPositions[1].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone3 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[2].x+this.container.x-200, screenPositions[2].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone4 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[3].x+this.container.x-200, screenPositions[3].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone5 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[4].x+this.container.x-200, screenPositions[4].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone6 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[5].x+this.container.x-200, screenPositions[5].y+this.container.y-48, 400, 96), quantity: 42 };
+    const emitZone1 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[0].x+this.container.x-250, screenPositions[0].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone2 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[1].x+this.container.x-250, screenPositions[1].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone3 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[2].x+this.container.x-250, screenPositions[2].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone4 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[3].x+this.container.x-250, screenPositions[3].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone5 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[4].x+this.container.x-250, screenPositions[4].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone6 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[5].x+this.container.x-250, screenPositions[5].y+this.container.y-48, 500, 96), quantity: 42 };
 
     this.emitter = this.add.particles(0, 0, 'flare', {
       speed: 24,
@@ -127,6 +127,10 @@ export default class BabyTalk extends BasePuzzle {
     this.soundTracks[0].play();
     console.log(this.selectedCombination);
 
+    let baby = this.add.sprite(-350, 0, 'babyCry', 0).setScale(9);
+    this.container.add(baby);
+    baby.play('cry_baby');
+
     // Instanciamos un botón con el icono de cada una de las acciones disponibles
     babyActions.forEach((babyAction, i) => {
       const babyActionButton = this.add.text(
@@ -136,7 +140,7 @@ export default class BabyTalk extends BasePuzzle {
         {
           color: "white",
           fontSize: "40px",
-          fontFamily: "serif",
+          fontFamily: "minecraftia",
         }
       ).setOrigin(0.5, 0.5);
       this.container.add(babyActionButton);
@@ -150,6 +154,7 @@ export default class BabyTalk extends BasePuzzle {
         // ¿coincide el índice pulsado con bueno?
         if (babyAction === this.selectedCombination.correctAction) {
           this.emitter.particleTint = 0x00ff00
+          baby.play("laugh_baby");
           this.endPuzzle(true);
           this.puzzleResult = "success";
         } else {
