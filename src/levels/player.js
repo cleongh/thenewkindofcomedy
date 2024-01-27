@@ -22,8 +22,6 @@ export default class Player extends Phaser.GameObjects.Sprite
         this._targetY = this.y;
         this._enableInput = true;
         this.bored = true; // El jugador se aburre si está sin hacer nada/quieto, asñi que puede acceder a interactuar con la mesa si está en la posición correcta
-        this._tables = null;
-        this._waypoints = null;
         this.play("idle_pelirroja")
 
     }
@@ -58,7 +56,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     /// Función que se invoca desde el evento pointdown
     ///pointer: el puntero del mouse.
-    onClick(pointer)
+    onClick(pointer, gameObject)
     {
         if(this._enableInput)
         {
@@ -69,7 +67,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             let destination = new Phaser.Math.Vector2(this._targetX,this._targetY);
             if(this.usingNavmesh && this.navMesh != null)
             {
-                this.goTo(destination);
+                this.goTo(destination,gameObject);
             }
             else
             {
@@ -106,7 +104,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     }
 
     //Establece el punto al que tengo que ir usando el pathfinding y creo el path.
-    goTo(targetPoint) 
+    goTo(targetPoint,gameObject) 
     {
         if(this.navMesh == null)
             this.currentTarget = null;
@@ -116,13 +114,31 @@ export default class Player extends Phaser.GameObjects.Sprite
             this.path = this.navMesh.findPath(new Phaser.Math.Vector2(this.x, this.y), targetPoint);
         
             // If there is a valid path, grab the first point from the path and set it as the target
-            if (this.path && this.path.length > 0) 
-                this.currentTarget = this.path.shift();
-            else
+            if (this.path && this.path.length > 0)
             {
-                //comprobamos si hemos pulsado sobre alguna mesa
+                this.body.setVelocityX(0);
+                this.body.setVelocityY(0);
+                this.currentTarget = this.path.shift();
+            }
+            else if(gameObject && gameObject.length > 0 &&  gameObject[0].type == "Zone")
+            {
                 this.currentTarget = null;
-                //this._
+
+                this.currentTarget = null;
+                const zone = gameObject[0];
+                const yPosition = zone.y - zone.height;
+
+                this.path = this.navMesh.findPath(new Phaser.Math.Vector2(this.x, this.y), new Phaser.Math.Vector2(zone.x, yPosition));
+                if (this.path && this.path.length > 0) 
+                    this.currentTarget = this.path.shift();
+                else
+                    this.currentTarget = null;
+            }
+            else if(this.path == null)
+            {
+                this.body.setVelocityX(0);
+                this.body.setVelocityY(0);
+                this.currentTarget = null;
             }
         }
     }
@@ -135,12 +151,6 @@ export default class Player extends Phaser.GameObjects.Sprite
     isEnable()
     {
         return this._enableInput;
-    }
-
-    setElements(mesas, waypoints)
-    {
-        this._tables = mesas;
-        this._waypoints = waypoints;
     }
 
     isBored(){

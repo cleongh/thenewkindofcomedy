@@ -38,7 +38,19 @@ export default class Level extends Phaser.Scene {
               players.forEach(obj => {
             // obj.play('idle_barbudo')
             obj.setDepth(10);
+        });
+
+        let tableArray = [];
+        this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "collide").forEach(t => {
+            let z = this.add.zone(t.x + t.width / 2, t.y + t.height / 2, t.width, t.height);
+            z.setInteractive();
+            z.setName(t.name);
+            tableArray.push(z);
         })
+
+        
+
+        
 
         this.player = players[0]
 
@@ -68,8 +80,6 @@ export default class Level extends Phaser.Scene {
         const clients =
               this.map.createFromObjects('objetos', { type: 'cliente', classType: Client })
 
-        const colliders =
-              this.map.createFromObjects('objetos', { type: 'collide', classType: Phaser.GameObjects.Zone })
         
         
         // clients.forEach(obj => {
@@ -131,7 +141,6 @@ export default class Level extends Phaser.Scene {
         {
             this.player.setNavmesh(navMesh);
             // ESto hay que meterlo como objeto por el mapa
-            this.player.setElements(mesas,null);
             const graphics = this.add.graphics(0, 0).setAlpha(0.5);
             navMesh.enableDebug(graphics);
         }
