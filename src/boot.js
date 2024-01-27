@@ -24,6 +24,9 @@ import seniora from "../assets/sprites/characters/seniora.png";
 import sherif from "../assets/sprites/characters/sherif.png";
 /* ----- PERSONAJES FIN -----*/
 
+import musica from "../assets/music/king.ogg"
+
+
 /* ----- PERSONAJES PUZZLE LAUGH_AT-----*/
 import character0 from "../assets/sprites/puzzles/rietede/character0.png";
 import character1 from "../assets/sprites/puzzles/rietede/character1.png";
@@ -46,6 +49,11 @@ import character17 from "../assets/sprites/puzzles/rietede/character17.png";
 import character18 from "../assets/sprites/puzzles/rietede/character18.png";
 import character19 from "../assets/sprites/puzzles/rietede/character20.png";
 /* ----- PERSONAJES PUZZLE LAUGH_AT FIN -----*/
+
+/* ----- PERSONAJE BEBÉ PUZZLE SONIDOS*/
+import babyCry from "../assets/sprites/babyCry.png";
+import babyLaugh from "../assets/sprites/babyLaugh.png";
+/* ----- PERSONAJE BEBÉ PUZZLE SONIDOS FIN*/
 
 /* ----- UI -----*/
 import brownFrame from "../assets/ui/brown.png";
@@ -118,7 +126,9 @@ export default class Boot extends Phaser.Scene {
   /**
    * Carga de los assets del juego
    */
-  preload() {
+    preload() {
+
+        this.load.audio('musica', musica);
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     // this.load.setPath('assets/sprites/');
     // this.load.image('platform', platform);
@@ -133,6 +143,19 @@ export default class Boot extends Phaser.Scene {
     this.load.image("brownFrame", brownFrame);
     this.load.image("exitIcon", exitIcon);
     this.load.image("flare", flare);
+
+    this.load.spritesheet("babyLaugh", babyLaugh, {
+      frameWidth: 48,
+      frameHeight: 96,
+      startFrame: 0,
+      endFrame: 0,
+    });
+    this.load.spritesheet("babyCry", babyCry, {
+      frameWidth: 48,
+      frameHeight: 96,
+      startFrame: 0,
+      endFrame: 4,
+    });
 
     this.load.spritesheet("pelirroja", pelirroja, {
       frameWidth: 48,
@@ -386,7 +409,7 @@ export default class Boot extends Phaser.Scene {
     });
 
     /**
-     * Personajes del pizzle LaughAt
+     * Personajes del puzzle LaughAt
      */
     const laughPuzzleCharacters = 19;
     for (let i = 0; i < laughPuzzleCharacters; i++) {
@@ -399,6 +422,27 @@ export default class Boot extends Phaser.Scene {
       });
     }
 
-    this.scene.start("level1");
+     /**
+     * Personajes del puzzle BabyTalk
+     */
+    this.anims.create({
+      key: "cry_baby",
+      frames: this.anims.generateFrameNumbers("babyCry", { start: 0, end: 3 }),
+      frameRate: 4,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "laugh_baby",
+      frames: this.anims.generateFrameNumbers("babyLaugh", { start: 0, end: 0 }),
+      frameRate: 4,
+      repeat: -1,
+    });
+
+      this.scene.start("level1");
+      // this.scene.start("menu");
   }
+
+  
+
 }

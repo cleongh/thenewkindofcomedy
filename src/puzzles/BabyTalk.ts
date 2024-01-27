@@ -21,12 +21,12 @@ export type BabyTalkManualCombination = {
 // Posiciones en las que se van a colocar los iconos de los botones con las acciones.
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 200, y: 200 },
-  { x: 300, y: 200 },
-  { x: 200, y: 300 },
-  { x: 300, y: 300 },
-  { x: 200, y: 400 },
-  { x: 300, y: 400 },
+  { x: 300, y: -250 },
+  { x: 300, y: -150 },
+  { x: 300, y: -50 },
+  { x: 300, y: 50 },
+  { x: 300, y: 150 },
+  { x: 300, y: 250 },
 ];
 
 /**
@@ -35,6 +35,7 @@ const screenPositions: { x: number; y: number }[] = [
 export default class BabyTalk extends BasePuzzle {
   /** combinación que será reproducida en este puzzle */
   private selectedCombination: BabyTalkManualCombination;
+  private emitter;
 
   private soundTracks: (
     | Phaser.Sound.NoAudioSound
@@ -106,8 +107,29 @@ export default class BabyTalk extends BasePuzzle {
   create() {
     super.create();
 
+    const emitZone1 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[0].x+this.container.x-250, screenPositions[0].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone2 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[1].x+this.container.x-250, screenPositions[1].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone3 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[2].x+this.container.x-250, screenPositions[2].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone4 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[3].x+this.container.x-250, screenPositions[3].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone5 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[4].x+this.container.x-250, screenPositions[4].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone6 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[5].x+this.container.x-250, screenPositions[5].y+this.container.y-48, 500, 96), quantity: 42 };
+
+    this.emitter = this.add.particles(0, 0, 'flare', {
+      speed: 24,
+      lifespan: 1500,
+      quantity: 5,
+      scale: { start: 0.2, end: 0 },
+      advance: 2000,
+      emitZone: [ emitZone1, emitZone2, emitZone3, emitZone4, emitZone5, emitZone6 ],
+      tint: 0xffffff
+  });
+
     this.soundTracks[0].play();
     console.log(this.selectedCombination);
+
+    let baby = this.add.sprite(-350, 0, 'babyCry', 0).setScale(9);
+    this.container.add(baby);
+    baby.play('cry_baby');
 
     // Instanciamos un botón con el icono de cada una de las acciones disponibles
     babyActions.forEach((babyAction, i) => {
@@ -117,10 +139,13 @@ export default class BabyTalk extends BasePuzzle {
         babyAction,
         {
           color: "white",
-          fontSize: "14px",
-          fontFamily: "serif",
+          fontSize: "40px",
+          fontFamily: "minecraftia",
         }
-      );
+      ).setOrigin(0.5, 0.5);
+      this.container.add(babyActionButton);
+      babyActionButton.setAlign('center');
+
       babyActionButton.setInteractive();
       babyActionButton.on("pointerdown", () => {
         // sólo permitir interacción con el puzzle si el resultado no está decidido
@@ -128,16 +153,33 @@ export default class BabyTalk extends BasePuzzle {
         if (this.puzzleResult !== "ongoing") return;
         // ¿coincide el índice pulsado con bueno?
         if (babyAction === this.selectedCombination.correctAction) {
-          this.onPuzzleEnd(true);
+          this.emitter.particleTint = 0x00ff00
+          baby.play("laugh_baby");
+          this.endPuzzle(true);
           this.puzzleResult = "success";
         } else {
           // nos hemos equivocado, acaba el puzzle en fracaso.
-          this.onPuzzleEnd(false);
+          this.emitter.particleTint = 0xff0000
+          this.endPuzzle(false);
           this.puzzleResult = "failure";
         }
 
         this.resetSoundTracks();
       });
+      babyActionButton.on('pointerover', () => {
+        if(this.puzzleResult == "ongoing"){
+          this.emitter.setEmitZone(i);
+          this.emitter.fastForward(2000);
+        }
+
+      });
     });
   } // create
+
+  closePanel(){
+    super.closePanel();
+    this.emitter.stop();
+    this.resetSoundTracks();
+  }
+  
 } // BasePuzzle

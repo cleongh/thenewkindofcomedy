@@ -17,6 +17,11 @@ export default class Menu extends Phaser.Scene {
    * Creación de la escena. Tan solo contiene el texto que indica que el juego se ha acabado
    */
     create() {
+
+         const music = this.sound.add('musica');
+
+        music.play();
+        
         this.add.text(500, 100, "iniciar juego").setInteractive().
             on('pointerdown', () =>  {
                 this.scene.start('level1')
