@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import BasePuzzle, { BasePuzzleProps } from "./BasePuzzle";
-import {wordLayouts, wordSequences} from "./whoGoesFirstLists"
+import { wordLayouts, wordSequences } from "./whoGoesFirstLists";
+import { colors } from "../colors";
 
 export type WordSequence = string[];
 /**
@@ -18,12 +19,12 @@ export type ManualWordLayouts = { [displayWord: string]: number };
 // Posiciones en las que se van a colocar los iconos de los botones con palabras.
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 200, y: 200 },
+  { x: 0, y: -200 },
+  { x: 300, y: -200 },
+  { x: 0, y: 0 },
+  { x: 300, y: 0 },
+  { x: 0, y: 200 },
   { x: 300, y: 200 },
-  { x: 200, y: 300 },
-  { x: 300, y: 300 },
-  { x: 200, y: 400 },
-  { x: 300, y: 400 },
 ];
 
 /**
@@ -42,6 +43,8 @@ export default class WhoGoesFirst extends BasePuzzle {
 
   private puzzleResult: "ongoing" | "success" | "failure" = "ongoing";
 
+  private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
+
   /**
    * Constructor de la escena
    */
@@ -51,6 +54,8 @@ export default class WhoGoesFirst extends BasePuzzle {
 
   init(props: BasePuzzleProps): void {
     super.init({ ...props });
+
+    this.puzzleResult = "ongoing";
 
     // claves del objeto de layouts (posibles palabras para el display)
     const layoutKeys = Object.keys(wordLayouts);
@@ -118,26 +123,56 @@ export default class WhoGoesFirst extends BasePuzzle {
   create() {
     super.create();
 
-    const display = this.add.text(230, 100, this.displayWord, {
-      color: "white",
-      fontSize: "18px",
-      fontFamily: "minecraftia",
+    this.createSpeechBubble(-170, -300, 600, 600, "right");
+
+    const rectangleWidth = 230;
+    const emitZones = screenPositions.map(({ x, y }) => ({
+      type: "edge",
+      source: new Phaser.Geom.Rectangle(
+        x + this.container.x - rectangleWidth / 2,
+        y + this.container.y - 48,
+        rectangleWidth,
+        96
+      ),
+      quantity: 42,
+    }));
+
+    this.emitter = this.add.particles(0, 0, "flare", {
+      speed: 24,
+      lifespan: 1500,
+      quantity: 5,
+      scale: { start: 0.2, end: 0 },
+      advance: 2000,
+      emitZone: emitZones,
+      tint: colors.hover,
     });
+
+    const display = this.add
+      .text(-500, -250, this.displayWord, {
+        color: "white",
+        fontSize: "40px",
+        fontFamily: "minecraftia",
+      })
+      .setOrigin(0.5, 0.5)
+      .setDepth(-1);
+
+    this.container.add(display);
+    display.setAlign("center");
 
     // Instanciamos un botón con el icono de cada uno de los personajes seleccionados.
     // TODO: Ahora mismo sólo se pone el src como un botón de texto como placeholder,
     // hay que meter los sprites correspondientes y meter el de las secuencias.
     this.selectedButtonWords.forEach((buttonWord, i) => {
-      const characterButton = this.add.text(
-        screenPositions[i].x,
-        screenPositions[i].y,
-        buttonWord,
-        {
-          color: "white",
-          fontSize: "14px",
+      const characterButton = this.add
+        .text(screenPositions[i].x, screenPositions[i].y, buttonWord, {
+          color: "black",
+          fontSize: "40px",
           fontFamily: "minecraftia",
-        }
-      );
+        })
+        .setOrigin(0.5, 0.5);
+      this.container.add(characterButton);
+      characterButton.setAlign("center");
+
       characterButton.setInteractive();
       characterButton.on("pointerdown", () => {
         // sólo permitir interacción con el puzzle si el resultado no está decidido
@@ -145,14 +180,73 @@ export default class WhoGoesFirst extends BasePuzzle {
         if (this.puzzleResult !== "ongoing") return;
         // ¿coincide el índice pulsado con bueno?
         if (i === this.buttonIndexToPress) {
+          this.emitter.particleTint = colors.right;
           this.endPuzzle(true);
           this.puzzleResult = "success";
         } else {
           // nos hemos equivocado, acaba el puzzle en fracaso.
+          this.emitter.particleTint = colors.wrong;
           this.endPuzzle(false);
           this.puzzleResult = "failure";
         }
       });
+
+      characterButton.on("pointerover", () => {
+        if (this.puzzleResult == "ongoing") {
+          this.emitter.setEmitZone(i);
+          this.emitter.fastForward(2000);
+        }
+      });
     });
   } // create
+
+  closePanel() {
+    super.closePanel();
+    this.emitter.stop();
+  }
+
+  createSpeechBubble(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    orientation: "left" | "right"
+  ) {
+    const bubbleWidth = width;
+    const bubbleHeight = height;
+    const arrowHeight = bubbleHeight / 6;
+
+    const bubble = this.add.graphics({ x: x, y: y });
+    this.container.add(bubble);
+
+    //  Bubble shadow
+    bubble.fillStyle(0x222222, 0.5);
+    bubble.fillRoundedRect(6, 6, bubbleWidth, bubbleHeight, 16);
+
+    //  Bubble color
+    bubble.fillStyle(0xffffff, 1);
+
+    //  Bubble outline line style
+    bubble.lineStyle(4, 0x565656, 1);
+
+    //  Bubble shape and outline
+    bubble.strokeRoundedRect(0, 0, bubbleWidth, bubbleHeight, 16);
+    bubble.fillRoundedRect(0, 0, bubbleWidth, bubbleHeight, 16);
+
+    //  Calculate arrow coordinates
+    const point1X = Math.floor(orientation === "left" ? 0 : bubbleWidth - 15);
+    const point1Y = bubbleHeight - 10;
+    const point2X = Math.floor(
+      orientation === "left" ? -(bubbleWidth / 7) : 8 * (bubbleWidth / 7)
+    );
+    const point2Y = bubbleHeight - 10;
+    const point3X = Math.floor(orientation === "left" ? 0 : bubbleWidth - 15);
+    const point3Y = Math.floor(bubbleHeight - arrowHeight);
+
+    //  Bubble arrow fill
+    bubble.fillTriangle(point1X, point1Y, point2X, point2Y, point3X, point3Y);
+    bubble.lineStyle(2, 0xffffff, 1);
+    bubble.lineBetween(point2X, point2Y, point3X, point3Y);
+    bubble.lineBetween(point1X, point1Y, point3X, point3Y);
+  }
 } // BasePuzzle
