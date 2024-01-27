@@ -22,10 +22,10 @@ import playero from "../assets/sprites/characters/playero.png";
 import policeman from "../assets/sprites/characters/policeman.png";
 import seniora from "../assets/sprites/characters/seniora.png";
 import sherif from "../assets/sprites/characters/sherif.png";
+import guitarrista from "../assets/sprites/guitarrista.png";
+import bateria from "../assets/sprites/bateria.png";
+import piano from "../assets/sprites/piano.png";
 /* ----- PERSONAJES FIN -----*/
-
-import musica from "../assets/music/king.ogg"
-
 
 /* ----- PERSONAJES PUZZLE LAUGH_AT-----*/
 import character0 from "../assets/sprites/puzzles/rietede/character0.png";
@@ -50,6 +50,11 @@ import character18 from "../assets/sprites/puzzles/rietede/character18.png";
 import character19 from "../assets/sprites/puzzles/rietede/character20.png";
 /* ----- PERSONAJES PUZZLE LAUGH_AT FIN -----*/
 
+/* ----- PERSONAJES PUZZLE WHO_GOES_FIRST-----*/
+import characterDerecha from "../assets/sprites/puzzles/primeraBase/characterDerecha.png";
+import characterIzquierda from "../assets/sprites/puzzles/primeraBase/characterIzquierda.png";
+/* ----- PERSONAJES PUZZLE WHO_GOES_FIRST FIN -----*/
+
 /* ----- PERSONAJE BEBÉ PUZZLE SONIDOS*/
 import babyCry from "../assets/sprites/babyCry.png";
 import babyLaugh from "../assets/sprites/babyLaugh.png";
@@ -61,7 +66,7 @@ import exitIcon from "../assets/ui/exit.png";
 import flare from "../assets/ui/white-flare.png";
 /* ----- UI FIN -----*/
 
-/* ----- AUDIOS -----*/
+/* ----- AUDIOS bebé -----*/
 import Be from "../assets/audio/baby/Be.wav";
 import Bi from "../assets/audio/baby/Bi.wav";
 import Ga from "../assets/audio/baby/Ga.wav";
@@ -74,7 +79,17 @@ import Mu from "../assets/audio/baby/Mu.wav";
 import Pa from "../assets/audio/baby/Pa.wav";
 import Pi from "../assets/audio/baby/Pi.wav";
 import Pu from "../assets/audio/baby/Pu.wav";
-/* ----- AUDIOS FIN -----*/
+/* ----- AUDIOS bebé FIN -----*/
+
+import abucheo from "../assets/music/abucheo.wav";
+import aplauso1 from "../assets/music/aplauso.wav";
+import aplauso2 from "../assets/music/aplauso2.wav";
+import alabanza from "../assets/music/uouuuuu.wav";
+import risas1 from "../assets/music/risas.wav";
+import risas2 from "../assets/music/risas2.wav";
+import musica1 from "../assets/music/king.ogg";
+import musica2 from "../assets/music/jazzy.ogg";
+import bat from "../assets/music/bat1.wav";
 
 export const characters = [
   "barbudo",
@@ -126,9 +141,17 @@ export default class Boot extends Phaser.Scene {
   /**
    * Carga de los assets del juego
    */
-    preload() {
+  preload() {
+    this.load.audio("musica1", musica1);
+    this.load.audio("musica2", musica2);
+    this.load.audio("bat", bat);
+    this.load.audio("abucheo", abucheo);
+    this.load.audio("aplauso1", aplauso1);
+    this.load.audio("aplauso2", aplauso2);
+    this.load.audio("risas1", risas1);
+    this.load.audio("risas2", risas2);
+    this.load.audio("alabanza", alabanza);
 
-        this.load.audio('musica', musica);
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     // this.load.setPath('assets/sprites/');
     // this.load.image('platform', platform);
@@ -141,8 +164,24 @@ export default class Boot extends Phaser.Scene {
     // this.load.image('wallfloor', wallfloor)
 
     this.load.image("brownFrame", brownFrame);
-    this.load.image("exitIcon", exitIcon);
+      this.load.image("exitIcon", exitIcon);
+      this.load.image("guitarrista", guitarrista);
+      this.load.image("bateria", bateria);
+                  this.load.image("piano", piano);
     this.load.image("flare", flare);
+
+    this.load.spritesheet("characterDerecha", characterDerecha, {
+      frameWidth: 48,
+      frameHeight: 96,
+      startFrame: 0,
+      endFrame: 4,
+    });
+    this.load.spritesheet("characterIzquierda", characterIzquierda, {
+      frameWidth: 48,
+      frameHeight: 96,
+      startFrame: 0,
+      endFrame: 4,
+    });
 
     this.load.spritesheet("babyLaugh", babyLaugh, {
       frameWidth: 48,
@@ -450,7 +489,27 @@ export default class Boot extends Phaser.Scene {
       });
     }
 
-     /**
+    this.anims.create({
+      key: "characterDerecha",
+      frames: this.anims.generateFrameNumbers("characterDerecha", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 4,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "characterIzquierda",
+      frames: this.anims.generateFrameNumbers("characterIzquierda", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 4,
+      repeat: -1,
+    });
+
+    /**
      * Personajes del puzzle BabyTalk
      */
     this.anims.create({
@@ -462,15 +521,15 @@ export default class Boot extends Phaser.Scene {
 
     this.anims.create({
       key: "laugh_baby",
-      frames: this.anims.generateFrameNumbers("babyLaugh", { start: 0, end: 0 }),
+      frames: this.anims.generateFrameNumbers("babyLaugh", {
+        start: 0,
+        end: 0,
+      }),
       frameRate: 4,
       repeat: -1,
     });
 
-      this.scene.start("level1");
-      // this.scene.start("menu");
+    this.scene.start("level1");
+    // this.scene.start("menu");
   }
-
-  
-
 }

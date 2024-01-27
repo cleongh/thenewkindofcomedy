@@ -19,12 +19,12 @@ export type ManualWordLayouts = { [displayWord: string]: number };
 // Posiciones en las que se van a colocar los iconos de los botones con palabras.
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 0, y: -200 },
-  { x: 300, y: -200 },
-  { x: 0, y: 0 },
-  { x: 300, y: 0 },
-  { x: 0, y: 200 },
-  { x: 300, y: 200 },
+  { x: 50, y: -200 },
+  { x: 330, y: -200 },
+  { x: 50, y: 0 },
+  { x: 330, y: 0 },
+  { x: 50, y: 200 },
+  { x: 330, y: 200 },
 ];
 
 /**
@@ -123,7 +123,20 @@ export default class WhoGoesFirst extends BasePuzzle {
   create() {
     super.create();
 
-    this.createSpeechBubble(-170, -300, 600, 600, "right");
+    this.createSpeechBubble(-150, -300, 630, 600, "right");
+    this.createSpeechBubble(-450, -250, 325, 100, "left");
+
+    const characterIzquierda = this.add
+      .sprite(-590, -250, "characterIzquierda", 0)
+      .setScale(5);
+    this.container.add(characterIzquierda);
+    characterIzquierda.play("characterIzquierda");
+
+    const characterDerecha = this.add
+      .sprite(600, 150, "characterDerecha", 0)
+      .setScale(5);
+    this.container.add(characterDerecha);
+    characterDerecha.play("characterDerecha");
 
     const rectangleWidth = 230;
     const emitZones = screenPositions.map(({ x, y }) => ({
@@ -148,8 +161,8 @@ export default class WhoGoesFirst extends BasePuzzle {
     });
 
     const display = this.add
-      .text(-500, -250, this.displayWord, {
-        color: "white",
+      .text(-275, -200, this.displayWord, {
+        color: "black",
         fontSize: "40px",
         fontFamily: "minecraftia",
       })

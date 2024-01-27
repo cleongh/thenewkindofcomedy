@@ -44,10 +44,29 @@
             ]
         },
         {
+            "id": 10,
+            "name": "instrument",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "nothing",
+                "guitar",
+                "drums",
+                "piano"
+            ],
+            "valuesAsFlags": false
+        },
+        {
             "color": "#ff4aa400",
             "drawFill": true,
             "id": 7,
             "members": [
+                {
+                    "name": "instrument",
+                    "propertyType": "instrument",
+                    "type": "string",
+                    "value": "nothing"
+                }
             ],
             "name": "musician",
             "type": "class",
@@ -88,6 +107,11 @@
             "drawFill": true,
             "id": 5,
             "members": [
+                {
+                    "name": "clients",
+                    "type": "int",
+                    "value": 0
+                },
                 {
                     "name": "puzzle",
                     "propertyType": "puzzle",

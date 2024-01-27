@@ -5,7 +5,7 @@ import Client from './client.js'
 import Table from './levels/table.js'
 
 export default class Level extends Phaser.Scene {
-    constructor(name, tables=5, time=120) {
+    constructor(name, tables = 5, time = 120) {
         super(name)
 
         this.showTime = time
@@ -15,11 +15,11 @@ export default class Level extends Phaser.Scene {
 
 
     create() {
-        /* Tiempo de show */        
-        this.timerText = this.add.text(this.game.config.width/2, 40, this.showTime, {
+        /* Tiempo de show */
+        this.timerText = this.add.text(this.game.config.width / 2, 40, this.showTime, {
             fontSize: "40px",
             fontFamily: "minecraftia",
-          }).setDepth(10);
+        }).setDepth(10);
 
         // esto habrá que pillarlo por los tiles
         // this.tableGroup = this.add.group();
@@ -28,9 +28,9 @@ export default class Level extends Phaser.Scene {
         // }
 
         // this.player = new Player(this, this.xp, this.xp)
-        
 
-        
+
+
 
         this.map = this.make.tilemap({
             key: 'tilemap',
@@ -38,7 +38,7 @@ export default class Level extends Phaser.Scene {
         })
 
         const players = this.map.createFromObjects('objetos', { type: 'playerstart', classType: Player })
-              players.forEach(obj => {
+        players.forEach(obj => {
             // obj.play('idle_barbudo')
             obj.setDepth(10);
         });
@@ -51,9 +51,9 @@ export default class Level extends Phaser.Scene {
             tableArray.push(z);
         })
 
-        
 
-        
+
+
 
         this.player = players[0]
 
@@ -63,11 +63,11 @@ export default class Level extends Phaser.Scene {
 
         this.map.createLayer('suelo', upstairs_ts)
         let mesas = this.map.createLayer('mesas', kitchen_ts)
-        this.map.createLayer('props', [kitchen_ts, upstairs_ts] )
+        this.map.createLayer('props', [kitchen_ts, upstairs_ts])
         let paredes = this.map.createLayer('walls', walls_ts)
         //pongo las colisiones
-        mesas.setCollisionByExclusion(-1,true);
-        paredes.setCollisionByExclusion(-1,true);
+        mesas.setCollisionByExclusion(-1, true);
+        paredes.setCollisionByExclusion(-1, true);
 
         // const walls = 
 
@@ -81,27 +81,50 @@ export default class Level extends Phaser.Scene {
 
         // const objetos =
         const clients =
-              this.map.createFromObjects('objetos', { type: 'cliente', classType: Client })
+            this.map.createFromObjects('objetos', { type: 'cliente', classType: Client })
 
-        
-        
+
+
         // clients.forEach(obj => {
         //     obj.play('idle_barbudo')
         // })
 
 
-        this.number_musicians = this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "musician").length
-        
+        const musicians = this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "musician")
+
+        for (let m of musicians) {
+            for (let p of m.properties)
+                if (p.name === 'instrument')
+                    switch (p.value) {
+                        case 'guitar':
+                            this.add.sprite(m.x, m.y, 'guitarrista')
+                            break
+                        case 'drums':
+                            this.add.sprite(m.x, m.y, 'bateria')
+                            break
+                        case 'piano':
+                            this.add.sprite(m.x, m.y, 'piano')
+                            break
+                    }
+        }
+
+        // const musicians =
+        //       this.map.createFromObjects('objetos', { type: 'musician', classType: Musician })
+
+        this.number_musicians = musicians.length
+
+
+
         this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "table").forEach(t => {
             let z = this.add.zone(t.x + t.width / 2, t.y + t.height / 2, t.width, t.height)
             // console.log(t.properties)
             const posibles = t.properties.filter(p => p.name = "puzzle").map(t => t.value).join(',').split(',')
             // console.log(posibles)
             const random = Math.floor(Math.random() * posibles.length);
-            
+
             z.puzzle = posibles[random];
             levelZone.add(z)
-            
+
         })
         // this.map.createFromObjects('objetos', { gid: 1, type: 'cliente' }).forEach(obj => {
         //     obj.play('idle_barbudo')
@@ -147,36 +170,35 @@ export default class Level extends Phaser.Scene {
         //this.map.createFromObjects('objetos', {gid: 1, key: 'player'})
         // const conId1 = 
         // console.log(conId1)
-        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", this.map, [mesas,paredes]);
-        if(navMesh != null)
-        {
+        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", this.map, [mesas, paredes]);
+        if (navMesh != null) {
             this.player.setNavmesh(navMesh);
             // ESto hay que meterlo como objeto por el mapa
             const graphics = this.add.graphics(0, 0).setAlpha(0.5);
             navMesh.enableDebug(graphics);
         }
 
-        
+
     }
 
-    update(t, dt){
+    update(t, dt) {
         // Contador
-        this.timer += dt/1000 // a pelo, ni timer ni pollas
-        this.timerText.setText(`Show time: ${(this.showTime-this.timer).toFixed(0)}`);
+        this.timer += dt / 1000 // a pelo, ni timer ni pollas
+        this.timerText.setText(`Show time: ${(this.showTime - this.timer).toFixed(0)}`);
 
-        if(this.timer <= 0){
+        if (this.timer <= 0) {
             this.endShow(false);
         }
     }
 
-    removeTable(table){
+    removeTable(table) {
         this.tableGroup.destroy(table);
-        if(this.tableGroup.getChildren.length==0){
+        if (this.tableGroup.getChildren.length == 0) {
             this.endShow(false)
         }
     }
 
-    endShow(win){
+    endShow(win) {
 
     }
 

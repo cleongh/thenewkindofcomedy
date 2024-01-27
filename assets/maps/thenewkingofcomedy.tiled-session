@@ -13,10 +13,13 @@
             "scaleInEditor": 1
         },
         "level1.json": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 0.33,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 537.8787878787878,
+                "x": 1057.5757575757575,
                 "y": 651.5151515151515
             }
         },
@@ -30,10 +33,14 @@
         "level1.json#kitchen": {
             "scaleInDock": 0.5
         },
+        "level1.json#musicos": {
+            "dynamicWrapping": true
+        },
         "level1.json#player-spritesheet": {
             "dynamicWrapping": false
         },
         "level1.json#upstairs": {
+            "dynamicWrapping": false,
             "scaleInDock": 0.7675
         },
         "level1.json#walls": {
@@ -89,7 +96,7 @@
     "openFiles": [
     ],
     "project": "thenewkingofcomedy.tiled-project",
-    "property.type": "puzzle",
+    "property.type": "instrument",
     "recentFiles": [
         "level1.json",
         "level1.tmj"
@@ -99,5 +106,5 @@
         "height": 48,
         "width": 48
     },
-    "tileset.type": 0
+    "tileset.type": 1
 }
