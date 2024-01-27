@@ -56,7 +56,7 @@ export default class HumorTypes extends BasePuzzle {
    * Constructor de la escena
    */
   constructor() {
-    super({ key: "humorTypes" });
+    super({ key: "HumorTypes" });
   }
 
   init(props: BasePuzzleProps & HumorTypesProps): void {

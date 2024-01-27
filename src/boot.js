@@ -24,9 +24,33 @@ import seniora from '../assets/sprites/characters/seniora.png'
 import sherif from '../assets/sprites/characters/sherif.png'
 /* ----- PERSONAJES FIN -----*/
 
+/* ----- PERSONAJES PUZZLE LAUGH_AT-----*/
+import character0 from '../assets/sprites/puzzles/rietede/character0.png'
+import character1 from '../assets/sprites/puzzles/rietede/character1.png'
+import character2 from '../assets/sprites/puzzles/rietede/character2.png'
+import character3 from '../assets/sprites/puzzles/rietede/character3.png'
+import character4 from '../assets/sprites/puzzles/rietede/character4.png'
+import character5 from '../assets/sprites/puzzles/rietede/character5.png'
+import character6 from '../assets/sprites/puzzles/rietede/character6.png'
+import character7 from '../assets/sprites/puzzles/rietede/character7.png'
+import character8 from '../assets/sprites/puzzles/rietede/character8.png'
+import character9 from '../assets/sprites/puzzles/rietede/character9.png'
+import character10 from '../assets/sprites/puzzles/rietede/character10.png'
+import character11 from '../assets/sprites/puzzles/rietede/character11.png'
+import character12 from '../assets/sprites/puzzles/rietede/character12.png'
+import character13 from '../assets/sprites/puzzles/rietede/character13.png'
+import character14 from '../assets/sprites/puzzles/rietede/character14.png'
+import character15 from '../assets/sprites/puzzles/rietede/character15.png'
+import character16 from '../assets/sprites/puzzles/rietede/character16.png'
+import character17 from '../assets/sprites/puzzles/rietede/character17.png'
+import character18 from '../assets/sprites/puzzles/rietede/character18.png'
+import character19 from '../assets/sprites/puzzles/rietede/character20.png'
+/* ----- PERSONAJES PUZZLE LAUGH_AT FIN -----*/
+
 /* ----- UI -----*/
 import brownFrame from '../assets/ui/brown.png'
 import exitIcon from '../assets/ui/exit.png'
+import flare from '../assets/ui/white-flare.png'
 /* ----- UI FIN -----*/
 
 
@@ -67,6 +91,7 @@ export default class Boot extends Phaser.Scene {
 
         this.load.image('brownFrame', brownFrame);
         this.load.image('exitIcon', exitIcon);
+        this.load.image('flare', flare);
 
         
         this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
@@ -86,7 +111,29 @@ export default class Boot extends Phaser.Scene {
          this.load.spritesheet('playero', playero, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
          this.load.spritesheet('policeman', policeman, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
          this.load.spritesheet('seniora', seniora, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
-this.load.spritesheet(         'sherif', seniora, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('sherif', seniora, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+
+
+        this.load.spritesheet('character0', character0, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character1', character1, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character2', character2, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character3', character3, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character4', character4, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character5', character5, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character6', character6, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character7', character7, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character8', character8, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character9', character9, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character10', character10, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character11', character11, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character12', character12, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character13', character13, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character14', character14, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character15', character15, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character16', character16, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character17', character17, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character18', character18, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('character19', character19, { frameWidth: 48, frameHeight: 96, startFrame: 0, endFrame: 3 });
     }
 
     create() {
@@ -106,6 +153,20 @@ this.load.spritesheet(         'sherif', seniora, { frameWidth: 48, frameHeight:
                 repeat: -1
             });
         })
+
+        /**
+         * Personajes del pizzle LaughAt
+         */
+        const laughPuzzleCharacters = 19
+        for(let i=0; i<laughPuzzleCharacters; i++){
+            let char = 'character'+i
+            this.anims.create({
+                key: 'rotate_'+i,
+                frames: this.anims.generateFrameNumbers(char, { start: 0, end: 3 }),
+                frameRate: 4,
+                repeat: -1
+            });
+        }
 
 
         this.scene.start('level1');
