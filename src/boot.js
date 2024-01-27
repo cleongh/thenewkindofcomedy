@@ -29,6 +29,10 @@ import brownFrame from '../assets/ui/brown.png'
 import exitIcon from '../assets/ui/exit.png'
 /* ----- UI FIN -----*/
 
+
+export const characters = ['barbudo', 'bigotes', 'elvis', 'gorrito', 'niga', 'nigaplus', 'peliazul', 'pelirroja', 'playero', 'policeman', 'seniora', 'sherif']
+
+
 // import alex from '../assets/sprites/alex.png'
 // import wallfloor from '../assets/sprites/wall-floor.png'
 /**
@@ -64,16 +68,29 @@ export default class Boot extends Phaser.Scene {
         this.load.image('brownFrame', brownFrame);
         this.load.image('exitIcon', exitIcon);
 
+        
         this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
         this.load.spritesheet('sherif', sherif, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
         this.load.spritesheet('barbudo', barbudo, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
         this.load.spritesheet('bigotes', bigotes, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
         this.load.spritesheet('elvis', elvis, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
 
+        this.load.spritesheet('barbudo', barbudo, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet( 'bigotes', bigotes, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('elvis', elvis, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('gorrito', gorrito, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('niga', niga, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('nigaplus', nigaplus, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('peliazul', peliazul, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('playero', playero, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('policeman', policeman, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+         this.load.spritesheet('seniora', seniora, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+this.load.spritesheet(         'sherif', seniora, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
     }
 
     create() {
-        const characters = ['barbudo', 'bigotes', 'elvis', 'gorrito', 'niga', 'nigaplus', 'peliazul', 'pelirroja', 'playero', 'policeman', 'seniora', 'sherif']
+        // const characters = ['barbudo', 'bigotes', 'elvis', 'gorrito', 'niga', 'nigaplus', 'peliazul', 'pelirroja', 'playero', 'policeman', 'seniora', 'sherif']
 
         characters.forEach(char => {
             this.anims.create({

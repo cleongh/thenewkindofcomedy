@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 
 import Player from './levels/player.js'
+import Client from './client.js'
 import Table from './levels/table.js'
 
 export default class Level extends Phaser.Scene {
@@ -41,15 +42,13 @@ export default class Level extends Phaser.Scene {
 
         this.player = players[0]
 
-
-
         const walls_ts = this.map.addTilesetImage('walls', 'walls');
         const kitchen_ts = this.map.addTilesetImage('kitchen', 'kitchen');
         const upstairs_ts = this.map.addTilesetImage('upstairs', 'upstairs');
 
         this.map.createLayer('suelo', upstairs_ts)
         this.map.createLayer('mesas', kitchen_ts)
-        this.map.createLayer('props', kitchen_ts)
+        this.map.createLayer('props', [kitchen_ts, upstairs_ts] )
         this.map.createLayer('walls', walls_ts)
 
         // const walls = 
@@ -64,14 +63,14 @@ export default class Level extends Phaser.Scene {
 
         // const objetos =
         const clients =
-              this.map.createFromObjects('objetos', { type: 'cliente', key: 'barbudo' })
+              this.map.createFromObjects('objetos', { type: 'cliente', classType: Client })
         
-        clients.forEach(obj => {
-            obj.play('idle_barbudo')
-        })
+        // clients.forEach(obj => {
+        //     obj.play('idle_barbudo')
+        // })
 
         this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "table").forEach(t => {
-            levelZone.add(this.add.zone(t.x, t.y, t.width, t.height))
+            levelZone.add(this.add.zone(t.x + t.width / 2, t.y + t.height / 2, t.width, t.height))
         })
         // this.map.createFromObjects('objetos', { gid: 1, type: 'cliente' }).forEach(obj => {
         //     obj.play('idle_barbudo')

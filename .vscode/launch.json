@@ -12,8 +12,9 @@
             "webRoot": "${workspaceFolder}",
             "sourceMapPathOverrides": {
               "/__parcel_source_root/*": "${webRoot}/*"
-            },
-            "preLaunchTask": "npm: start",
+            }
+            // ,
+            // "preLaunchTask": "npm: start",
         }
     ]
 }
