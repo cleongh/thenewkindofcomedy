@@ -71,6 +71,11 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
     }
 
+    setUsingNavmesh(b)
+    {
+        this.usingNavmesh = b;
+    }
+
     checkStop(t,dt)
     {
         let xTarget = new Phaser.Math.Vector2(this._targetX,this._targetY);
