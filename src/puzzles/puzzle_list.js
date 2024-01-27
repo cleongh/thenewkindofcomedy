@@ -7,7 +7,7 @@ import WhoGoesFirst from "./WhoGoesFirst.ts";
 const puzzles = {
   BabyTalk: BabyTalk,
   LaughAt: LaughAt,
-  Shots: Shots,
+  //Shots: Shots,
   HumorTypes: HumorTypes,
   WhoGoesFirst: WhoGoesFirst,
 };
