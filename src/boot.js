@@ -7,7 +7,26 @@ import player from '../assets/sprites/player.png'
 import upstairs from '../assets/sprites/upstairs.png'
 import walls from '../assets/sprites/walls.png'
 // import client from '../assets/sprites/client.png'
+
+/* ----- PERSONAJES -----*/
+import barbudo from '../assets/sprites/characters/barbudo.png'
+import bigotes from '../assets/sprites/characters/bigotes.png'
+import elvis from '../assets/sprites/characters/elvis.png'
+import gorrito from '../assets/sprites/characters/gorrito.png'
+import niga from '../assets/sprites/characters/niga.png'
+import nigaplus from '../assets/sprites/characters/nigaplus.png'
+import peliazul from '../assets/sprites/characters/peliazul.png'
 import pelirroja from '../assets/sprites/characters/pelirroja.png'
+import playero from '../assets/sprites/characters/playero.png'
+import policeman from '../assets/sprites/characters/policeman.png'
+import seniora from '../assets/sprites/characters/seniora.png'
+import sherif from '../assets/sprites/characters/sherif.png'
+/* ----- PERSONAJES FIN -----*/
+
+/* ----- UI -----*/
+import brownFrame from '../assets/ui/brown.png'
+import exitIcon from '../assets/ui/exit.png'
+/* ----- UI FIN -----*/
 
 // import alex from '../assets/sprites/alex.png'
 // import wallfloor from '../assets/sprites/wall-floor.png'
@@ -40,17 +59,35 @@ export default class Boot extends Phaser.Scene {
         // this.load.image('alex_idle', alex_idle);
         // this.load.image('wallfloor', wallfloor)
 
-        this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
+        this.load.image('brownFrame', brownFrame);
+        this.load.image('exitIcon', exitIcon);
+
+        this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('barbudo', barbudo, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
+        this.load.spritesheet('bigotes', bigotes, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
+        this.load.spritesheet('elvis', elvis, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
 
     }
 
     create() {  
-        this.anims.create( {
-            key: 'idle',
-            frames: this.anims.generateFrameNumbers('pelirroja', { start: 2, end: 3 }),
-            frameRate: 2,
-            repeat: -1
-        });
+        const characters = ['barbudo', 'bigotes', 'elvis', 'gorrito', 'niga', 'nigaplus', 'peliazul', 'pelirroja', 'playero', 'policeman', 'seniora', 'sherif']
+        
+        characters.forEach(char => {
+            this.anims.create( {
+                key: 'idle_'+char,
+                frames: this.anims.generateFrameNumbers(char, { start: 3, end: 3 }),
+                frameRate: 1,
+                repeat: -1
+            });
+
+            this.anims.create( {
+                key: 'rotate_'+char,
+                frames: this.anims.generateFrameNumbers(char, { start: 0, end: 3 }),
+                frameRate: 1,
+                repeat: -1
+            });
+        })
+        
 
         this.scene.start('level1');
     }

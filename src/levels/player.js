@@ -4,7 +4,7 @@ import Phaser from 'phaser'
 export default class Player extends Phaser.GameObjects.Sprite {
 
     constructor(scene, x, y) {
-        super(scene, x, y, 'player');
+        super(scene, x, y, 'pelirroja', 0);
         this.scene.physics.add.existing(this); //Escena física
         this.scene.add.existing(this) // lo meto en la la lógica
         this.scene.input.on('pointerdown', this.onClick, this);
@@ -12,10 +12,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
         /// Deficinión de parametros
         this.velocity = 400.0;
         this.stopDistance = 5.0;
+        this.usingNavmesh = false;
+        this.navMesh = null;
         //Variables internas
         this._isMoving = false;
         this._targetX = this.x;
         this._targetY = this.y;
+        this.bored = true; // El jugador se aburre si está sin hacer nada/quieto, asñi que puede acceder a interactuar con la mesa si está en la posición correcta
+
+        this.play("idle_pelirroja")
     }
 
 
@@ -41,21 +46,28 @@ export default class Player extends Phaser.GameObjects.Sprite {
     onClick(pointer)
     {
         console.log('down X '+pointer.downX + " Y "+pointer.downY);
+        this.bored = true;
         this._targetX = pointer.downX;
         this._targetY = pointer.downY;
-        let xdist = new Phaser.Math.Vector2(this._targetX,this._targetY);
-        let pos = new Phaser.Math.Vector2(this.x,this.y);
-        let direction = xdist.subtract(pos);
-        let mod = direction.length();
-        direction = direction.normalize();
-
-        //console.log('velocity X '+(this.velocity*direction.x) + " Y "+(this.velocity*direction.y));
-        if(mod > this.stopDistance)
+        let destination = new Phaser.Math.Vector2(this._targetX,this._targetY);
+        if(this.usingNavmesh && this.navMesh != null)
         {
-            this.body.setVelocityX(this.velocity*direction.x);
-            this.body.setVelocityY(this.velocity*direction.y);
+            goTo(destination);
         }
-
+        else
+        {
+            let pos = new Phaser.Math.Vector2(this.x,this.y);
+            let direction = destination.subtract(pos);
+            let mod = direction.length();
+            direction = direction.normalize();
+    
+            //console.log('velocity X '+(this.velocity*direction.x) + " Y "+(this.velocity*direction.y));
+            if(mod > this.stopDistance)
+            {
+                this.body.setVelocityX(this.velocity*direction.x);
+                this.body.setVelocityY(this.velocity*direction.y);
+            }
+        }
     }
 
     checkStop(t,dt)
@@ -70,6 +82,37 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.body.setVelocityX(0);
             this.body.setVelocityY(0);
         }
+    }
+
+    setNavmesh(navmesh)
+    {
+        this.navMesh = navmesh;
+    }
+
+    goTo(targetPoint) 
+    {
+        if(this.navMesh == null)
+            this.currentTarget = null;
+        else{
+            // Find a path to the target
+            this.path = this.navMesh.findPath(new Phaser.Math.Vector2(this.x, this.y), targetPoint);
+        
+            // If there is a valid path, grab the first point from the path and set it as the target
+            if (this.path && this.path.length > 0) this.currentTarget = this.path.shift();
+            else this.currentTarget = null;
+        }
+    }
+
+    isBored(){
+        return this.bored
+    }
+
+    setBored(bored){
+        this.bored = bored;
+    }
+
+    isStanding(){
+        return this.body.velocity.x == 0 && this.body.velocity.y == 0;
     }
 
 }
