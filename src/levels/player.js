@@ -4,7 +4,7 @@ import Phaser from 'phaser'
 export default class Player extends Phaser.GameObjects.Sprite {
 
     constructor(scene, x, y) {
-        super(scene, x, y, 'player');
+        super(scene, x, y, 'pelirroja', 0);
         this.scene.physics.add.existing(this); //Escena física
         this.scene.add.existing(this) // lo meto en la la lógica
         this.scene.input.on('pointerdown', this.onClick, this);
@@ -18,6 +18,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this._isMoving = false;
         this._targetX = this.x;
         this._targetY = this.y;
+        this.bored = true; // El jugador se aburre si está sin hacer nada/quieto, asñi que puede acceder a interactuar con la mesa si está en la posición correcta
+
+        this.play("idle_pelirroja")
     }
 
 
@@ -43,6 +46,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     onClick(pointer)
     {
         console.log('down X '+pointer.downX + " Y "+pointer.downY);
+        this.bored = true;
         this._targetX = pointer.downX;
         this._targetY = pointer.downY;
         let destination = new Phaser.Math.Vector2(this._targetX,this._targetY);
@@ -97,6 +101,18 @@ export default class Player extends Phaser.GameObjects.Sprite {
             if (this.path && this.path.length > 0) this.currentTarget = this.path.shift();
             else this.currentTarget = null;
         }
+    }
+
+    isBored(){
+        return this.bored
+    }
+
+    setBored(bored){
+        this.bored = bored;
+    }
+
+    isStanding(){
+        return this.body.velocity.x == 0 && this.body.velocity.y == 0;
     }
 
 }

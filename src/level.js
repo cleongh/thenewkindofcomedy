@@ -17,7 +17,7 @@ export default class Level extends Phaser.Scene {
 
     create() {
         /* Tiempo de show */        
-        this.timerText = this.add.text(this.game.config.width/2, 50, this.showTime)
+        this.timerText = this.add.text(this.game.config.width/2, 50, this.showTime).setDepth(10);
 
         // esto habrá que pillarlo por los tiles
         this.tableGroup = this.add.group();

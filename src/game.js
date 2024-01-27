@@ -11,6 +11,7 @@ import Level1 from './level1.js';
 import Phaser from 'phaser'
 import LaughAt from './puzzles/LaughAt.ts';
 import { PhaserNavMeshPlugin } from "phaser-navmesh";
+import PuzzleTest from './puzzles/PuzzleTest'
 
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuración del juego y creamos
@@ -25,7 +26,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot , Menu, Level1, Credits, Win, Lose, LaughAt //, Level2, Level3
+    scene: [Boot , Menu, Level1, Credits, Win, Lose, LaughAt, PuzzleTest //, Level2, Level3
            ],
     plugins: {
         scene: [
@@ -40,8 +41,8 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 400 },
-            debug: false
+            gravity: { y: 0 },
+            debug: true
         }
     }
 };

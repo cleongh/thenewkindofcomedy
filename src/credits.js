@@ -7,7 +7,7 @@ export default class Credits extends Phaser.Scene {
   }
 
   create() {
-      this.add.text(10, 10, "Guille, Isma, Tony, Pablo y Carlos")
+      this.add.text(10, 10, "Guille, Isma, Toni, Pablo y Carlos")
 
       
         this.add.text(500, 120, "volver").setInteractive().
