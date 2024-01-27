@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import BasePuzzle, { BasePuzzleProps } from "./BasePuzzle";
+import {wordLayouts, wordSequences} from "./whoGoesFirstLists"
 
 export type WordSequence = string[];
 /**
@@ -25,11 +26,6 @@ const screenPositions: { x: number; y: number }[] = [
   { x: 300, y: 400 },
 ];
 
-export interface WhoGoesFirstProps {
-  wordSequences: ManualWordSequences;
-  wordLayouts: ManualWordLayouts;
-}
-
 /**
  * @extends Phaser.Scene
  */
@@ -53,8 +49,7 @@ export default class WhoGoesFirst extends BasePuzzle {
     super({ key: "WhoGoesFirst" });
   }
 
-  init(props: BasePuzzleProps & WhoGoesFirstProps): void {
-    const { wordSequences, wordLayouts } = props;
+  init(props: BasePuzzleProps): void {
     super.init({ ...props });
 
     // claves del objeto de layouts (posibles palabras para el display)
@@ -150,11 +145,11 @@ export default class WhoGoesFirst extends BasePuzzle {
         if (this.puzzleResult !== "ongoing") return;
         // ¿coincide el índice pulsado con bueno?
         if (i === this.buttonIndexToPress) {
-          this.onPuzzleEnd(true);
+          this.endPuzzle(true);
           this.puzzleResult = "success";
         } else {
           // nos hemos equivocado, acaba el puzzle en fracaso.
-          this.onPuzzleEnd(false);
+          this.endPuzzle(false);
           this.puzzleResult = "failure";
         }
       });
