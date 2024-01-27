@@ -102,6 +102,19 @@
                 "object",
                 "project"
             ]
+        },
+        {
+            "color": "#ffff25fb",
+            "drawFill": true,
+            "id": 9,
+            "members": [
+            ],
+            "name": "waypoint",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object"
+            ]
         }
     ]
 }
