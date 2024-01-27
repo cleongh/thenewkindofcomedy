@@ -199,6 +199,60 @@ export default class Level extends Phaser.Scene {
 
     endShow(score){
         this.end=true;
-    }
+        this.player.setEnableInput(false);
+
+        let finishMessageText = `¡Nivel finalizado!\n\nHas hecho reír a ${this.score+" de "+this.posibleScore} asistentes.`
+
+        /**
+         * Panel de fin de nivel
+         */
+        this.container = this.add.container(
+            this.game.config.width / 2,
+            this.game.config.height / 2
+        ).setDepth(20);
+        this.container.width = 1600;
+        this.container.height = 800;
+    
+        let frame = this.add
+            .nineslice(
+            0,
+            0,
+            "backgroundTile",
+            0,
+            1600,
+            800,
+            1,
+            1,
+            1,
+            0
+            )
+            .setAlpha(0.8);
+        this.container.add(frame);
+        let menuButton = this.add
+        .text(0, 250, "Continuar", {
+            fontSize: "40px",
+            fontFamily: "minecraftia",
+            })
+            .setColor("black")
+            .setOrigin(0.5, 0.5);
+    
+            menuButton.setInteractive();
+            menuButton.on("pointerdown", () => {
+            this.input.stopPropagation();
+            //TODO go to menu
+        });
+        this.container.add(menuButton);
+
+
+        let finishMessage = this.add.text(0, -100, finishMessageText, 
+        {
+            fontSize: "50px",
+            fontFamily: "minecraftia",
+            align: "center"
+            })
+            .setColor("black")
+        .setOrigin(0.5, 0.5);
+        this.container.add(finishMessage);
+        }
 
 }
