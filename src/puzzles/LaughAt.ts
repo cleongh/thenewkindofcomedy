@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import BasePuzzle, { BasePuzzleProps } from "./BasePuzzle";
 
 interface SelectedSymbol {
-  characterSrc: string;
+  characterIndex: number;
   index: number;
 }
 
@@ -11,10 +11,10 @@ type ManualSequence = string[];
 // Posiciones en las que se van a colocar los iconos de los personajes.
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 200, y: 200 },
+  { x: -300, y: -200 },
+  { x: 300, y: -200 },
+  { x: -300, y: 200 },
   { x: 300, y: 200 },
-  { x: 200, y: 300 },
-  { x: 300, y: 300 },
 ];
 
 export interface LaughtAtProps {
@@ -37,9 +37,11 @@ export default class LaughAt extends BasePuzzle {
     super({ key: "laughAt" });
   }
 
-  init(props: BasePuzzleProps & LaughtAtProps): void {
-    const { manualSequences } = props;
+  init(props: BasePuzzleProps): void {
     super.init({ ...props });
+
+    const manualSequences: number[][] = [[1, 2, 3, 4]];
+
     // Elige una secuencia al azar de las disponibles y de esa, cuatro elementos arbitrarios.
     // Estos serán los elementos que vayamos a colocar en los botones para pintarlos.
     const selectedManualSequence =
@@ -60,12 +62,12 @@ export default class LaughAt extends BasePuzzle {
    * @param n número de elementos que queremos seleccionar del array
    * @returns array con un número arbitrario de elementos del array original (n), con la posición original en su secuencia.
    */
-  pickRandomElements(array: string[], n: number): SelectedSymbol[] {
+  pickRandomElements(array: number[], n: number): SelectedSymbol[] {
     // realizamos una copia el array original para immediatamente después
     // hacer un shuffle y quedarnos con tantos elementos como los que decidiéramos
     // en el paso anterior. En cada elemento ponemos el índice original para luego saber compararlos.
     const shuffledArray: SelectedSymbol[] = [...array].map((elem, i) => ({
-      characterSrc: elem,
+      characterIndex: elem,
       index: i,
     }));
     Phaser.Utils.Array.Shuffle(shuffledArray);
@@ -78,17 +80,18 @@ export default class LaughAt extends BasePuzzle {
     // Instanciamos un botón con el icono de cada uno de los personajes seleccionados.
     // TODO: Ahora mismo sólo se pone el src como un botón de texto como placeholder,
     // hay que meter los sprites correspondientes y meter el de las secuencias.
-    this.selectedSymbols.forEach(({ characterSrc, index }, i) => {
-      const characterButton = this.add.text(
-        screenPositions[i].x,
-        screenPositions[i].y,
-        characterSrc,
-        {
-          color: "white",
-          fontSize: "14px",
-          fontFamily: "serif",
-        }
-      );
+    this.selectedSymbols.forEach(({ characterIndex, index }, i) => {
+      const characterButton = this.add
+        .sprite(
+          screenPositions[i].x,
+          screenPositions[i].y,
+          `character${characterIndex}`
+        )
+        .setScale(2);
+      // characterButton.play("rotate_pelirroja");
+
+      this.container.add(characterButton);
+
       characterButton.setInteractive();
       characterButton.on("pointerdown", () => {
         // sólo permitir interacción con el puzzle si el resultado no está decidido
