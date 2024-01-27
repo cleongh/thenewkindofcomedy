@@ -11,12 +11,12 @@
     ],
     "propertyTypes": [
         {
-            "color": "#ffa40f2a",
+            "color": "#ff00aaff",
             "drawFill": true,
-            "id": 1,
+            "id": 3,
             "members": [
             ],
-            "name": "persona",
+            "name": "cliente",
             "type": "class",
             "useAs": [
                 "property",
@@ -27,6 +27,33 @@
                 "tileset",
                 "wangcolor",
                 "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffffff00",
+            "drawFill": true,
+            "id": 4,
+            "members": [
+            ],
+            "name": "playerstart",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object"
+            ]
+        },
+        {
+            "color": "#ffa42a2a",
+            "drawFill": true,
+            "id": 5,
+            "members": [
+            ],
+            "name": "table",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
                 "project"
             ]
         }

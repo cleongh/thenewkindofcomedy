@@ -22,23 +22,40 @@ export default class Level1 extends Level {
             tileWidth: 48, tileHeight: 48
         })
 
-        const wall = this.map.addTilesetImage('walls', 'walls');
-        const upstairs = this.map.addTilesetImage('upstairs', 'upstairs');
+        const walls_ts = this.map.addTilesetImage('walls', 'walls');
+        const kitchen_ts = this.map.addTilesetImage('kitchen', 'kitchen');
+        const upstairs_ts = this.map.addTilesetImage('upstairs', 'upstairs');
 
-        this.map.createLayer('suelo', upstairs)
-        let walls = this.map.createLayer('paredes', wall)
-        let obstacle = this.map.createLayer('obstacle', wall)
+        this.map.createLayer('suelo', upstairs_ts)
+        this.map.createLayer('mesas', kitchen_ts)
+        this.map.createLayer('props', kitchen_ts)
+        this.map.createLayer('walls', walls_ts)
+
+        // const walls = 
+
+        // const obstacle = this.map.createLayer('obstacles', wall)
 
         /**
          * Crear zonas de las mesas para lanzar minijuegos
          * He cogido la layer de objetos, esto hay que hacerlo con las mesas del mapa
          */
-        let levelZone = this.physics.add.group();
-        let objetos = this.map.createFromObjects('objetos', { gid: 1, key: 'player' })
-        objetos.forEach(obj => {
-            let zone = this.add.zone(obj.x, obj.y, 150, 150) // Crear zona de W*H tamaño, por ahora 150*150 centrado en el propio objeto
-            levelZone.add(zone);
-        });
+        const levelZone = this.physics.add.group();
+
+        // const objetos =
+        this.map.createFromObjects('objetos', { gid: 1, type: 'cliente', key: 'barbudo' }).forEach(obj => {
+            obj.play('idle_barbudo')
+        })
+        
+        this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "table").forEach(t => {
+            levelZone.add(this.add.zone(t.x, t.y, t.width, t.height))
+        })
+        // this.map.createFromObjects('objetos', { gid: 1, type: 'cliente' }).forEach(obj => {
+        //     obj.play('idle_barbudo')
+        // })
+        // objetos.forEach(obj => {
+        //     const zone = this.add.zone(obj.x, obj.y, 150, 150) // Crear zona de W*H tamaño, por ahora 150*150 centrado en el propio objeto
+        //     levelZone.add(zone);
+        // });
 
         /**
          * El personaje se mueve a lo que seria una mesa y abre la escena del minijuego
@@ -49,7 +66,7 @@ export default class Level1 extends Level {
         this.physics.add.overlap(this.player, levelZone, (player, zone) => {
             if (player.isBored() && player.isStanding()) {
                 player.setBored(false)
-                let minijuego = 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                const minijuego = 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
                 this.scene.launch(minijuego, {
                     onPuzzleClosed: () => {
                         this.scene.stop(minijuego) //Esto

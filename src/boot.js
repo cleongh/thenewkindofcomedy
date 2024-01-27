@@ -6,6 +6,7 @@ import Phaser from 'phaser'
 import player from '../assets/sprites/player.png'
 import upstairs from '../assets/sprites/upstairs.png'
 import walls from '../assets/sprites/walls.png'
+import kitchen from '../assets/sprites/kitchen.png'
 // import client from '../assets/sprites/client.png'
 
 /* ----- PERSONAJES -----*/
@@ -55,6 +56,7 @@ export default class Boot extends Phaser.Scene {
         // this.load.image('base', base);
         this.load.image('upstairs', upstairs);
         this.load.image('walls', walls);
+        this.load.image('kitchen', kitchen);
         this.load.image('player', player);
         // this.load.image('alex_idle', alex_idle);
         // this.load.image('wallfloor', wallfloor)
@@ -63,6 +65,7 @@ export default class Boot extends Phaser.Scene {
         this.load.image('exitIcon', exitIcon);
 
         this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('sherif', sherif, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
         this.load.spritesheet('barbudo', barbudo, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
         this.load.spritesheet('bigotes', bigotes, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
         this.load.spritesheet('elvis', elvis, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
