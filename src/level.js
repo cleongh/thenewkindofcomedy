@@ -69,6 +69,9 @@ export default class Level extends Phaser.Scene {
         //     obj.play('idle_barbudo')
         // })
 
+
+        this.number_musicians = this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "musician").length
+        
         this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "table").forEach(t => {
             let z = this.add.zone(t.x + t.width / 2, t.y + t.height / 2, t.width, t.height)
             // console.log(t.properties)
@@ -97,9 +100,11 @@ export default class Level extends Phaser.Scene {
         this.physics.add.overlap(this.player, levelZone, (player, zone) => {
             if (player.isBored() && player.isStanding()) {
                 player.setBored(false)
-                
+
+                console.log(this.number_musicians)
                 const minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
                 this.scene.launch(minijuego, {
+                    bandMembersAmount: this.number_musicians,
                     onPuzzleClosed: () => {
                         this.scene.stop(minijuego) //Esto
                         this.scene.resume('level1')

@@ -90,7 +90,6 @@ this.load.spritesheet(         'sherif', seniora, { frameWidth: 48, frameHeight:
     }
 
     create() {
-        // const characters = ['barbudo', 'bigotes', 'elvis', 'gorrito', 'niga', 'nigaplus', 'peliazul', 'pelirroja', 'playero', 'policeman', 'seniora', 'sherif']
 
         characters.forEach(char => {
             this.anims.create({

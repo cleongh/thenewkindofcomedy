@@ -31,6 +31,19 @@
             ]
         },
         {
+            "color": "#ff4aa400",
+            "drawFill": true,
+            "id": 7,
+            "members": [
+            ],
+            "name": "musician",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object"
+            ]
+        },
+        {
             "color": "#ffffff00",
             "drawFill": true,
             "id": 4,
@@ -50,11 +63,10 @@
             "type": "enum",
             "values": [
                 "BabyTalk",
-                "BasePuzzle",
-                "LaughAtList",
                 "LaughAt",
                 "Shots",
-                "whoGoesFirstLists"
+                "WhoGoesFirst",
+                "HumorTypes"
             ],
             "valuesAsFlags": true
         },

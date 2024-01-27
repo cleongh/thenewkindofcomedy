@@ -122,7 +122,7 @@
                          "name":"puzzle",
                          "propertytype":"puzzle",
                          "type":"string",
-                         "value":"BasePuzzle,LaughAt,whoGoesFirstLists"
+                         "value":"LaughAt,WhoGoesFirst"
                         }],
                  "rotation":0,
                  "type":"table",
@@ -188,7 +188,7 @@
                          "name":"puzzle",
                          "propertytype":"puzzle",
                          "type":"string",
-                         "value":"BabyTalk,LaughAtList,Shots"
+                         "value":"BabyTalk,Shots,HumorTypes"
                         }],
                  "rotation":0,
                  "type":"table",
@@ -196,6 +196,30 @@
                  "width":384.666666666667,
                  "x":702.666666666667,
                  "y":405.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":34,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"musician",
+                 "visible":true,
+                 "width":0,
+                 "x":1230,
+                 "y":164
+                }, 
+                {
+                 "height":0,
+                 "id":35,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"musician",
+                 "visible":true,
+                 "width":0,
+                 "x":1298,
+                 "y":222
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -204,7 +228,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":34,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
