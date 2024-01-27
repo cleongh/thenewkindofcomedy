@@ -126,6 +126,8 @@ export default class Level extends Phaser.Scene {
         if(navMesh != null)
         {
             this.player.setNavmesh(navMesh);
+            // ESto hay que meterlo como objeto por el mapa
+            this.player.setElements(mesas,null);
             const graphics = this.add.graphics(0, 0).setAlpha(0.5);
             navMesh.enableDebug(graphics);
         }

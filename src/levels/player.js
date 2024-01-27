@@ -20,8 +20,10 @@ export default class Player extends Phaser.GameObjects.Sprite
         this._isMoving = false;
         this._targetX = this.x;
         this._targetY = this.y;
+        this._enableInput = true;
         this.bored = true; // El jugador se aburre si está sin hacer nada/quieto, asñi que puede acceder a interactuar con la mesa si está en la posición correcta
-
+        this._tables = null;
+        this._waypoints = null;
         this.play("idle_pelirroja")
 
     }
@@ -58,18 +60,21 @@ export default class Player extends Phaser.GameObjects.Sprite
     ///pointer: el puntero del mouse.
     onClick(pointer)
     {
-        console.log('down X '+pointer.downX + " Y "+pointer.downY);
-        this.bored = true;
-        this._targetX = pointer.downX;
-        this._targetY = pointer.downY;
-        let destination = new Phaser.Math.Vector2(this._targetX,this._targetY);
-        if(this.usingNavmesh && this.navMesh != null)
+        if(this._enableInput)
         {
-            this.goTo(destination);
-        }
-        else
-        {
-            this.movePosition(destination);
+            console.log('down X '+pointer.downX + " Y "+pointer.downY);
+            this.bored = true;
+            this._targetX = pointer.downX;
+            this._targetY = pointer.downY;
+            let destination = new Phaser.Math.Vector2(this._targetX,this._targetY);
+            if(this.usingNavmesh && this.navMesh != null)
+            {
+                this.goTo(destination);
+            }
+            else
+            {
+                this.movePosition(destination);
+            }
         }
     }
 
@@ -111,9 +116,31 @@ export default class Player extends Phaser.GameObjects.Sprite
             this.path = this.navMesh.findPath(new Phaser.Math.Vector2(this.x, this.y), targetPoint);
         
             // If there is a valid path, grab the first point from the path and set it as the target
-            if (this.path && this.path.length > 0) this.currentTarget = this.path.shift();
-            else this.currentTarget = null;
+            if (this.path && this.path.length > 0) 
+                this.currentTarget = this.path.shift();
+            else
+            {
+                //comprobamos si hemos pulsado sobre alguna mesa
+                this.currentTarget = null;
+                //this._
+            }
         }
+    }
+
+    setEnableInput(enable)
+    {
+        this._enableInput = enable;
+    }
+
+    isEnable()
+    {
+        return this._enableInput;
+    }
+
+    setElements(mesas, waypoints)
+    {
+        this._tables = mesas;
+        this._waypoints = waypoints;
     }
 
     isBored(){
