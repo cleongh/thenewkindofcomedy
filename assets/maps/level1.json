@@ -117,6 +117,13 @@
                  "height":269.333333333333,
                  "id":24,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"puzzle",
+                         "propertytype":"puzzle",
+                         "type":"string",
+                         "value":"BasePuzzle,LaughAt,whoGoesFirstLists"
+                        }],
                  "rotation":0,
                  "type":"table",
                  "visible":true,
@@ -176,6 +183,13 @@
                  "height":292,
                  "id":32,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"puzzle",
+                         "propertytype":"puzzle",
+                         "type":"string",
+                         "value":"BabyTalk,LaughAtList,Shots"
+                        }],
                  "rotation":0,
                  "type":"table",
                  "visible":true,

@@ -44,10 +44,31 @@
             ]
         },
         {
+            "id": 6,
+            "name": "puzzle",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "BabyTalk",
+                "BasePuzzle",
+                "LaughAtList",
+                "LaughAt",
+                "Shots",
+                "whoGoesFirstLists"
+            ],
+            "valuesAsFlags": true
+        },
+        {
             "color": "#ffa42a2a",
             "drawFill": true,
             "id": 5,
             "members": [
+                {
+                    "name": "puzzle",
+                    "propertyType": "puzzle",
+                    "type": "string",
+                    "value": ""
+                }
             ],
             "name": "table",
             "type": "class",
