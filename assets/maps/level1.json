@@ -106,7 +106,6 @@
                  "properties":[
                         {
                          "name":"puzzle",
-                         "propertytype":"puzzle",
                          "type":"string",
                          "value":"LaughAt,WhoGoesFirst"
                         }],
@@ -172,7 +171,6 @@
                  "properties":[
                         {
                          "name":"puzzle",
-                         "propertytype":"puzzle",
                          "type":"string",
                          "value":"BabyTalk,HumorTypes"
                         }],
@@ -228,30 +226,6 @@
                  "width":84,
                  "x":848,
                  "y":476
-                }, 
-                {
-                 "height":0,
-                 "id":40,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"waypoint",
-                 "visible":true,
-                 "width":0,
-                 "x":376,
-                 "y":506
-                }, 
-                {
-                 "height":0,
-                 "id":41,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"waypoint",
-                 "visible":true,
-                 "width":0,
-                 "x":896,
-                 "y":424
                 }],
          "opacity":1,
          "type":"objectgroup",
