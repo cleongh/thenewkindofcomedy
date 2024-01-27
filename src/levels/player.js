@@ -54,6 +54,8 @@ export default class Player extends Phaser.GameObjects.Sprite
     }
 
 
+    /// Función que se invoca desde el evento pointdown
+    ///pointer: el puntero del mouse.
     onClick(pointer)
     {
         console.log('down X '+pointer.downX + " Y "+pointer.downY);
@@ -71,11 +73,13 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
     }
 
+    /// Permite cambiar entre movimiento usando el navmesh o movimiento lineal.
     setUsingNavmesh(b)
     {
         this.usingNavmesh = b;
     }
 
+    // en movimiento lineal, detecta cuando hay que parar (cuando llega al ponto establecido)
     checkStop(t,dt)
     {
         let xTarget = new Phaser.Math.Vector2(this._targetX,this._targetY);
@@ -90,11 +94,13 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
     }
 
+    ///Setea el navmesh desde la escena
     setNavmesh(navmesh)
     {
         this.navMesh = navmesh;
     }
 
+    //Establece el punto al que tengo que ir usando el pathfinding y creo el path.
     goTo(targetPoint) 
     {
         if(this.navMesh == null)
@@ -122,6 +128,8 @@ export default class Player extends Phaser.GameObjects.Sprite
         return this.body.velocity.x == 0 && this.body.velocity.y == 0;
     }
 
+    //Establece la velocidad de movimiento del player hacia el punto de destino
+    //Este método funciona tanto en el modo pathfinding como en el modo en linea recta
     movePosition(destination)
     {
         let pos = new Phaser.Math.Vector2(this.x,this.y);
@@ -136,6 +144,9 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
     }
 
+    //se llama desde el preUpdate (de ahi los parámetros aunque no los necesita por ahora)
+    //Controla los diferentes estados del movimiento con pathfinding: hemos llegado al final o hemos cambiado de tramo de la ruta
+    //El estado de moviendose en un tramo lo realiza el motor Arcade de phaser.
     moveUsingPathfinding(t,dt)
     {
         if (this.currentTarget) 
@@ -163,18 +174,6 @@ export default class Player extends Phaser.GameObjects.Sprite
                 
 
         }
-    }
-      
-    moveTowards(targetPosition, maxSpeed = 200, elapsedSeconds) 
-    {
-        const { x, y } = targetPosition;
-        const angle = Phaser.Math.Angle.Between(this.x, this.y, x, y);
-        const distance = Phaser.Math.Distance.Between(this.x, this.y, x, y);
-        const targetSpeed = distance / elapsedSeconds;
-        const magnitude = Math.min(maxSpeed, targetSpeed);
-    
-        this.scene.physics.velocityFromRotation(angle, magnitude, this.body.velocity);
-        this.rotation = angle;
     }
       
     destroy() 
