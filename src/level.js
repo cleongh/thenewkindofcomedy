@@ -201,7 +201,17 @@ export default class Level extends Phaser.Scene {
         this.end=true;
         this.player.setEnableInput(false);
 
-        let finishMessageText = `¡Nivel finalizado!\n\nHas hecho reír a ${this.score+" de "+this.posibleScore} asistentes.`
+        let finishMessageText = "¡Se acabó el show!\n\n"
+        // Si la puntuación acaba en 5, rima graciosa
+        if (this.score.toString().slice(-1) == "5") {
+            finishMessageText += `Has hecho reír a un total de ${this.score}. \n¡Por el culo te la hinco!`
+        } else if (this.score == this.posibleScore) {
+            finishMessageText += "Enhorabuena, todo el mundo se ha reído."
+        } else if (this.score == 0) {
+            finishMessageText += "No eres muy gracioso, no."
+        } else {
+            `Has hecho reír a ${this.score + " de " + this.posibleScore} asistentes.`
+        }
 
         /**
          * Panel de fin de nivel
