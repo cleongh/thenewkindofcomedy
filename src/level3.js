@@ -3,7 +3,7 @@ import Level from './level.js'
 
 import map from '../assets/maps/level3.json'
 
-export default class Level1 extends Level {
+export default class Level3 extends Level {
     constructor() {
         super('level3');
 
