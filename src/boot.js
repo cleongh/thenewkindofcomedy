@@ -24,7 +24,7 @@ import seniora from "../assets/sprites/characters/seniora.png";
 import sherif from "../assets/sprites/characters/sherif.png";
 /* ----- PERSONAJES FIN -----*/
 
-import musica from "url:../assets/music/king/export/king.ogg"
+import musica from "../assets/music/king.ogg"
 
 
 /* ----- PERSONAJES PUZZLE LAUGH_AT-----*/
