@@ -107,12 +107,12 @@ export default class BabyTalk extends BasePuzzle {
   create() {
     super.create();
 
-    const emitZone1 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[0].x+this.container.x-200, screenPositions[0].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone2 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[1].x+this.container.x-200, screenPositions[1].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone3 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[2].x+this.container.x-200, screenPositions[2].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone4 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[3].x+this.container.x-200, screenPositions[3].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone5 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[4].x+this.container.x-200, screenPositions[4].y+this.container.y-48, 400, 96), quantity: 42 };
-    const emitZone6 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[5].x+this.container.x-200, screenPositions[5].y+this.container.y-48, 400, 96), quantity: 42 };
+    const emitZone1 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[0].x+this.container.x-250, screenPositions[0].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone2 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[1].x+this.container.x-250, screenPositions[1].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone3 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[2].x+this.container.x-250, screenPositions[2].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone4 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[3].x+this.container.x-250, screenPositions[3].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone5 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[4].x+this.container.x-250, screenPositions[4].y+this.container.y-48, 500, 96), quantity: 42 };
+    const emitZone6 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[5].x+this.container.x-250, screenPositions[5].y+this.container.y-48, 500, 96), quantity: 42 };
 
     this.emitter = this.add.particles(0, 0, 'flare', {
       speed: 24,
@@ -140,7 +140,7 @@ export default class BabyTalk extends BasePuzzle {
         {
           color: "white",
           fontSize: "40px",
-          fontFamily: "serif",
+          fontFamily: "minecraftia",
         }
       ).setOrigin(0.5, 0.5);
       this.container.add(babyActionButton);

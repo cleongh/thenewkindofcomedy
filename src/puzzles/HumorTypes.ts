@@ -237,7 +237,7 @@ export default class HumorTypes extends BasePuzzle {
         {
           color: humorColors[humorType],
           fontSize: "40px",
-          fontFamily: "serif",
+          fontFamily: "minecraftia",
         }
       ).setOrigin(0.5, 0.5);
       this.container.add(characterButton);

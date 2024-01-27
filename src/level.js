@@ -16,9 +16,9 @@ export default class Level extends Phaser.Scene {
 
     create() {
         /* Tiempo de show */        
-        this.timerText = this.add.text(this.game.config.width/2, 50, this.showTime, {
+        this.timerText = this.add.text(this.game.config.width/2, 40, this.showTime, {
             fontSize: "40px",
-            fontFamily: "serif",
+            fontFamily: "minecraftia",
           }).setDepth(10);
 
         // esto habrá que pillarlo por los tiles
@@ -112,7 +112,7 @@ export default class Level extends Phaser.Scene {
                 player.setBored(false)
 
                 console.log(this.number_musicians)
-                const minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                const minijuego = 'BabyTalk'//zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
                 this.player.setEnableInput(false) // al lanzar el puzzle el jugador ya no debe moverse hasta que se cierre o termine el puzzle
                 console.log("PLAYER NOOOO MOVE")
                 this.scene.launch(minijuego, {
