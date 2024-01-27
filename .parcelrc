@@ -3,6 +3,9 @@
   "transformers": {
     "*.wav": [
       "@parcel/transformer-raw"
+    ],
+    "*.ogg": [
+      "@parcel/transformer-raw"
     ]
   }
 }

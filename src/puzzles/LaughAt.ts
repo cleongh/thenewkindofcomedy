@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import BasePuzzle, { BasePuzzleProps } from "./BasePuzzle";
-import {manualSequences} from './LaughAtList';
+import { manualSequences } from "./LaughAtList";
+import { colors } from "../colors";
 
 interface SelectedSymbol {
   characterIndex: number;
@@ -42,7 +43,7 @@ export default class LaughAt extends BasePuzzle {
   init(props: BasePuzzleProps): void {
     super.init({ ...props });
 
-    this.symbolsClicked = 0
+    this.symbolsClicked = 0;
     this.puzzleResult = "ongoing";
 
     // Elige una secuencia al azar de las disponibles y de esa, cuatro elementos arbitrarios.
@@ -55,7 +56,7 @@ export default class LaughAt extends BasePuzzle {
       (a, b) => a.index - b.index
     );
 
-    console.log(this.selectedSymbols)
+    console.log(this.selectedSymbols);
   } // init
 
   /**
@@ -82,21 +83,56 @@ export default class LaughAt extends BasePuzzle {
   create() {
     super.create();
 
-    const emitZone1 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[0].x+this.container.x-96, screenPositions[0].y+this.container.y-88, 192, 192), quantity: 42 };
-    const emitZone2 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[1].x+this.container.x-96, screenPositions[1].y+this.container.y-88, 192, 192), quantity: 42 };
-    const emitZone3 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[2].x+this.container.x-96, screenPositions[2].y+this.container.y-88, 192, 192), quantity: 42 };
-    const emitZone4 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[3].x+this.container.x-96, screenPositions[3].y+this.container.y-88, 192, 192), quantity: 42 };
+    const emitZone1 = {
+      type: "edge",
+      source: new Phaser.Geom.Rectangle(
+        screenPositions[0].x + this.container.x - 96,
+        screenPositions[0].y + this.container.y - 88,
+        192,
+        192
+      ),
+      quantity: 42,
+    };
+    const emitZone2 = {
+      type: "edge",
+      source: new Phaser.Geom.Rectangle(
+        screenPositions[1].x + this.container.x - 96,
+        screenPositions[1].y + this.container.y - 88,
+        192,
+        192
+      ),
+      quantity: 42,
+    };
+    const emitZone3 = {
+      type: "edge",
+      source: new Phaser.Geom.Rectangle(
+        screenPositions[2].x + this.container.x - 96,
+        screenPositions[2].y + this.container.y - 88,
+        192,
+        192
+      ),
+      quantity: 42,
+    };
+    const emitZone4 = {
+      type: "edge",
+      source: new Phaser.Geom.Rectangle(
+        screenPositions[3].x + this.container.x - 96,
+        screenPositions[3].y + this.container.y - 88,
+        192,
+        192
+      ),
+      quantity: 42,
+    };
 
-    this.emitter = this.add.particles(0, 0, 'flare', {
+    this.emitter = this.add.particles(0, 0, "flare", {
       speed: 24,
       lifespan: 1500,
       quantity: 5,
       scale: { start: 0.2, end: 0 },
       advance: 2000,
-      emitZone: [ emitZone1, emitZone2, emitZone3, emitZone4 ],
-      tint: 0xffffff
-  });
-
+      emitZone: [emitZone1, emitZone2, emitZone3, emitZone4],
+      tint: colors.hover,
+    });
 
     // Instanciamos un botón con el icono de cada uno de los personajes seleccionados.
     // TODO: Ahora mismo sólo se pone el src como un botón de texto como placeholder,
@@ -110,15 +146,14 @@ export default class LaughAt extends BasePuzzle {
           0
         )
         .setScale(2);
-        characterButton.play(`rotate_${characterIndex}`)
+      characterButton.play(`rotate_${characterIndex}`);
 
-        characterButton.on('pointerover', () => {
-          if(this.puzzleResult == "ongoing"){
-            this.emitter.setEmitZone(i);
-            this.emitter.fastForward(2000);
-          }
-  
-        });
+      characterButton.on("pointerover", () => {
+        if (this.puzzleResult == "ongoing") {
+          this.emitter.setEmitZone(i);
+          this.emitter.fastForward(2000);
+        }
+      });
 
       // characterButton.play("rotate_pelirroja");
 
@@ -132,7 +167,7 @@ export default class LaughAt extends BasePuzzle {
         // ¿coincide el índice pulsado con el siguiente que nos tocaría?
         if (index === this.sortedSymbols[this.symbolsClicked].index) {
           // aumentamos la cuenta de cuántos símbolos llevamos clickados con éxito.
-          characterButton.setTint(0x00ff00)
+          characterButton.setTint(colors.right);
 
           this.symbolsClicked++;
 
@@ -140,13 +175,13 @@ export default class LaughAt extends BasePuzzle {
 
           // si es el último que nos faltaba, completamos el puzzle con éxito
           if (this.symbolsClicked === 4) {
-            this.emitter.particleTint = 0x00ff00
+            this.emitter.particleTint = colors.right;
             this.endPuzzle(true);
             this.puzzleResult = "success";
           }
         } else {
-          characterButton.setTint(0xff0000)
-          this.emitter.particleTint = 0xff0000
+          characterButton.setTint(colors.wrong);
+          this.emitter.particleTint = colors.wrong;
           // nos hemos equivocado, acaba el puzzle en fracaso.
           this.endPuzzle(false);
           this.puzzleResult = "failure";
@@ -155,10 +190,8 @@ export default class LaughAt extends BasePuzzle {
     });
   } // create
 
-  closePanel(){
+  closePanel() {
     super.closePanel();
     this.emitter.stop();
   }
-
-  
 } // BasePuzzle

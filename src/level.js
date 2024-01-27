@@ -16,7 +16,10 @@ export default class Level extends Phaser.Scene {
 
     create() {
         /* Tiempo de show */        
-        this.timerText = this.add.text(this.game.config.width/2, 50, this.showTime).setDepth(10);
+        this.timerText = this.add.text(this.game.config.width/2, 40, this.showTime, {
+            fontSize: "40px",
+            fontFamily: "minecraftia",
+          }).setDepth(10);
 
         // esto habrá que pillarlo por los tiles
         // this.tableGroup = this.add.group();
@@ -38,7 +41,19 @@ export default class Level extends Phaser.Scene {
               players.forEach(obj => {
             // obj.play('idle_barbudo')
             obj.setDepth(10);
+        });
+
+        let tableArray = [];
+        this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "collide").forEach(t => {
+            let z = this.add.zone(t.x + t.width / 2, t.y + t.height / 2, t.width, t.height);
+            z.setInteractive();
+            z.setName(t.name);
+            tableArray.push(z);
         })
+
+        
+
+        
 
         this.player = players[0]
 
@@ -68,8 +83,6 @@ export default class Level extends Phaser.Scene {
         const clients =
               this.map.createFromObjects('objetos', { type: 'cliente', classType: Client })
 
-        const colliders =
-              this.map.createFromObjects('objetos', { type: 'collide', classType: Phaser.GameObjects.Zone })
         
         
         // clients.forEach(obj => {
@@ -110,15 +123,23 @@ export default class Level extends Phaser.Scene {
 
                 console.log(this.number_musicians)
                 const minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                this.player.setEnableInput(false) // al lanzar el puzzle el jugador ya no debe moverse hasta que se cierre o termine el puzzle
+                console.log("PLAYER NOOOO MOVE")
                 this.scene.launch(minijuego, {
                     bandMembersAmount: this.number_musicians,
                     onPuzzleClosed: () => {
-                        this.scene.stop(minijuego) //Esto
-                        this.scene.resume('level1')
+                        //console.log("PLAYER NOOOO MOVE")
+                        this.scene.stop(minijuego) // Se cierra el puzzle
+                        this.player.setEnableInput(true)
+                        console.log("FIN JUEGO")
+                        //this.scene.resume('level1')
                     },
-                    onPuzzleEnd: () => {}
+                    onPuzzleEnd: () => {
+                        console.log("PLAYER MOVE")
+                        this.player.setEnableInput(true)
+                    }
                 });
-                this.scene.pause(this)
+                //this.scene.pause(this)
             }
         })
 
@@ -131,7 +152,6 @@ export default class Level extends Phaser.Scene {
         {
             this.player.setNavmesh(navMesh);
             // ESto hay que meterlo como objeto por el mapa
-            this.player.setElements(mesas,null);
             const graphics = this.add.graphics(0, 0).setAlpha(0.5);
             navMesh.enableDebug(graphics);
         }

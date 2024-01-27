@@ -480,7 +480,7 @@ const wordSequences = {
     ],
 };
 
-const template = `
+const templatePaso1 = `
         <div class="col-2">
         <table class="table table-bordered border border-dark">
             <thead>
@@ -504,12 +504,19 @@ const template = `
             </tbody>
         </table>
         </div>`
+const templatePaso2 = `
+        <div class="col">
+        <table class="table table-bordered border border-dark">
+            <tbody>
+            </tbody>
+        </table>
+        </div>`
 
 function crearPaso1PrimeraBase(idElemento){
     let root = $(idElemento);
     let i = 0;
     for (let [word, value] of Object.entries(wordLayouts)){
-        html = $.parseHTML(template);
+        html = $.parseHTML(templatePaso1);
 
         $(html).find(".primera-base-header").html(word);
 
@@ -522,6 +529,22 @@ function crearPaso1PrimeraBase(idElemento){
     }
 }
 
+function crearPaso2PrimeraBase(idElemento) {
+    let root = $(idElemento);
+    let table = $.parseHTML(templatePaso2);
+
+    for (let [word, sequence] of Object.entries(wordSequences)) {
+        let correctSequence = sequence.join(", ");
+        let newRow = `<tr class="primera-base-row">
+        <td class="word col-2">${word}</td>
+        <td class="sequence col-10">${correctSequence}</td>
+        </tr>`
+        $("tbody", table).append($.parseHTML(newRow));
+    }
+    $(root).append(table);
+}
+
 window.addEventListener("load", ()=>{
-    crearPaso1PrimeraBase("#primera-base");
+    crearPaso1PrimeraBase("#primera-base-paso1");
+    crearPaso2PrimeraBase("#primera-base-paso2");
 });
