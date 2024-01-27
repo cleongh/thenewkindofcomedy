@@ -188,7 +188,7 @@
                          "name":"puzzle",
                          "propertytype":"puzzle",
                          "type":"string",
-                         "value":"BabyTalk,Shots,HumorTypes"
+                         "value":"BabyTalk,HumorTypes"
                         }],
                  "rotation":0,
                  "type":"table",
