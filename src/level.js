@@ -5,32 +5,20 @@ import Client from './client.js'
 import Table from './levels/table.js'
 
 export default class Level extends Phaser.Scene {
-    constructor(name, tables = 5, time = 120) {
+    constructor(name) {
         super(name)
 
-        this.showTime = time
-        this.timer = 0
-        this.tables = tables
+        this.showTime = 120
     }
 
 
     create() {
-        /* Tiempo de show */
-        this.timerText = this.add.text(this.game.config.width / 2, 40, this.showTime, {
-            fontSize: "40px",
-            fontFamily: "minecraftia",
-        }).setDepth(10);
-
-        // esto habrá que pillarlo por los tiles
-        // this.tableGroup = this.add.group();
-        // for(let i=0; i<this.tables; i++){
-        //     this.tableGroup.add(new Table(this, i*50, i*50));
-        // }
-
-        // this.player = new Player(this, this.xp, this.xp)
-
-
-
+        this.timerTime = 0
+        this.totalTables = 0;
+        this.completedTables = 0;
+        this.end = false;
+        this.score = 0;
+        this.posibleScore = 0;
 
         this.map = this.make.tilemap({
             key: 'tilemap',
@@ -50,10 +38,6 @@ export default class Level extends Phaser.Scene {
             z.setName(t.name);
             tableArray.push(z);
         })
-
-
-
-
 
         this.player = players[0]
 
@@ -83,13 +67,6 @@ export default class Level extends Phaser.Scene {
         const clients =
             this.map.createFromObjects('objetos', { type: 'cliente', classType: Client })
 
-
-
-        // clients.forEach(obj => {
-        //     obj.play('idle_barbudo')
-        // })
-
-
         const musicians = this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "musician")
 
         for (let m of musicians) {
@@ -113,18 +90,20 @@ export default class Level extends Phaser.Scene {
 
         this.number_musicians = musicians.length
 
-
-
         this.map.objects.filter(o => o.name === "objetos")[0].objects.filter(t => t.type === "table").forEach(t => {
             let z = this.add.zone(t.x + t.width / 2, t.y + t.height / 2, t.width, t.height)
             // console.log(t.properties)
-            const posibles = t.properties.filter(p => p.name = "puzzle").map(t => t.value).join(',').split(',')
+            const posibles = t.properties.filter(p => p.name == "puzzle").map(t => t.value).join(',').split(',')
             // console.log(posibles)
             const random = Math.floor(Math.random() * posibles.length);
 
             z.puzzle = posibles[random];
+            z.clients = t.properties.filter(p => p.name == "clients")[0].value
+            z.table = t;
             levelZone.add(z)
 
+            this.posibleScore+=z.clients
+            this.totalTables++;
         })
         // this.map.createFromObjects('objetos', { gid: 1, type: 'cliente' }).forEach(obj => {
         //     obj.play('idle_barbudo')
@@ -140,6 +119,7 @@ export default class Level extends Phaser.Scene {
          * NOTA!: Problema al pulsar botón de cerrar ya que el jugador seguirá en la zona que lanza el minijuego,
          * como solución compruebo que el personaje no haya recibido input de movimiento y no acabe de cerrar un minijuego.
          */
+        let self = this;
         this.physics.add.overlap(this.player, levelZone, (player, zone) => {
             if (player.isBored() && player.isStanding()) {
                 player.setBored(false)
@@ -157,9 +137,17 @@ export default class Level extends Phaser.Scene {
                         console.log("FIN JUEGO")
                         //this.scene.resume('level1')
                     },
-                    onPuzzleEnd: () => {
+                    onPuzzleEnd: (success) => {
                         console.log("PLAYER MOVE")
-                        this.player.setEnableInput(true)
+                        this.player.setEnableInput(true);
+                        this.completedTables++;
+                        if(success){
+                            this.score += zone.clients;
+                            this.scoreText.setText(this.score+"/"+this.posibleScore);
+                        } else {
+                            // LA MESA PETA
+                        }
+                        zone.destroy();
                     }
                 });
                 //this.scene.pause(this)
@@ -179,27 +167,35 @@ export default class Level extends Phaser.Scene {
         }
 
 
+
+        /* Tiempo de show */        
+        this.timerText = this.add.text(this.game.config.width/2-300, 40, this.showTime, {
+            fontSize: "40px",
+            fontFamily: "minecraftia",
+            }).setDepth(10);
+
+        /* SCORE */
+        this.scoreText = this.add.text(this.game.config.width/2+300, 40, this.score+"/"+this.posibleScore, {
+            fontSize: "40px",
+            fontFamily: "minecraftia",
+            }).setDepth(10);
     }
 
     update(t, dt) {
         // Contador
-        this.timer += dt / 1000 // a pelo, ni timer ni pollas
-        this.timerText.setText(`Show time: ${(this.showTime - this.timer).toFixed(0)}`);
-
-        if (this.timer <= 0) {
-            this.endShow(false);
+        if(!this.end){
+            this.timerTime += dt/1000 // a pelo, ni timer ni pollas
+            this.timerText.setText(`Show time: ${(this.showTime-this.timerTime).toFixed(0)}`);
         }
+        
+
+        if(this.timerTime <= 0 || this.completedTables == this.totalTables){
+            this.endShow(this.score);
+        } 
     }
 
-    removeTable(table) {
-        this.tableGroup.destroy(table);
-        if (this.tableGroup.getChildren.length == 0) {
-            this.endShow(false)
-        }
-    }
-
-    endShow(win) {
-
+    endShow(score){
+        this.end=true;
     }
 
 }
