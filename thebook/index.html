@@ -6,8 +6,9 @@
     <title>The Book of The King of Comedy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <div class="container">
@@ -18,6 +19,7 @@
             Lo mejor es que solo intentes una mesa cada vez.</p>
         <p>En cada mesa tendrás que utilizar uno de mis trucos. Busca cuál es el que tienes que usar.</p>
         <h1>Los trucos</h1>
+        <section class="container">
         <h2>Ríete de ellos (pero en orden)</h2>
         <p>Tenemos listas de clientes habituales. Las listas las tienes debajo:</p>
         <ul>
@@ -62,8 +64,8 @@
             <div><img src="./img/character12.gif" alt="cliente 12"></div>
         </div>
         </div>
-    </div>
-    <div class="container">
+        </section>
+    <section class="container">
         <h2>En el caso de tipos de humor</h2>
         <p>Los tipos de humor son el alma del show! Espera, no, el comico es el alma. Los tipos de humor son más como las arterias. ¿Las venas? No importa...</p>
         <p>En caso de 5 tipos de humor:</p>
@@ -81,9 +83,24 @@
             <li>Escatológico</li>
             <li>No les gusta el humor</li>
         </ul>
-    </div>
+    </section>
+
+    <section class="container">
+        <h2>¿Quién está en primera base?</h2>
+        <p>En las mesas llenas de yayos los mejor es tirar de los clásicos.
+            El sketch de Abbott y Costello sobre quién está en primera base nunca falla.
+        </p>
+        <ul>
+            <li>Lee el monitor y usa el paso 1 para determinar qué etiqueta de botón leer.</li>
+            <li>Usando esta etiqueta, usa el paso 2 para determinar qué botón presionar.</li>
+        </ul>
+        
+        
+        <h3>Paso 1</h3>
+        <div id="primera-base" class="row"></div>
+    </section>
     
-    <div class="container">
+    <section class="container">
         <h2>En el caso de sonidos de bebes</h2>
         <p>¿Una forma esencial de comunicación que siempre te rompe el espectaculo? ¿Qué sigue? Al menos es comunicación genuina, así que pon atención y puede que aprendas algo... </p>
     
@@ -114,14 +131,25 @@
                 <p>Palabras y acciones:</p>
                 <ul>
                     <li>Ga Gui Ma : Sacale los gases</li>
-                    <li>Gui bi be : Dale de comer</li>
-                    <li>Mu Me be : Echale a dormir</li>
+                    <li>Gui Bi Be : Dale de comer</li>
+                    <li>Mu Me Be : Echale a dormir</li>
                     <li>Gui Pi Bi : Darle juguetes</li>
                     <li>Mu Pu Pu : Llevarle al baño</li>
-                    <li>Mu Pe be : Ponerle el chupete</li>
+                    <li>Mu Be Be : Ponerle el chupete</li>
+
+                    <li>Me Pi Pi Pi Pi: Llevarle al baño</li>
+                    <li>Pu Pu Be Ga : Darle juguetes</li>
+                    <li>Me Mu Be Bi : Echale a dormir</li>
+                    <li>Ga : Dale de comer</li>
+                    <li>Gu Ga Gu Ga Gu Ga : Sacale los gases</li>
+                    <li>Gui Gui Be Be : Ponerle el chupete</li>
                 </ul>
             </div>
         </div>
-    </div> 
+    </section> 
+    </div>
 </body>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./crear.js"></script>
 </html>

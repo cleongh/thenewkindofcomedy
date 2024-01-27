@@ -93,7 +93,8 @@ export default class LaughAt extends BasePuzzle {
       quantity: 5,
       scale: { start: 0.2, end: 0 },
       advance: 2000,
-      emitZone: [ emitZone1, emitZone2, emitZone3, emitZone4 ]
+      emitZone: [ emitZone1, emitZone2, emitZone3, emitZone4 ],
+      tint: 0xffffff
   });
 
 
@@ -139,12 +140,13 @@ export default class LaughAt extends BasePuzzle {
 
           // si es el último que nos faltaba, completamos el puzzle con éxito
           if (this.symbolsClicked === 4) {
+            this.emitter.particleTint = 0x00ff00
             this.endPuzzle(true);
             this.puzzleResult = "success";
           }
         } else {
           characterButton.setTint(0xff0000)
-          this.emitter.stop();
+          this.emitter.particleTint = 0xff0000
           // nos hemos equivocado, acaba el puzzle en fracaso.
           this.endPuzzle(false);
           this.puzzleResult = "failure";

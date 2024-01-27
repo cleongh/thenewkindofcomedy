@@ -47,9 +47,12 @@ export default class Level extends Phaser.Scene {
         const upstairs_ts = this.map.addTilesetImage('upstairs', 'upstairs');
 
         this.map.createLayer('suelo', upstairs_ts)
-        this.map.createLayer('mesas', kitchen_ts)
+        let mesas = this.map.createLayer('mesas', kitchen_ts)
         this.map.createLayer('props', [kitchen_ts, upstairs_ts] )
-        this.map.createLayer('walls', walls_ts)
+        let paredes = this.map.createLayer('walls', walls_ts)
+        //pongo las colisiones
+        mesas.setCollisionByExclusion(-1,true);
+        paredes.setCollisionByExclusion(-1,true);
 
         // const walls = 
 
@@ -123,7 +126,15 @@ export default class Level extends Phaser.Scene {
         //this.map.createFromObjects('objetos', {gid: 1, key: 'player'})
         // const conId1 = 
         // console.log(conId1)
-        //const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", this.map, [walls,obstacle]);
+        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", this.map, [mesas,paredes]);
+        if(navMesh != null)
+        {
+            this.player.setNavmesh(navMesh);
+            // ESto hay que meterlo como objeto por el mapa
+            this.player.setElements(mesas,null);
+            const graphics = this.add.graphics(0, 0).setAlpha(0.5);
+            navMesh.enableDebug(graphics);
+        }
 
         
     }

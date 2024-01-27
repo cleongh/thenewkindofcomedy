@@ -95,7 +95,7 @@ export default abstract class BasePuzzle extends Phaser.Scene {
   endPuzzle(success){
     let endTween = this.add.timeline([
       {
-        at:100,
+        at:1000,
         tween: {
           targets: this.container,
           run: () => {this.closePanel()}

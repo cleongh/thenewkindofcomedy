@@ -10,3 +10,14 @@
             height: 60px;
     }
 }
+#primera-base {
+    text-align: center;
+    .primera-base-header{
+        background-color: black;
+        color: white;
+
+    }
+    tr.primera-base-row td{
+        height: 40px;
+    }
+}
