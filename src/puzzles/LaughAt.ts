@@ -164,6 +164,8 @@ export default class LaughAt extends BasePuzzle {
         // sólo permitir interacción con el puzzle si el resultado no está decidido
         // En realidad esto no debería hacer falta, pero por si las moscas...
         if (this.puzzleResult !== "ongoing") return;
+
+        this.playTrySound();
         // ¿coincide el índice pulsado con el siguiente que nos tocaría?
         if (index === this.sortedSymbols[this.symbolsClicked].index) {
           // aumentamos la cuenta de cuántos símbolos llevamos clickados con éxito.
@@ -178,6 +180,7 @@ export default class LaughAt extends BasePuzzle {
             this.emitter.particleTint = colors.right;
             this.endPuzzle(true);
             this.puzzleResult = "success";
+            this.playSuccessSound();
           }
         } else {
           characterButton.setTint(colors.wrong);
@@ -185,6 +188,7 @@ export default class LaughAt extends BasePuzzle {
           // nos hemos equivocado, acaba el puzzle en fracaso.
           this.endPuzzle(false);
           this.puzzleResult = "failure";
+          this.playFailureSound();
         }
       });
     });

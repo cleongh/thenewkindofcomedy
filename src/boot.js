@@ -66,6 +66,7 @@ import babyLaugh from "../assets/sprites/babyLaugh.png";
 import brownFrame from "../assets/ui/brown.png";
 import exitIcon from "../assets/ui/exit.png";
 import flare from "../assets/ui/white-flare.png";
+import backgroundTile from "../assets/ui/bg.png";
 /* ----- UI FIN -----*/
 
 /* ----- AUDIOS bebé -----*/
@@ -168,6 +169,7 @@ export default class Boot extends Phaser.Scene {
     // this.load.image('wallfloor', wallfloor)
 
     this.load.image("brownFrame", brownFrame);
+    this.load.image("backgroundTile", backgroundTile);
       this.load.image("exitIcon", exitIcon);
       this.load.image("guitarrista", guitarrista);
       this.load.image("bateria", bateria);
@@ -204,104 +206,104 @@ export default class Boot extends Phaser.Scene {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("sherif", sherif, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("barbudo", barbudo, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("bigotes", bigotes, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("elvis", elvis, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
 
     this.load.spritesheet("barbudo", barbudo, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("bigotes", bigotes, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("elvis", elvis, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("gorrito", gorrito, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("niga", niga, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("nigaplus", nigaplus, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("peliazul", peliazul, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("pelirroja", pelirroja, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("playero", playero, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("policeman", policeman, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("seniora", seniora, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
     this.load.spritesheet("sherif", seniora, {
       frameWidth: 48,
       frameHeight: 100,
       startFrame: 0,
-      endFrame: 3,
+      endFrame: 135,
     });
 
     this.load.spritesheet("character0", character0, {
@@ -447,6 +449,34 @@ export default class Boot extends Phaser.Scene {
         key: "rotate_" + char,
         frames: this.anims.generateFrameNumbers(char, { start: 0, end: 3 }),
         frameRate: 1,
+        repeat: -1,
+      });
+
+      this.anims.create({
+        key: "move_right_" + char,
+        frames: this.anims.generateFrameNumbers(char, { start: 112, end: 117 }),
+        frameRate: 5,
+        repeat: -1,
+      });
+
+      this.anims.create({
+        key: "move_up_" + char,
+        frames: this.anims.generateFrameNumbers(char, { start: 118, end: 123 }),
+        frameRate: 5,
+        repeat: -1,
+      });
+
+      this.anims.create({
+        key: "move_left_" + char,
+        frames: this.anims.generateFrameNumbers(char, { start: 124, end: 129 }),
+        frameRate: 5,
+        repeat: -1,
+      });
+
+      this.anims.create({
+        key: "move_down_" + char,
+        frames: this.anims.generateFrameNumbers(char, { start: 130, end: 135 }),
+        frameRate: 5,
         repeat: -1,
       });
     });

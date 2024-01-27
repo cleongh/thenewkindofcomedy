@@ -22,7 +22,8 @@ export default class Player extends Phaser.GameObjects.Sprite
         this._targetY = this.y;
         this._enableInput = true;
         this.bored = true; // El jugador se aburre si está sin hacer nada/quieto, asñi que puede acceder a interactuar con la mesa si está en la posición correcta
-        this.play("idle_pelirroja")
+        this.play("idle_pelirroja");
+        this._animationState = "idle_pelirroja";
 
     }
 
@@ -37,7 +38,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             this.checkStop(t,dt);
         }
-        
+        this.animationController();
         //this.move(dt);
         // if (this.cursors.up.isDown && this.body.onFloor()) {
         //     this.body.setVelocityY(this.jumpSpeed);
@@ -73,6 +74,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             {
                 this.movePosition(destination);
             }
+            
         }
     }
 
@@ -211,6 +213,92 @@ export default class Player extends Phaser.GameObjects.Sprite
                 
 
         }
+    }
+
+    animationController()
+    {
+        if(this._animationState == "idle_pelirroja")
+        {
+            if(this.isMoving())
+            {
+                this._animationState=this.changeAnimation();
+                this.play(this._animationState);
+            }
+        }
+        else{
+            const newState = this.changeAnimation();
+            if(newState != this._animationState)
+            {
+                this._animationState = newState;
+                this.play(this._animationState);
+            }
+        }
+    }
+
+    changeAnimation()
+    {
+        if(this.isMovingLeft())
+        {
+            return "move_left_pelirroja";
+        }
+        else if(this.isMovingRight())
+        {
+            return "move_right_pelirroja";
+        }
+        else if(this.isMovingUp())
+        {
+            return "move_up_pelirroja";
+        }
+        else if(this.isMovingDown())
+        {
+            return "move_down_pelirroja";
+        }
+        else
+        {
+            return "idle_pelirroja";
+        }
+    }
+
+    isMovingLeft()
+    {
+        if(Math.abs(this.body.velocity.x) > Math.abs(this.body.velocity.y)) // nos movemos izquierda/derecha
+        {
+            return this.body.velocity.x < 0.0;
+        }
+        return false;
+    }
+
+    isMovingRight()
+    {
+        if(Math.abs(this.body.velocity.x) > Math.abs(this.body.velocity.y)) // nos movemos izquierda/derecha
+        {
+            return this.body.velocity.x > 0.0;
+        }
+        return false;
+    }
+
+    isMovingUp()
+    {
+        if(Math.abs(this.body.velocity.x) < Math.abs(this.body.velocity.y)) // nos movemos izquierda/derecha
+        {
+            return this.body.velocity.y < 0.0;
+        }
+        return false;
+    }
+
+    isMovingDown()
+    {
+        if(Math.abs(this.body.velocity.x) < Math.abs(this.body.velocity.y)) // nos movemos izquierda/derecha
+        {
+            return this.body.velocity.y > 0.0;
+        }
+        return false;
+    }
+
+    isMoving()
+    {
+        let lenght = Math.abs(this.body.velocity.x) +  Math.abs(this.body.velocity.y);
+        return lenght > 1.0; // si nos estamos moviendo
     }
       
     destroy() 

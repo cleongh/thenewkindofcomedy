@@ -307,16 +307,20 @@ export default class HumorTypes extends BasePuzzle {
         // sólo permitir interacción con el puzzle si el resultado no está decidido
         // En realidad esto no debería hacer falta, pero por si las moscas...
         if (this.puzzleResult !== "ongoing") return;
+
+        this.playTrySound();
         // ¿coincide el índice pulsado con bueno?
         if (i === this.humorTypeToPress) {
           this.emitter.particleTint = colors.right;
           this.endPuzzle(true);
           this.puzzleResult = "success";
+          this.playSuccessSound();
         } else {
           // nos hemos equivocado, acaba el puzzle en fracaso.
           this.emitter.particleTint = colors.wrong;
           this.endPuzzle(false);
           this.puzzleResult = "failure";
+          this.playFailureSound();
         }
       });
       characterButton.on("pointerover", () => {

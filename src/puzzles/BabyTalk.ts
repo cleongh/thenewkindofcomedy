@@ -197,7 +197,7 @@ export default class BabyTalk extends BasePuzzle {
     babyActions.forEach((babyAction, i) => {
       const babyActionButton = this.add
         .text(screenPositions[i].x, screenPositions[i].y, babyAction, {
-          color: "white",
+          color: "black",
           fontSize: "40px",
           fontFamily: "minecraftia",
         })
@@ -210,17 +210,21 @@ export default class BabyTalk extends BasePuzzle {
         // sólo permitir interacción con el puzzle si el resultado no está decidido
         // En realidad esto no debería hacer falta, pero por si las moscas...
         if (this.puzzleResult !== "ongoing") return;
+
+        this.playTrySound();
         // ¿coincide el índice pulsado con bueno?
         if (babyAction === this.selectedCombination.correctAction) {
           this.emitter.particleTint = colors.right;
           baby.play("laugh_baby");
           this.endPuzzle(true);
           this.puzzleResult = "success";
+          this.playSuccessSound();
         } else {
           // nos hemos equivocado, acaba el puzzle en fracaso.
           this.emitter.particleTint = colors.wrong;
           this.endPuzzle(false);
           this.puzzleResult = "failure";
+          this.playFailureSound();
         }
 
         this.resetSoundTracks();
