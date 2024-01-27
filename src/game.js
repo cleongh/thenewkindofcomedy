@@ -13,6 +13,7 @@ import LaughAt from './puzzles/LaughAt.ts';
 import { PhaserNavMeshPlugin } from "phaser-navmesh";
 import PuzzleTest from './puzzles/PuzzleTest'
 import HumorTypes from './puzzles/HumorTypes.ts';
+import WhoGoesFirst from './puzzles/WhoGoesFirst.ts';
 
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuración del juego y creamos
@@ -27,7 +28,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot , Menu, Level1, Credits, Win, Lose, LaughAt, PuzzleTest, HumorTypes //, Level2, Level3
+    scene: [Boot , Menu, Level1, Credits, Win, Lose, LaughAt, HumorTypes, WhoGoesFirst //, Level2, Level3
            ],
     plugins: {
         scene: [
