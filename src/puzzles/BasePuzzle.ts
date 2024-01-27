@@ -74,7 +74,7 @@ export default abstract class BasePuzzle extends Phaser.Scene {
       .nineslice(
         0,
         0,
-        "brownFrame",
+        "backgroundTile",
         0,
         this.frameWidth,
         this.frameHeight,

@@ -64,6 +64,7 @@ import babyLaugh from "../assets/sprites/babyLaugh.png";
 import brownFrame from "../assets/ui/brown.png";
 import exitIcon from "../assets/ui/exit.png";
 import flare from "../assets/ui/white-flare.png";
+import backgroundTile from "../assets/ui/bg.png";
 /* ----- UI FIN -----*/
 
 /* ----- AUDIOS bebé -----*/
@@ -164,6 +165,7 @@ export default class Boot extends Phaser.Scene {
     // this.load.image('wallfloor', wallfloor)
 
     this.load.image("brownFrame", brownFrame);
+    this.load.image("backgroundTile", backgroundTile);
       this.load.image("exitIcon", exitIcon);
       this.load.image("guitarrista", guitarrista);
       this.load.image("bateria", bateria);
