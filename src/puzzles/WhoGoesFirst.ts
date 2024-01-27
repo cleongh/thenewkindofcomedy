@@ -124,6 +124,19 @@ export default class WhoGoesFirst extends BasePuzzle {
     super.create();
 
     this.createSpeechBubble(-170, -300, 600, 600, "right");
+    this.createSpeechBubble(-440, -250, 325, 100, "left");
+
+    const characterIzquierda = this.add
+      .sprite(-590, -250, "characterIzquierda", 0)
+      .setScale(5);
+    this.container.add(characterIzquierda);
+    characterIzquierda.play("characterIzquierda");
+
+    const characterDerecha = this.add
+      .sprite(600, 150, "characterDerecha", 0)
+      .setScale(5);
+    this.container.add(characterDerecha);
+    characterDerecha.play("characterDerecha");
 
     const rectangleWidth = 230;
     const emitZones = screenPositions.map(({ x, y }) => ({
@@ -148,8 +161,8 @@ export default class WhoGoesFirst extends BasePuzzle {
     });
 
     const display = this.add
-      .text(-500, -250, this.displayWord, {
-        color: "white",
+      .text(-275, -200, this.displayWord, {
+        color: "black",
         fontSize: "40px",
         fontFamily: "minecraftia",
       })
