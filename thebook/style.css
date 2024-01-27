@@ -1,0 +1,11 @@
+.clientes{
+    display: flex;
+    flex-direction: row;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    img {
+            height: 60px;
+    }
+}
