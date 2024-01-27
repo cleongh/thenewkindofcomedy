@@ -50,7 +50,7 @@ export default class WhoGoesFirst extends BasePuzzle {
    * Constructor de la escena
    */
   constructor() {
-    super({ key: "whoGoesFirst" });
+    super({ key: "WhoGoesFirst" });
   }
 
   init(props: BasePuzzleProps & WhoGoesFirstProps): void {

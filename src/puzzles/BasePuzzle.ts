@@ -19,6 +19,7 @@ export default abstract class BasePuzzle extends Phaser.Scene {
   protected  frameWidth = 1600
   protected frameHeight = 800
   protected container;
+  private closeTween;
   /**
    * Callback a llamar cuando finalice el puzzle con el resultado de su ejecución.
    */
@@ -52,12 +53,63 @@ export default abstract class BasePuzzle extends Phaser.Scene {
     closePuzzleButton.setInteractive();
     closePuzzleButton.on("pointerdown", () => {
       if (this.onPuzzleClosed) {
-        this.onPuzzleClosed();
+        this.closePanel();
         this.input.stopPropagation()
       }
     });
     this.container.add(closePuzzleButton)
 
+    this.closeTween = this.add.timeline([
+      {
+          at: 100,
+          tween: {
+              targets: this.container,
+              scale: 0.8,
+              duration: 1000,
+              ease: 'Power2'
+          }
+      },
+      {
+          at: 1000,
+          tween: {
+            targets: this.container,
+            y: this.game.config.height+this.frameHeight,
+            duration: 1000,
+            ease: 'Quint.easeIn'
+        }
+      },
+      {
+        at:2000,
+        tween: {
+          targets: this.container,
+          run: () => {this.onPuzzleClosed()}
+        }
+      }
+    ]);
   } // create
+
+  closePanel(){
+    this.closeTween.play();
+  }
+
+  endPuzzle(success){
+    let endTween = this.add.timeline([
+      {
+        at:1000,
+        tween: {
+          targets: this.container,
+          run: () => {this.closePanel()}
+        }
+      },
+      {
+        at:2000,
+        tween: {
+          targets: this.container,
+          run: () => {this.onPuzzleEnd(success)}
+        }
+      }
+    ]);
+    endTween.play();
+  }
 
 } // BasePuzzle

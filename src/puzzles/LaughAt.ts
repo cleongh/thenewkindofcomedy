@@ -30,6 +30,7 @@ export default class LaughAt extends BasePuzzle {
   private selectedSymbols: SelectedSymbol[];
   private sortedSymbols: SelectedSymbol[];
   private puzzleResult: "ongoing" | "success" | "failure" = "ongoing";
+  private emitter;
 
   /**
    * Constructor de la escena
@@ -86,13 +87,14 @@ export default class LaughAt extends BasePuzzle {
     const emitZone3 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[2].x+this.container.x-96, screenPositions[2].y+this.container.y-88, 192, 192), quantity: 42 };
     const emitZone4 = { type: 'edge', source: new Phaser.Geom.Rectangle( screenPositions[3].x+this.container.x-96, screenPositions[3].y+this.container.y-88, 192, 192), quantity: 42 };
 
-    const emitter = this.add.particles(0, 0, 'flare', {
+    this.emitter = this.add.particles(0, 0, 'flare', {
       speed: 24,
       lifespan: 1500,
       quantity: 5,
       scale: { start: 0.2, end: 0 },
       advance: 2000,
-      emitZone: [ emitZone1, emitZone2, emitZone3, emitZone4 ]
+      emitZone: [ emitZone1, emitZone2, emitZone3, emitZone4 ],
+      tint: 0xffffff
   });
 
 
@@ -112,8 +114,8 @@ export default class LaughAt extends BasePuzzle {
 
         characterButton.on('pointerover', () => {
           if(this.puzzleResult == "ongoing"){
-            emitter.setEmitZone(i);
-            emitter.fastForward(2000);
+            this.emitter.setEmitZone(i);
+            this.emitter.fastForward(2000);
           }
   
         });
@@ -138,17 +140,25 @@ export default class LaughAt extends BasePuzzle {
 
           // si es el último que nos faltaba, completamos el puzzle con éxito
           if (this.symbolsClicked === 4) {
-            this.onPuzzleEnd(true);
+            this.emitter.particleTint = 0x00ff00
+            this.endPuzzle(true);
             this.puzzleResult = "success";
           }
         } else {
           characterButton.setTint(0xff0000)
-          emitter.stop();
+          this.emitter.particleTint = 0xff0000
           // nos hemos equivocado, acaba el puzzle en fracaso.
-          this.onPuzzleEnd(false);
+          this.endPuzzle(false);
           this.puzzleResult = "failure";
         }
       });
     });
   } // create
+
+  closePanel(){
+    super.closePanel();
+    this.emitter.stop();
+  }
+
+  
 } // BasePuzzle
