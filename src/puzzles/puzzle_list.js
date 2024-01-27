@@ -1,17 +1,14 @@
-
-import BabyTalk from './BabyTalk.ts'
-import BasePuzzle from './BasePuzzle.ts'
-import LaughAtList from './LaughAtList.ts'
-import LaughAt from './LaughAt.ts'
-import Shots from './Shots.ts'
-import whoGoesFirstLists from './whoGoesFirstLists.ts'
+import BabyTalk from "./BabyTalk.ts";
+import LaughAt from "./LaughAt.ts";
+import Shots from "./Shots.ts";
+import HumorTypes from "./HumorTypes.ts";
+import WhoGoesFirst from "./WhoGoesFirst.ts";
 
 const puzzles = {
-    'BabyTalk': BabyTalk,
-    'BasePuzzle': BasePuzzle,
-    'LaughAtList': LaughAtList,
-    'LaughAt': LaughAt,
-    'Shots': Shots,
-    'whoGoesFirstLists': whoGoesFirstLists
-}
+  BabyTalk: BabyTalk,
+  LaughAt: LaughAt,
+  Shots: Shots,
+  HumorTypes: HumorTypes,
+  WhoGoesFirst: WhoGoesFirst,
+};
 export default puzzles;
