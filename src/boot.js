@@ -24,8 +24,6 @@ import seniora from "../assets/sprites/characters/seniora.png";
 import sherif from "../assets/sprites/characters/sherif.png";
 /* ----- PERSONAJES FIN -----*/
 
-import musica from "../assets/music/king.ogg";
-
 /* ----- PERSONAJES PUZZLE LAUGH_AT-----*/
 import character0 from "../assets/sprites/puzzles/rietede/character0.png";
 import character1 from "../assets/sprites/puzzles/rietede/character1.png";
@@ -65,7 +63,7 @@ import exitIcon from "../assets/ui/exit.png";
 import flare from "../assets/ui/white-flare.png";
 /* ----- UI FIN -----*/
 
-/* ----- AUDIOS -----*/
+/* ----- AUDIOS bebé -----*/
 import Be from "../assets/audio/baby/Be.wav";
 import Bi from "../assets/audio/baby/Bi.wav";
 import Ga from "../assets/audio/baby/Ga.wav";
@@ -78,7 +76,17 @@ import Mu from "../assets/audio/baby/Mu.wav";
 import Pa from "../assets/audio/baby/Pa.wav";
 import Pi from "../assets/audio/baby/Pi.wav";
 import Pu from "../assets/audio/baby/Pu.wav";
-/* ----- AUDIOS FIN -----*/
+/* ----- AUDIOS bebé FIN -----*/
+
+import abucheo from "../assets/music/abucheo.wav";
+import aplauso1 from "../assets/music/aplauso.wav";
+import aplauso2 from "../assets/music/aplauso2.wav";
+import alabanza from "../assets/music/uouuuuu.wav";
+import risas1 from "../assets/music/risas.wav";
+import risas2 from "../assets/music/risas2.wav";
+import musica1 from "../assets/music/king.ogg";
+import musica2 from "../assets/music/jazzy.ogg";
+import bat from "../assets/music/bat1.wav";
 
 export const characters = [
   "barbudo",
@@ -131,7 +139,16 @@ export default class Boot extends Phaser.Scene {
    * Carga de los assets del juego
    */
   preload() {
-    this.load.audio("musica", musica);
+    this.load.audio("musica1", musica1);
+    this.load.audio("musica2", musica2);
+    this.load.audio("bat", bat);
+    this.load.audio("abucheo", abucheo);
+    this.load.audio("aplauso1", aplauso1);
+    this.load.audio("aplauso2", aplauso2);
+    this.load.audio("risas1", risas1);
+    this.load.audio("risas2", risas2);
+    this.load.audio("alabanza", alabanza);
+
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     // this.load.setPath('assets/sprites/');
     // this.load.image('platform', platform);
