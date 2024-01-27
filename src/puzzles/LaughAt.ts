@@ -158,23 +158,5 @@ export default class LaughAt extends BasePuzzle {
     this.emitter.stop();
   }
 
-  endPuzzle(success){
-    let endTween = this.add.timeline([
-      {
-        at:100,
-        tween: {
-          targets: this.container,
-          run: () => {this.closePanel()}
-        }
-      },
-      {
-        at:2000,
-        tween: {
-          targets: this.container,
-          run: () => {this.onPuzzleEnd(success)}
-        }
-      }
-    ]);
-    endTween.play();
-  }
+  
 } // BasePuzzle
