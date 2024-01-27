@@ -1,7 +1,8 @@
 
 import Phaser from 'phaser'
 
-export default class Player extends Phaser.GameObjects.Sprite {
+export default class Player extends Phaser.GameObjects.Sprite 
+{
 
     constructor(scene, x, y) {
         super(scene, x, y, 'pelirroja', 0);
@@ -12,8 +13,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
         /// Deficinión de parametros
         this.velocity = 400.0;
         this.stopDistance = 5.0;
-        this.usingNavmesh = false;
+        this.usingNavmesh = true;
         this.navMesh = null;
+        this.currentTarget = null;
         //Variables internas
         this._isMoving = false;
         this._targetX = this.x;
@@ -21,12 +23,21 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.bored = true; // El jugador se aburre si está sin hacer nada/quieto, asñi que puede acceder a interactuar con la mesa si está en la posición correcta
 
         this.play("idle_pelirroja")
+
     }
 
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
-        this.checkStop(t,dt);
+        if(this.usingNavmesh && this.navMesh != null)
+        {
+            this.moveUsingPathfinding(t,dt);
+        }
+        else
+        {
+            this.checkStop(t,dt);
+        }
+        
         //this.move(dt);
         // if (this.cursors.up.isDown && this.body.onFloor()) {
         //     this.body.setVelocityY(this.jumpSpeed);
@@ -52,21 +63,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
         let destination = new Phaser.Math.Vector2(this._targetX,this._targetY);
         if(this.usingNavmesh && this.navMesh != null)
         {
-            goTo(destination);
+            this.goTo(destination);
         }
         else
         {
-            let pos = new Phaser.Math.Vector2(this.x,this.y);
-            let direction = destination.subtract(pos);
-            let mod = direction.length();
-            direction = direction.normalize();
-    
-            //console.log('velocity X '+(this.velocity*direction.x) + " Y "+(this.velocity*direction.y));
-            if(mod > this.stopDistance)
-            {
-                this.body.setVelocityX(this.velocity*direction.x);
-                this.body.setVelocityY(this.velocity*direction.y);
-            }
+            this.movePosition(destination);
         }
     }
 
@@ -93,7 +94,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     {
         if(this.navMesh == null)
             this.currentTarget = null;
-        else{
+        else
+        {
             // Find a path to the target
             this.path = this.navMesh.findPath(new Phaser.Math.Vector2(this.x, this.y), targetPoint);
         
@@ -113,6 +115,67 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     isStanding(){
         return this.body.velocity.x == 0 && this.body.velocity.y == 0;
+    }
+
+    movePosition(destination)
+    {
+        let pos = new Phaser.Math.Vector2(this.x,this.y);
+        let direction = destination.subtract(pos);
+        let mod = direction.length();
+        direction = direction.normalize();
+        
+        if(mod > this.stopDistance)
+        {
+            this.body.setVelocityX(this.velocity*direction.x);
+            this.body.setVelocityY(this.velocity*direction.y);
+        }
+    }
+
+    moveUsingPathfinding(t,dt)
+    {
+        if (this.currentTarget) 
+        {
+            const { x, y } = this.currentTarget;
+            const distance = Phaser.Math.Distance.Between(this.x, this.y, x, y);
+            let changeTarget = false;
+            if (distance < this.stopDistance && this.path.length > 0) 
+            {
+                // obtengo el path siguiente.
+                this.currentTarget = this.path.shift();
+                changeTarget = true;
+            }
+            else if((distance < this.stopDistance) && (this.path.length == 0))
+            {
+                this.body.setVelocityX(0);
+                this.body.setVelocityY(0);
+                this.currentTarget = null;
+            }
+
+            if(changeTarget)
+            {
+                this.movePosition(new Phaser.Math.Vector2(this.currentTarget.x,this.currentTarget.y));
+            }
+                
+
+        }
+    }
+      
+    moveTowards(targetPosition, maxSpeed = 200, elapsedSeconds) 
+    {
+        const { x, y } = targetPosition;
+        const angle = Phaser.Math.Angle.Between(this.x, this.y, x, y);
+        const distance = Phaser.Math.Distance.Between(this.x, this.y, x, y);
+        const targetSpeed = distance / elapsedSeconds;
+        const magnitude = Math.min(maxSpeed, targetSpeed);
+    
+        this.scene.physics.velocityFromRotation(angle, magnitude, this.body.velocity);
+        this.rotation = angle;
+    }
+      
+    destroy() 
+    {
+        if (this.scene) this.scene.events.off("update", this.update, this);
+        super.destroy();
     }
 
 }
