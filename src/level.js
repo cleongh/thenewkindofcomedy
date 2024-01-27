@@ -16,7 +16,10 @@ export default class Level extends Phaser.Scene {
 
     create() {
         /* Tiempo de show */        
-        this.timerText = this.add.text(this.game.config.width/2, 50, this.showTime).setDepth(10);
+        this.timerText = this.add.text(this.game.config.width/2, 50, this.showTime, {
+            fontSize: "40px",
+            fontFamily: "serif",
+          }).setDepth(10);
 
         // esto habrá que pillarlo por los tiles
         // this.tableGroup = this.add.group();
@@ -110,15 +113,23 @@ export default class Level extends Phaser.Scene {
 
                 console.log(this.number_musicians)
                 const minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                this.player.setEnableInput(false) // al lanzar el puzzle el jugador ya no debe moverse hasta que se cierre o termine el puzzle
+                console.log("PLAYER NOOOO MOVE")
                 this.scene.launch(minijuego, {
                     bandMembersAmount: this.number_musicians,
                     onPuzzleClosed: () => {
-                        this.scene.stop(minijuego) //Esto
-                        this.scene.resume('level1')
+                        //console.log("PLAYER NOOOO MOVE")
+                        this.scene.stop(minijuego) // Se cierra el puzzle
+                        this.player.setEnableInput(true)
+                        console.log("FIN JUEGO")
+                        //this.scene.resume('level1')
                     },
-                    onPuzzleEnd: () => {}
+                    onPuzzleEnd: () => {
+                        console.log("PLAYER MOVE")
+                        this.player.setEnableInput(true)
+                    }
                 });
-                this.scene.pause(this)
+                //this.scene.pause(this)
             }
         })
 
