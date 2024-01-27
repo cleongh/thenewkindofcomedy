@@ -13,10 +13,13 @@
             "scaleInEditor": 1
         },
         "level1.json": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 0.33,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 537.8787878787878,
+                "x": 1057.5757575757575,
                 "y": 651.5151515151515
             }
         },
@@ -89,7 +92,7 @@
     "openFiles": [
     ],
     "project": "thenewkingofcomedy.tiled-project",
-    "property.type": "puzzle",
+    "property.type": "int",
     "recentFiles": [
         "level1.json",
         "level1.tmj"

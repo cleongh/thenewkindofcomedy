@@ -105,6 +105,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"clients",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"puzzle",
                          "type":"string",
                          "value":"LaughAt,WhoGoesFirst"
@@ -169,6 +174,11 @@
                  "id":32,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"clients",
+                         "type":"int",
+                         "value":4
+                        }, 
                         {
                          "name":"puzzle",
                          "type":"string",
