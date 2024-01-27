@@ -62,32 +62,32 @@ export default class Boot extends Phaser.Scene {
         this.load.image('brownFrame', brownFrame);
         this.load.image('exitIcon', exitIcon);
 
-        this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('barbudo', barbudo, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
-        this.load.spritesheet('bigotes', bigotes, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
-        this.load.spritesheet('elvis', elvis, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3  });
+        this.load.spritesheet('pelirroja', pelirroja, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('barbudo', barbudo, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('bigotes', bigotes, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
+        this.load.spritesheet('elvis', elvis, { frameWidth: 48, frameHeight: 100, startFrame: 0, endFrame: 3 });
 
     }
 
-    create() {  
+    create() {
         const characters = ['barbudo', 'bigotes', 'elvis', 'gorrito', 'niga', 'nigaplus', 'peliazul', 'pelirroja', 'playero', 'policeman', 'seniora', 'sherif']
-        
+
         characters.forEach(char => {
-            this.anims.create( {
-                key: 'idle_'+char,
+            this.anims.create({
+                key: 'idle_' + char,
                 frames: this.anims.generateFrameNumbers(char, { start: 3, end: 3 }),
                 frameRate: 1,
                 repeat: -1
             });
 
-            this.anims.create( {
-                key: 'rotate_'+char,
+            this.anims.create({
+                key: 'rotate_' + char,
                 frames: this.anims.generateFrameNumbers(char, { start: 0, end: 3 }),
                 frameRate: 1,
                 repeat: -1
             });
         })
-        
+
 
         this.scene.start('level1');
     }
