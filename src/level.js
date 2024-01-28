@@ -12,6 +12,49 @@ export default class Level extends Phaser.Scene {
     constructor(name) {
         super(name)
         this.showTime = 60
+
+        //Creamos dos particulas. La configuración es muy básica
+        this.emitterWinConfig = {
+            speed: {min:100,max:300},
+            lifespan: 1000,
+            frequency: 800,
+            duration: -1,
+            quantity: 10,
+            rotate:{min:0,max:360},
+            scale: {
+                start: 1,
+                end: 0.05,
+            ease: 'Linear'
+            },
+                alpha: {
+                start: 0.8,
+                end: 0.7,
+                ease: 'Linear'
+            },
+            tint: 0xFFFFFF, 
+            blendMode: 'NORMAL'
+        };
+
+        this.emitterLooseConfig = {
+            speed: {min:100,max:300},
+            lifespan: 1000,
+            quantity: 10,
+            frequency: 800,
+            duration: -1,
+            rotate:{min:0,max:360},
+            scale: {
+                start: 0.8,
+                end: 0.05,
+            ease: 'Linear'
+            },
+                alpha: {
+                start: 1.0,
+                end: 0.5,
+                ease: 'Linear'
+            },
+            tint: 0xFFFFFF, 
+            blendMode: 'NORMAL'
+        };
     }
 
 
@@ -160,6 +203,7 @@ export default class Level extends Phaser.Scene {
                         } else {
                             // LA MESA PETA
                         }
+                        this.generateParticles(zone.x, zone.y, success);
                         zone.destroy();
                     }
                 });
@@ -315,5 +359,16 @@ export default class Level extends Phaser.Scene {
             emitter.fastForward(2000);
         });
         this.container.add(menuButton);
+    }
+
+    generateParticles(x, y, success){
+        let emitter;
+        if(success){
+            emitter = this.add.particles(x, y, 'particle_win', this.emitterWinConfig).setDepth(10);
+        } else {
+            emitter = this.add.particles(x, y, 'particle_loose', this.emitterLooseConfig).setDepth(10);
+        }
+        emitter.particleBringToTop = true;
+        emitter.start();        
     }
 }

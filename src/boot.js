@@ -123,6 +123,10 @@ import musica1 from "../assets/music/king.ogg";
 import musica2 from "../assets/music/jazzy.ogg";
 import bat from "../assets/music/bat1.wav";
 
+import wood_fx from "../assets/sprites/wood_fx.png";
+import particle_win from "../assets/sprites/particleWin.png";
+import particle_loose from "../assets/sprites/particleLoose.png";
+
 export const characters = [
   "barbudo",
   "bigotes",
@@ -228,6 +232,10 @@ export default class Boot extends Phaser.Scene {
     this.load.image("frameVerde", frameVerde);
     this.load.image("frameEscatológico", frameEscatológico);
     this.load.image("frameBlanco", frameBlanco);
+
+    this.load.image('wood_fx', wood_fx);
+    this.load.image('particle_win', particle_win);
+    this.load.image('particle_loose', particle_loose);
 
     this.load.spritesheet("characterDerecha", characterDerecha, {
       frameWidth: 48,
