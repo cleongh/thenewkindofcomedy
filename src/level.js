@@ -7,8 +7,7 @@ import Table from './levels/table.js'
 export default class Level extends Phaser.Scene {
     constructor(name) {
         super(name)
-
-        this.showTime = 120
+        this.showTime = 20 // TODO change before commit
     }
 
 
@@ -122,23 +121,18 @@ export default class Level extends Phaser.Scene {
          * NOTA!: Problema al pulsar botón de cerrar ya que el jugador seguirá en la zona que lanza el minijuego,
          * como solución compruebo que el personaje no haya recibido input de movimiento y no acabe de cerrar un minijuego.
          */
-        let self = this;
         this.physics.add.overlap(this.player, levelZone, (player, zone) => {
-            if (player.isBored() && player.isStanding()) {
+            if (player.isBored() && player.isStanding() && !this.end) {
                 player.setBored(false)
 
-                console.log(this.number_musicians)
-                const minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                this.minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
                 this.player.setEnableInput(false) // al lanzar el puzzle el jugador ya no debe moverse hasta que se cierre o termine el puzzle
-                console.log("PLAYER NOOOO MOVE")
-                this.scene.launch(minijuego, {
+                this.scene.launch(this.minijuego, {
                     bandMembersAmount: this.number_musicians,
                     onPuzzleClosed: () => {
-                        //console.log("PLAYER NOOOO MOVE")
-                        this.scene.stop(minijuego) // Se cierra el puzzle
+                        this.scene.stop(this.minijuego) // Se cierra el puzzle
+                        this.minijuego = null
                         this.player.setEnableInput(true)
-                        console.log("FIN JUEGO")
-                        //this.scene.resume('level1')
                     },
                     onPuzzleEnd: (success) => {
                         console.log("PLAYER MOVE")
@@ -188,17 +182,22 @@ export default class Level extends Phaser.Scene {
         // Contador
         if(!this.end){
             this.timerTime += dt/1000 // a pelo, ni timer ni pollas
-            this.timerText.setText(`Show time: ${(this.showTime-this.timerTime).toFixed(0)}`);
-        }
-        
-
-        if(this.timerTime <= 0 || this.completedTables == this.totalTables){
-            this.endShow(this.score);
+            if(this.timerTime >= this.showTime || this.completedTables == this.totalTables){
+                this.timerText.setText(`Show time: 0`);
+                this.endShow(this.score);
+            } else {
+                this.timerText.setText(`Show time: ${(this.showTime-this.timerTime).toFixed(0)}`);
+            }
         } 
     }
 
     endShow(score){
         this.end=true;
+        if (this.minijuego != null) { // no cerrar minijuego si no está lanzado (null o undefined)
+            this.scene.stop(this.minijuego) // se cierra el minijuego
+        }
+        this.minijuego = null
+        this.player.stopMoving();
         this.player.setEnableInput(false);
 
         let finishMessageText = "¡Se acabó el show!\n\n"

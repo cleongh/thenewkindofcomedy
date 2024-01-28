@@ -300,6 +300,14 @@ export default class Player extends Phaser.GameObjects.Sprite
         let lenght = Math.abs(this.body.velocity.x) +  Math.abs(this.body.velocity.y);
         return lenght > 1.0; // si nos estamos moviendo
     }
+
+    stopMoving() {
+        this.currentTarget = null;
+        this.body.setVelocity(0, 0);
+        this._isMoving = false;
+        this._targetX = this.x;
+        this._targetY = this.y;
+    }
       
     destroy() 
     {
