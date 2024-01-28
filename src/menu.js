@@ -38,7 +38,7 @@ export default class Menu extends Phaser.Scene {
       lifespan: 1500,
       quantity: 5,
       scale: { start: 0.2, end: 0 },
-      advance: 2000,
+      advance: 0,
       emitZone: [{
         type: "edge",
         source: new Phaser.Geom.Rectangle(
@@ -63,6 +63,8 @@ export default class Menu extends Phaser.Scene {
       tint: colors.hover,
     })
       .setDepth(10);
+    // No mostrar emitter hasta que se pasa por encima de un botón
+    emitter.stop();
 
     // Asignar acciones a botón de start
     startButton.on("pointerdown", () => {
@@ -79,6 +81,7 @@ export default class Menu extends Phaser.Scene {
 
     startButton.on("pointerover", () => {
       emitter.setEmitZone(0);
+      emitter.start();
       emitter.fastForward(2000);
     });
 
@@ -99,6 +102,7 @@ export default class Menu extends Phaser.Scene {
     });
 
     creditsButton.on("pointerover", () => {
+      emitter.start();
       emitter.setEmitZone(1);
       emitter.fastForward(2000);
     });
