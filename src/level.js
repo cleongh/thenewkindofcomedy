@@ -97,10 +97,6 @@ export default class Level extends Phaser.Scene {
 
         this.map.createLayer('suelo', upstairs_ts)
         
-        
-
-        
-
         let paredes = this.map.createLayer('walls', [walls_ts, conference_ts,kitchen_ts])
         this.map.createLayer('escenario', [conference_ts, kitchen_ts])
         let mesas = this.map.createLayer('mesas', [kitchen_ts, conference_ts, music_ts])
@@ -290,7 +286,7 @@ export default class Level extends Phaser.Scene {
             )
             .setAlpha(0.8);
         this.container.add(frame);
-
+        let sound;
         // Texto de final de nivel 
         let finishMessageText = "¡Se acabó el show!\n\n"
         // Si la puntuación acaba en 5, rima graciosa
@@ -298,8 +294,12 @@ export default class Level extends Phaser.Scene {
             finishMessageText += `Has hecho reír a \nun total de ${this.score}. \n¡Por el culo te la hinco!`
         } else if (this.score == this.posibleScore) {
             finishMessageText += "Enhorabuena, \ntodo el mundo se ha reído."
+            sound = this.sound.add("alabanza", { volume: 1 });
+            sound.play();
         } else if (this.score == 0) {
             finishMessageText += "No eres muy gracioso, no."
+            sound = this.sound.add("abucheo", { volume: 1 });
+            sound.play();
         } else {
             finishMessageText += `Has hecho reír a \n${this.score + " de " + this.posibleScore} asistentes.`
         }
@@ -345,6 +345,7 @@ export default class Level extends Phaser.Scene {
             .setDepth(21);
         menuButton.setInteractive();
         menuButton.on("pointerdown", () => {
+            sound.stop();
             emitter.particleTint = colors.right;
             this.input.stopPropagation();
             this.time.delayedCall(500, () => {

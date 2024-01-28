@@ -24,6 +24,7 @@ export default abstract class BasePuzzle extends Phaser.Scene {
     protected frameHeight = frameHeight;
     protected container;
     private closeTween;
+    private currentSound;
     /**
      * Callback a llamar cuando finalice el puzzle con el resultado de su ejecución.
      */
@@ -43,19 +44,25 @@ export default abstract class BasePuzzle extends Phaser.Scene {
         const risasSound = this.sound.add("risas1", { volume: 1 });
         const risasTween = this.tweens.add({
             targets: risasSound,
-            duration: 2200,
+            duration: 1800,
             volume: 0,
         });
 
-        risasSound.on("complete", () => {
-            risasTween.stop();
-            risasSound.destroy();
-        });
-
         risasSound.play();
+        this.currentSound = risasSound;
     }
 
-    playFailureSound() { }
+    playFailureSound() { 
+        const abucheoSound = this.sound.add("abucheo", { volume: 1 });
+        const abucheoTween = this.tweens.add({
+            targets: abucheoSound,
+            duration: 1800,
+            volume: 0,
+        });
+
+        abucheoSound.play();
+        this.currentSound = abucheoSound;
+    }
 
     playTrySound() {
         this.sound.play("bat");
@@ -144,6 +151,11 @@ export default abstract class BasePuzzle extends Phaser.Scene {
     }
 
     endPuzzle(success) {
+        if(success){
+            this.playSuccessSound();
+        } else {
+            this.playFailureSound();
+        }
         let endTween = this.add.timeline([
             {
                 at: 1000,
@@ -159,6 +171,9 @@ export default abstract class BasePuzzle extends Phaser.Scene {
                 tween: {
                     targets: this.container,
                     run: () => {
+                        this.currentSound.stop();
+                        this.currentSound.destroy();
+                        this.currentSound = null;
                         this.onPuzzleEnd(success);
                     },
                 },
