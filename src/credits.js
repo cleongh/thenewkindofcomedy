@@ -33,13 +33,13 @@ export default class Credits extends Phaser.Scene {
       'marco'
     ];
 
-    this.add.text(30 * 48, 2 * 48, "In Memoriam", { fontFamily: 'Minecraftia', fontSize: 48, color: '#222222' })
+    this.add.text(25 * 48, 2 * 48, "In Memoriam", { fontFamily: 'Minecraftia', fontSize: 48, color: '#222222' })
       .setOrigin(0.5, 0)
       .setAlign("center");
 
     let i = 0;
     for (let aName of inMemoriamList) {
-      this.add.image(30 * 48, (7 + i) * 48, aName)
+      this.add.image(25 * 48, (7 + i) * 48, aName)
         .setScale(0.7);
       i += 4;
     }
