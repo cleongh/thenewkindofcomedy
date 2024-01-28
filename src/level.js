@@ -1,5 +1,9 @@
 import Phaser from 'phaser'
 
+import {
+    frameWidth ,
+    frameHeight} from './puzzles/BasePuzzle.ts'
+
 import Player from './levels/player.js'
 import Client from './client.js'
 import { colors } from './colors.ts'
@@ -130,7 +134,10 @@ export default class Level extends Phaser.Scene {
          * como solución compruebo que el personaje no haya recibido input de movimiento y no acabe de cerrar un minijuego.
          */
         this.physics.add.overlap(this.player, levelZone, (player, zone) => {
+            // console.log(            player.isBored())
+            //             console.log(            player.isStanding())
             if (player.isBored() && player.isStanding() && !this.end) {
+                
                 player.setBored(false)
 
                 this.minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
@@ -221,8 +228,8 @@ export default class Level extends Phaser.Scene {
             this.game.config.width / 2,
             this.game.config.height / 2
         ).setDepth(20);
-        this.container.width = 1400;
-        this.container.height = 800;
+        this.container.width = frameWidth;
+        this.container.height = frameHeight;
         // Background
         let frame = this.add
             .nineslice(
@@ -230,8 +237,8 @@ export default class Level extends Phaser.Scene {
                 0,
                 "backgroundTile",
                 0,
-                1600,
-                800,
+                        this.container.width,
+        this.container.height,
                 1,
                 1,
                 1,

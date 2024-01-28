@@ -17,16 +17,19 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.4726,
-            "selectedLayer": 3,
+            "scale": 0.5,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 1117.2238679644518,
-                "y": 539.5683453237409
+                "x": 500,
+                "y": 442
             }
         },
         "level1.json#character": {
             "dynamicWrapping": true,
             "scaleInEditor": 1
+        },
+        "level1.json#conference": {
+            "scaleInDock": 0.5
         },
         "level1.json#elements": {
             "dynamicWrapping": false
@@ -37,21 +40,24 @@
         "level1.json#kitchen": {
             "scaleInDock": 0.75
         },
+        "level1.json#music": {
+            "scaleInDock": 0.75
+        },
         "level1.json#musicos": {
             "dynamicWrapping": true
         },
         "level1.json#paredes3d": {
-            "scaleInDock": 1.3884
+            "scaleInDock": 0.125
         },
         "level1.json#player-spritesheet": {
             "dynamicWrapping": false
         },
         "level1.json#upstairs": {
             "dynamicWrapping": false,
-            "scaleInDock": 0.7675
+            "scaleInDock": 0.5
         },
         "level1.json#walls": {
-            "scaleInDock": 0.75
+            "scaleInDock": 0.25
         },
         "level1.tmj": {
             "scale": 0.3701041666666667,
