@@ -7,7 +7,7 @@ import { colors } from './colors.ts'
 export default class Level extends Phaser.Scene {
     constructor(name) {
         super(name)
-        this.showTime = 30
+        this.showTime = 60
     }
 
 
@@ -18,6 +18,7 @@ export default class Level extends Phaser.Scene {
         this.end = false;
         this.score = 0;
         this.posibleScore = 0;
+        this.showTime = 60;
 
         this.map = this.make.tilemap({
             key: 'tilemap',
@@ -147,6 +148,7 @@ export default class Level extends Phaser.Scene {
                         this.completedTables++;
                         if (success) {
                             this.score += zone.clients;
+                            this.showTime += 15;
                             this.scoreText.setText(this.score + "/" + this.posibleScore);
                         } else {
                             // LA MESA PETA

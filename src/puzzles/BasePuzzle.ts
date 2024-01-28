@@ -68,8 +68,7 @@ export default abstract class BasePuzzle extends Phaser.Scene {
      */
     this.container = this.add.container(
       this.game.config.width / 2,
-      this.game.config.height / 2
-    );
+      this.game.config.height - this.frameHeight/2 - 48*2   );
     this.container.width = this.frameWidth;
     this.container.height = this.frameHeight;
 
@@ -81,10 +80,10 @@ export default abstract class BasePuzzle extends Phaser.Scene {
         0,
         this.frameWidth,
         this.frameHeight,
-        1,
-        1,
-        1,
-        0
+        4,
+        4,
+        4,
+        4
       )
       .setAlpha(0.8);
     this.container.add(frame);
