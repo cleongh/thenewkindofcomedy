@@ -183,7 +183,7 @@ export default class Level extends Phaser.Scene {
                 
                 player.setBored(false)
 
-                this.minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                this.minijuego = 'WhoGoesFirst';//zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
                 this.player.setEnableInput(false) // al lanzar el puzzle el jugador ya no debe moverse hasta que se cierre o termine el puzzle
                 this.scene.launch(this.minijuego, {
                     bandMembersAmount: this.number_musicians,
@@ -226,16 +226,16 @@ export default class Level extends Phaser.Scene {
 
 
         /* Tiempo de show */
-        this.timerText = this.add.text(this.game.config.width / 2 - 300, 40, this.showTime, {
+        this.timerText = this.add.text(this.game.config.width / 2 - 300, this.game.config.height-24, this.showTime, {
             fontSize: "40px",
             fontFamily: "minecraftia",
-        }).setDepth(10);
+        }).setDepth(10).setOrigin(0.5, 1);
 
         /* SCORE */
-        this.scoreText = this.add.text(this.game.config.width / 2 + 300, 40, this.score + "/" + this.posibleScore, {
+        this.scoreText = this.add.text(this.game.config.width / 2 + 300, this.game.config.height-24, this.score + "/" + this.posibleScore, {
             fontSize: "40px",
             fontFamily: "minecraftia",
-        }).setDepth(10);
+        }).setDepth(10).setOrigin(0.5, 1);
     }
 
     update(t, dt) {
