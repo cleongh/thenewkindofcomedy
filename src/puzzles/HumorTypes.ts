@@ -25,12 +25,12 @@ export const humorColors: HumorColors = {
 // Posiciones en las que se van a colocar los tipos de humor
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 228 - 800, y: 0 },
-  { x: 2 * 228 - 800, y: 0 },
-  { x: 3 * 228 - 800, y: 0 },
-  { x: 4 * 228 - 800, y: 0 },
-  { x: 5 * 228 - 800, y: 0 },
-  { x: 6 * 228 - 800, y: 0 },
+  { x: 228 - 800, y: -100 },
+  { x: 2 * 228 - 800, y: -100 },
+  { x: 3 * 228 - 800, y: -100 },
+  { x: 4 * 228 - 800, y: -100 },
+  { x: 5 * 228 - 800, y: -100 },
+  { x: 6 * 228 - 800, y: -100 },
 ];
 
 export interface HumorTypesProps {
@@ -300,8 +300,14 @@ export default class HumorTypes extends BasePuzzle {
         .image(screenPositions[i].x, screenPositions[i].y, `frame${humorType}`)
         .setDisplaySize(140, 140)
         .setOrigin(0.5, 0.5);
+        const character = this.add
+        .sprite(screenPositions[i].x, screenPositions[i].y + 200, `character${Math.floor(Math.random() * 19)}`)
+        .setFrame(3)
+        .setScale(2.5)
+        .setOrigin(0.5, 0.5);
       this.container.add(characterButton);
       this.container.add(characterFrame);
+      this.container.add(character);
 
       characterButton.setInteractive();
       characterButton.on("pointerdown", () => {
