@@ -20,6 +20,8 @@ export default class Credits extends Phaser.Scene {
       "José Manuel Moreno Valderrama",
       "Alejandro Villar Rubio"];
 
+      this.shuffleArray(textList) // Ahora los créditos son aleatorios, viva el RNG!!
+
     this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'fondoMenu');
 
     this.add.text(2 * 48, 2 * 48, "Los responsables de esto:", { fontFamily: 'Minecraftia', fontSize: 48, color: '#222222' });
@@ -98,5 +100,16 @@ export default class Credits extends Phaser.Scene {
     });
 
   }
+
+  // taken from https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
+  shuffleArray = array => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+  }
+  
 
 }
