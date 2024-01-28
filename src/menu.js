@@ -17,17 +17,24 @@ export default class Menu extends Phaser.Scene {
    * Creación de la escena. Tan solo contiene el texto que indica que el juego se ha acabado
    */
     create() {
+      this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'menu');
 
-         const music = this.sound.add('musica');
+      // Ponemos la música una sola vez
+      if (! this.music){
+        this.music = this.sound.add('musica1');
+        this.music.play();
+      }
 
-        music.play();
+
+      
         
-        this.add.text(500, 100, "iniciar juego").setInteractive().
+      // TODO: Poner las partículas que ha puesto Toni en los botones del juego
+      this.add.text(48 * 4, 48 * 10, "Iniciar Juego", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' }).setInteractive().
             on('pointerdown', () =>  {
                 this.scene.start('level1')
             })
 
-        this.add.text(500, 120, "créditos").setInteractive().
+      this.add.text(48 * 4, 48 * 14, "Créditos", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' }).setInteractive().
             on('pointerdown', () =>  {
                 this.scene.start('credits')
             })

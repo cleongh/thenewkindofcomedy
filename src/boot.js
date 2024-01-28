@@ -11,6 +11,7 @@ import paredes3d from "../assets/sprites/paredes3d.png";
 import kitchen from "../assets/sprites/kitchen.png";
 // import client from '../assets/sprites/client.png'
 
+
 /* ----- PERSONAJES -----*/
 import barbudo from "../assets/sprites/characters/barbudo.png";
 import bigotes from "../assets/sprites/characters/bigotes.png";
@@ -68,6 +69,15 @@ import exitIcon from "../assets/ui/exit.png";
 import flare from "../assets/ui/white-flare.png";
 import backgroundTile from "../assets/ui/bg.png";
 /* ----- UI FIN -----*/
+
+
+/*------ MENU -------*/
+import menu from "../assets/sprites/menu/menu.png";
+import fondoMenu from "../assets/sprites/menu/fondoMenu.png";
+import elena from "../assets/sprites/menu/elena-px.png";
+import marco from "../assets/sprites/menu/marco-px.png";
+import pedropablo from "../assets/sprites/menu/pedropablo-px.png";
+/*------ MENU FIN -------*/
 
 /* ----- AUDIOS bebé -----*/
 import Be from "../assets/audio/baby/Be.wav";
@@ -175,6 +185,14 @@ export default class Boot extends Phaser.Scene {
       this.load.image("bateria", bateria);
                   this.load.image("piano", piano);
     this.load.image("flare", flare);
+
+    // MENUS
+    this.load.image("menu", menu);
+    this.load.image("fondoMenu", fondoMenu);
+    this.load.image("elena", elena);
+    this.load.image("marco", marco);
+    this.load.image("pedropablo", pedropablo);
+
 
     this.load.spritesheet("characterDerecha", characterDerecha, {
       frameWidth: 48,
@@ -535,7 +553,7 @@ export default class Boot extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.scene.start("level1");
-    // this.scene.start("menu");
+    //this.scene.start("level1");
+     this.scene.start("menu");
   }
 }
