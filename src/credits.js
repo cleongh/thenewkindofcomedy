@@ -15,7 +15,7 @@ export default class Credits extends Phaser.Scene {
       "Ismael Sagredo Olivenza",
       "Guillermo Jiménez Díaz",
       "Alejandro Romero Hernández",
-      "Ana...",
+      "Ana Ruiz Lanau",
       "José Manuel Moreno Valderrama",
       "Alejandro Villar Rubio"];
 

@@ -2,12 +2,12 @@ import Phaser from 'phaser'
 
 import Player from './levels/player.js'
 import Client from './client.js'
-import Table from './levels/table.js'
+import { colors } from './colors.ts'
 
 export default class Level extends Phaser.Scene {
     constructor(name) {
         super(name)
-        this.showTime = 20 // TODO change before commit
+        this.showTime = 30
     }
 
 
@@ -47,10 +47,10 @@ export default class Level extends Phaser.Scene {
 
         this.map.createLayer('suelo', upstairs_ts)
         let mesas = this.map.createLayer('mesas', kitchen_ts)
-        
+
         let paredes = this.map.createLayer('walls', walls_ts)
         this.map.createLayer('props', [kitchen_ts, upstairs_ts])
-                
+
         //pongo las colisiones
         mesas.setCollisionByExclusion(-1, true);
         paredes.setCollisionByExclusion(-1, true);
@@ -104,7 +104,7 @@ export default class Level extends Phaser.Scene {
             z.table = t;
             levelZone.add(z)
 
-            this.posibleScore+=z.clients
+            this.posibleScore += z.clients
             this.totalTables++;
         })
         // this.map.createFromObjects('objetos', { gid: 1, type: 'cliente' }).forEach(obj => {
@@ -138,9 +138,9 @@ export default class Level extends Phaser.Scene {
                         console.log("PLAYER MOVE")
                         this.player.setEnableInput(true);
                         this.completedTables++;
-                        if(success){
+                        if (success) {
                             this.score += zone.clients;
-                            this.scoreText.setText(this.score+"/"+this.posibleScore);
+                            this.scoreText.setText(this.score + "/" + this.posibleScore);
                         } else {
                             // LA MESA PETA
                         }
@@ -165,52 +165,45 @@ export default class Level extends Phaser.Scene {
 
 
 
-        /* Tiempo de show */        
-        this.timerText = this.add.text(this.game.config.width/2-300, 40, this.showTime, {
+        /* Tiempo de show */
+        this.timerText = this.add.text(this.game.config.width / 2 - 300, 40, this.showTime, {
             fontSize: "40px",
             fontFamily: "minecraftia",
-            }).setDepth(10);
+        }).setDepth(10);
 
         /* SCORE */
-        this.scoreText = this.add.text(this.game.config.width/2+300, 40, this.score+"/"+this.posibleScore, {
+        this.scoreText = this.add.text(this.game.config.width / 2 + 300, 40, this.score + "/" + this.posibleScore, {
             fontSize: "40px",
             fontFamily: "minecraftia",
-            }).setDepth(10);
+        }).setDepth(10);
     }
 
     update(t, dt) {
         // Contador
-        if(!this.end){
-            this.timerTime += dt/1000 // a pelo, ni timer ni pollas
-            if(this.timerTime >= this.showTime || this.completedTables == this.totalTables){
-                this.timerText.setText(`Show time: 0`);
+        if (!this.end) {
+            this.timerTime += dt / 1000 // a pelo, ni timer ni pollas
+            if (this.timerTime >= this.showTime || this.completedTables == this.totalTables) {
+                this.timerText.setText(`The show is over`);
                 this.endShow(this.score);
             } else {
-                this.timerText.setText(`Show time: ${(this.showTime-this.timerTime).toFixed(0)}`);
+                this.timerText.setText(`Show time: ${(this.showTime - this.timerTime).toFixed(0)}`);
             }
-        } 
+        }
     }
 
-    endShow(score){
-        this.end=true;
-        if (this.minijuego != null) { // no cerrar minijuego si no está lanzado (null o undefined)
-            this.scene.stop(this.minijuego) // se cierra el minijuego
+    endShow(score) {
+        this.end = true;
+
+        // Cerrar minijuego en curso (si no es null o undefined)
+        if (this.minijuego != null) {
+            this.scene.stop(this.minijuego)
+            this.scene.get(this.minijuego).resetSoundTracks()
         }
         this.minijuego = null
+
+        // Parar player
         this.player.stopMoving();
         this.player.setEnableInput(false);
-
-        let finishMessageText = "¡Se acabó el show!\n\n"
-        // Si la puntuación acaba en 5, rima graciosa
-        if (this.score.toString().slice(-1) == "5") {
-            finishMessageText += `Has hecho reír a un total de ${this.score}. \n¡Por el culo te la hinco!`
-        } else if (this.score == this.posibleScore) {
-            finishMessageText += "Enhorabuena, todo el mundo se ha reído."
-        } else if (this.score == 0) {
-            finishMessageText += "No eres muy gracioso, no."
-        } else {
-            `Has hecho reír a ${this.score + " de " + this.posibleScore} asistentes.`
-        }
 
         /**
          * Panel de fin de nivel
@@ -221,47 +214,90 @@ export default class Level extends Phaser.Scene {
         ).setDepth(20);
         this.container.width = 1600;
         this.container.height = 800;
-    
+        // Background
         let frame = this.add
             .nineslice(
-            0,
-            0,
-            "backgroundTile",
-            0,
-            1600,
-            800,
-            1,
-            1,
-            1,
-            0
+                0,
+                0,
+                "backgroundTile",
+                0,
+                1600,
+                800,
+                1,
+                1,
+                1,
+                0
             )
             .setAlpha(0.8);
         this.container.add(frame);
-        let menuButton = this.add
-        .text(0, 250, "Continuar", {
-            fontSize: "40px",
-            fontFamily: "minecraftia",
+
+        // Texto de final de nivel 
+        let finishMessageText = "¡Se acabó el show!\n\n"
+        // Si la puntuación acaba en 5, rima graciosa
+        if (this.score.toString().slice(-1) == "5") {
+            finishMessageText += `Has hecho reír a un total de ${this.score}. \n¡Por el culo te la hinco!`
+        } else if (this.score == this.posibleScore) {
+            finishMessageText += "Enhorabuena, todo el mundo se ha reído."
+        } else if (this.score == 0) {
+            finishMessageText += "No eres muy gracioso, no."
+        } else {
+            finishMessageText += `Has hecho reír a ${this.score + " de " + this.posibleScore} asistentes.`
+        }
+
+        let finishMessage = this.add.text(0, -100, finishMessageText,
+            {
+                fontSize: "50px",
+                fontFamily: "minecraftia",
+                align: "center"
             })
             .setColor("black")
             .setOrigin(0.5, 0.5);
-    
-            menuButton.setInteractive();
-            menuButton.on("pointerdown", () => {
-            this.input.stopPropagation();
-            //TODO go to menu
-        });
-        this.container.add(menuButton);
+        this.container.add(finishMessage);
 
-
-        let finishMessage = this.add.text(0, -100, finishMessageText, 
-        {
-            fontSize: "50px",
-            fontFamily: "minecraftia",
-            align: "center"
+        // Botón para volver al menú    
+        let menuButton = this.add
+            .text(0, 250, "Continuar", {
+                fontSize: "40px",
+                fontFamily: "minecraftia",
             })
             .setColor("black")
-        .setOrigin(0.5, 0.5);
-        this.container.add(finishMessage);
-        }
-
+            .setOrigin(0.5, 0.5);
+        // Con su emitter bonito
+        let emitter = this.add.particles(0, 0, "flare", {
+            speed: 24,
+            lifespan: 1500,
+            quantity: 5,
+            scale: { start: 0.2, end: 0 },
+            advance: 2000,
+            emitZone: [{
+                type: "edge",
+                source: new Phaser.Geom.Rectangle(
+                    this.container.x + menuButton.x - 20 - menuButton.width / 2,
+                    this.container.y + menuButton.y - 20 - menuButton.height / 2,
+                    menuButton.width + 40,
+                    menuButton.height + 40
+                ),
+                quantity: 42,
+            }
+            ],
+            tint: colors.hover,
+        })
+            .setDepth(21);
+        menuButton.setInteractive();
+        menuButton.on("pointerdown", () => {
+            emitter.particleTint = colors.right;
+            this.input.stopPropagation();
+            this.time.delayedCall(500, () => {
+                emitter.stop();
+            })
+            this.time.delayedCall(1000, () => {
+                this.scene.start("menu")
+            });
+        });
+        menuButton.on("pointerover", () => {
+            emitter.setEmitZone(0);
+            emitter.fastForward(2000);
+        });
+        this.container.add(menuButton);
+    }
 }

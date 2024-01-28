@@ -56,6 +56,9 @@ export default abstract class BasePuzzle extends Phaser.Scene {
   playTrySound() {
     this.sound.play("bat");
   }
+
+  resetSoundTracks() {}
+
   /**
    * Creación del background genérico del puzzle y del botón de cerrado
    */

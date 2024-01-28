@@ -23,14 +23,14 @@ export default class Menu extends Phaser.Scene {
       if (! this.music){
         this.music = this.sound.add('musica1');
         this.music.play();
+      } else {
+        this.music.setVolume(1);
       }
 
-
-      
-        
       // TODO: Poner las partículas que ha puesto Toni en los botones del juego
       this.add.text(48 * 4, 48 * 10, "Iniciar Juego", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' }).setInteractive().
             on('pointerdown', () =>  {
+              this.music.setVolume(0.1);
                 this.scene.start('level1')
             })
 
