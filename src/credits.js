@@ -45,7 +45,7 @@ export default class Credits extends Phaser.Scene {
     }
 
     // Botón "volver"
-    let button = this.add.text(500, 120, "volver", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' });
+    let button = this.add.text(500, 120, "Volver", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' });
     button.setOrigin(1, 1);
     button.setAlign("right")
     button.setPosition(this.game.config.width - 2 * 48, this.game.config.height - 2 * 48)

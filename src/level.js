@@ -297,7 +297,7 @@ export default class Level extends Phaser.Scene {
             sound = this.sound.add("alabanza", { volume: 1 });
             sound.play();
         } else if (this.score == 0) {
-            finishMessageText += "No eres muy gracioso, no."
+            finishMessageText += "Un público difícil..."
             sound = this.sound.add("abucheo", { volume: 1 });
             sound.play();
         } else {
@@ -345,7 +345,9 @@ export default class Level extends Phaser.Scene {
             .setDepth(21);
         menuButton.setInteractive();
         menuButton.on("pointerdown", () => {
-            sound.stop();
+            if (sound != null ) {
+                sound.stop();
+            }
             emitter.particleTint = colors.right;
             this.input.stopPropagation();
             this.time.delayedCall(500, () => {
