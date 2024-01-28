@@ -25,12 +25,12 @@ export const humorColors: HumorColors = {
 // Posiciones en las que se van a colocar los tipos de humor
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 228 - 800, y: -100 },
-  { x: 2 * 228 - 800, y: -100 },
-  { x: 3 * 228 - 800, y: -100 },
-  { x: 4 * 228 - 800, y: -100 },
-  { x: 5 * 228 - 800, y: -100 },
-  { x: 6 * 228 - 800, y: -100 },
+  { x: 171 - 600, y: -100 },
+  { x: 2 * 171 - 600, y: -100 },
+  { x: 3 * 171 - 600, y: -100 },
+  { x: 4 * 171 - 600, y: -100 },
+  { x: 5 * 171 - 600, y: -100 },
+  { x: 6 * 171 - 600, y: -100 },
 ];
 
 export interface HumorTypesProps {
@@ -216,60 +216,60 @@ export default class HumorTypes extends BasePuzzle {
     const emitZone1 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[0].x + this.container.x - 100,
-        screenPositions[0].y + this.container.y - 100,
-        200,
-        200
+        screenPositions[0].x + this.container.x - 90,
+        screenPositions[0].y + this.container.y - 90,
+        180,
+        430
       ),
       quantity: 42,
     };
     const emitZone2 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[1].x + this.container.x - 100,
-        screenPositions[1].y + this.container.y - 100,
-        200,
-        200
+        screenPositions[1].x + this.container.x - 90,
+        screenPositions[1].y + this.container.y - 90,
+        180,
+        430
       ),
       quantity: 42,
     };
     const emitZone3 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[2].x + this.container.x - 100,
-        screenPositions[2].y + this.container.y - 100,
-        200,
-        200
+        screenPositions[2].x + this.container.x - 90,
+        screenPositions[2].y + this.container.y - 90,
+        180,
+        430
       ),
       quantity: 42,
     };
     const emitZone4 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[3].x + this.container.x - 100,
-        screenPositions[3].y + this.container.y - 100,
-        200,
-        200
+        screenPositions[3].x + this.container.x - 90,
+        screenPositions[3].y + this.container.y - 90,
+        180,
+        430
       ),
       quantity: 42,
     };
     const emitZone5 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[4].x + this.container.x - 100,
-        screenPositions[4].y + this.container.y - 100,
-        200,
-        200
+        screenPositions[4].x + this.container.x - 90,
+        screenPositions[4].y + this.container.y - 90,
+        180,
+        430
       ),
       quantity: 42,
     };
     const emitZone6 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[5].x + this.container.x - 100,
-        screenPositions[5].y + this.container.y - 100,
-        200,
-        200
+        screenPositions[5].x + this.container.x - 90,
+        screenPositions[5].y + this.container.y - 90,
+        180,
+        430
       ),
       quantity: 42,
     };
@@ -300,7 +300,7 @@ export default class HumorTypes extends BasePuzzle {
         .image(screenPositions[i].x, screenPositions[i].y, `frame${humorType}`)
         .setDisplaySize(140, 140)
         .setOrigin(0.5, 0.5);
-        const character = this.add
+      const character = this.add
         .sprite(screenPositions[i].x, screenPositions[i].y + 200, `character${Math.floor(Math.random() * 19)}`)
         .setFrame(3)
         .setScale(2.5)
@@ -308,9 +308,9 @@ export default class HumorTypes extends BasePuzzle {
       this.container.add(characterButton);
       this.container.add(characterFrame);
       this.container.add(character);
-
-      characterButton.setInteractive();
-      characterButton.on("pointerdown", () => {
+      characterFrame.setInteractive();
+      character.setInteractive();
+      characterFrame.on("pointerdown", () => {
         // sólo permitir interacción con el puzzle si el resultado no está decidido
         // En realidad esto no debería hacer falta, pero por si las moscas...
         if (this.puzzleResult !== "ongoing") return;
@@ -330,7 +330,33 @@ export default class HumorTypes extends BasePuzzle {
           this.playFailureSound();
         }
       });
-      characterButton.on("pointerover", () => {
+      character.on("pointerdown", () => {
+        // sólo permitir interacción con el puzzle si el resultado no está decidido
+        // En realidad esto no debería hacer falta, pero por si las moscas...
+        if (this.puzzleResult !== "ongoing") return;
+
+        this.playTrySound();
+        // ¿coincide el índice pulsado con bueno?
+        if (i === this.humorTypeToPress) {
+          this.emitter.particleTint = colors.right;
+          this.endPuzzle(true);
+          this.puzzleResult = "success";
+          this.playSuccessSound();
+        } else {
+          // nos hemos equivocado, acaba el puzzle en fracaso.
+          this.emitter.particleTint = colors.wrong;
+          this.endPuzzle(false);
+          this.puzzleResult = "failure";
+          this.playFailureSound();
+        }
+      });
+      characterFrame.on("pointerover", () => {
+        if (this.puzzleResult == "ongoing") {
+          this.emitter.setEmitZone(i);
+          this.emitter.fastForward(2000);
+        }
+      });
+      character.on("pointerover", () => {
         if (this.puzzleResult == "ongoing") {
           this.emitter.setEmitZone(i);
           this.emitter.fastForward(2000);
