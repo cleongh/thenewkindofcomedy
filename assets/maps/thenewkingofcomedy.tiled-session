@@ -3,13 +3,14 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "level1.json",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "Todos los archivos (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.5673,
             "scaleInEditor": 1
         },
         "level1.json": {
@@ -19,8 +20,8 @@
             "scale": 0.4726,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 1119.3398222598391,
-                "y": 541.6842996191282
+                "x": 1117.2238679644518,
+                "y": 539.5683453237409
             }
         },
         "level1.json#character": {
@@ -100,6 +101,7 @@
     "map.lastUsedFormat": "json",
     "map.layerDataFormat": null,
     "openFiles": [
+        "level1.json"
     ],
     "project": "thenewkingofcomedy.tiled-project",
     "property.type": "instrument",

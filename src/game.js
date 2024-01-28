@@ -21,8 +21,8 @@ import BabyTalk from "./puzzles/BabyTalk.ts";
  * Inicio del juego en Phaser. Creamos el archivo de configuración del juego y creamos
  * la clase Game de Phaser, encargada de crear e iniciar el juego.
  */
-const tiles_w = 40;
-const tiles_h = 25;
+const tiles_w = 30;
+const tiles_h = 21;
 const tile_size = 48
 let config = {
     type: Phaser.AUTO,
@@ -57,6 +57,9 @@ let config = {
             },
         ],
     },
+    // loader: {  
+    //     async: false
+    // },
     physics: {
         default: "arcade",
         arcade: {

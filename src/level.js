@@ -40,16 +40,23 @@ export default class Level extends Phaser.Scene {
 
         this.player = players[0]
 
-        const walls_ts = this.map.addTilesetImage('paredes3d', 'paredes3d');
-        const kitchen_ts = this.map.addTilesetImage('kitchen', 'kitchen');
-        const upstairs_ts = this.map.addTilesetImage('upstairs', 'upstairs');
+        const walls_ts = this.map.addTilesetImage('paredes3d');
+        const kitchen_ts = this.map.addTilesetImage('kitchen');
+        const upstairs_ts = this.map.addTilesetImage('upstairs');
+        const conference_ts = this.map.addTilesetImage('conference');
+        const music_ts = this.map.addTilesetImage('music');
         // const interiors_ts = this.map.addTilesetImage('interiors', 'interiors');
 
         this.map.createLayer('suelo', upstairs_ts)
-        let mesas = this.map.createLayer('mesas', kitchen_ts)
+        
+        
 
-        let paredes = this.map.createLayer('walls', walls_ts)
-        this.map.createLayer('props', [kitchen_ts, upstairs_ts])
+        
+
+        let paredes = this.map.createLayer('walls', [walls_ts, conference_ts,kitchen_ts])
+        this.map.createLayer('escenario', [conference_ts, kitchen_ts])
+        let mesas = this.map.createLayer('mesas', [kitchen_ts, conference_ts, music_ts])
+        this.map.createLayer('props', [kitchen_ts, upstairs_ts,music_ts,conference_ts])
 
         //pongo las colisiones
         mesas.setCollisionByExclusion(-1, true);
@@ -212,7 +219,7 @@ export default class Level extends Phaser.Scene {
             this.game.config.width / 2,
             this.game.config.height / 2
         ).setDepth(20);
-        this.container.width = 1600;
+        this.container.width = 1400;
         this.container.height = 800;
         // Background
         let frame = this.add

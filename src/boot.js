@@ -6,6 +6,8 @@ import Phaser from "phaser";
 import player from "../assets/sprites/player.png";
 import upstairs from "../assets/sprites/upstairs.png";
 import walls from "../assets/sprites/walls.png";
+import conference from "../assets/sprites/conference.png";
+import music from "../assets/sprites/music.png";
 import paredes3d from "../assets/sprites/paredes3d.png";
 // import interiors from "../assets/sprites/interiors.png";
 import kitchen from "../assets/sprites/kitchen.png";
@@ -154,7 +156,9 @@ export default class Boot extends Phaser.Scene {
   /**
    * Carga de los assets del juego
    */
-  preload() {
+    preload() {
+
+
     this.load.audio("musica1", musica1);
     this.load.audio("musica2", musica2);
     this.load.audio("bat", bat);
@@ -170,7 +174,9 @@ export default class Boot extends Phaser.Scene {
     // this.load.image('platform', platform);
     // this.load.image('base', base);
     this.load.image("upstairs", upstairs);
-      this.load.image("walls", walls);
+        this.load.image("walls", walls);
+        this.load.image("music", music);
+        this.load.image("conference", conference);
       this.load.image("paredes3d", paredes3d);
       // this.load.image("interiors", interiors);      
     this.load.image("kitchen", kitchen);
@@ -220,12 +226,7 @@ export default class Boot extends Phaser.Scene {
       endFrame: 4,
     });
 
-    this.load.spritesheet("pelirroja", pelirroja, {
-      frameWidth: 48,
-      frameHeight: 100,
-      startFrame: 0,
-      endFrame: 135,
-    });
+
     this.load.spritesheet("sherif", sherif, {
       frameWidth: 48,
       frameHeight: 100,
@@ -251,24 +252,6 @@ export default class Boot extends Phaser.Scene {
       endFrame: 135,
     });
 
-    this.load.spritesheet("barbudo", barbudo, {
-      frameWidth: 48,
-      frameHeight: 100,
-      startFrame: 0,
-      endFrame: 135,
-    });
-    this.load.spritesheet("bigotes", bigotes, {
-      frameWidth: 48,
-      frameHeight: 100,
-      startFrame: 0,
-      endFrame: 135,
-    });
-    this.load.spritesheet("elvis", elvis, {
-      frameWidth: 48,
-      frameHeight: 100,
-      startFrame: 0,
-      endFrame: 135,
-    });
     this.load.spritesheet("gorrito", gorrito, {
       frameWidth: 48,
       frameHeight: 100,
@@ -454,7 +437,15 @@ export default class Boot extends Phaser.Scene {
     );
   }
 
-  create() {
+    create() {
+
+        // this.load.on('complete', ()  =>{
+        //     // console.log(p)
+            
+        //                         this.scene.start("level1");
+
+        // });
+
     characters.forEach((char) => {
       this.anims.create({
         key: "idle_" + char,
@@ -553,7 +544,8 @@ export default class Boot extends Phaser.Scene {
       repeat: -1,
     });
 
-    //this.scene.start("level1");
-     this.scene.start("menu");
+
+    this.scene.start("level1");
+     // this.scene.start("menu");
   }
 }
