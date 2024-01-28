@@ -6,8 +6,8 @@ export const humorTypes = [
   "Negro",
   "Amarillo",
   "Verde", // azul
-  "Escatológico", // rojo
-  "De Cuñao", // blanco
+  "Escatológico", // marron
+  "Blanco", // blanco
 ] as const;
 export type HumorType = (typeof humorTypes)[number];
 
@@ -19,18 +19,18 @@ export const humorColors: HumorColors = {
   Amarillo: "yellow",
   Verde: "green",
   Escatológico: "brown",
-  "De Cuñao": "red",
+  Blanco: "red",
 };
 
 // Posiciones en las que se van a colocar los tipos de humor
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 0, y: -250 },
-  { x: 0, y: -150 },
-  { x: 0, y: -50 },
-  { x: 0, y: 50 },
-  { x: 0, y: 150 },
-  { x: 0, y: 250 },
+  { x: 228 - 800, y: 0 },
+  { x: 2 * 228 - 800, y: 0 },
+  { x: 3 * 228 - 800, y: 0 },
+  { x: 4 * 228 - 800, y: 0 },
+  { x: 5 * 228 - 800, y: 0 },
+  { x: 6 * 228 - 800, y: 0 },
 ];
 
 export interface HumorTypesProps {
@@ -104,7 +104,7 @@ export default class HumorTypes extends BasePuzzle {
     if (!this.selectedHumorTypes.includes("Escatológico")) return 1;
     // De lo contrario, si el último cable es blanco, corta el último cable.
     if (
-      this.selectedHumorTypes[this.selectedHumorTypes.length - 1] === "De Cuñao"
+      this.selectedHumorTypes[this.selectedHumorTypes.length - 1] === "Blanco"
     )
       return 2;
     // De lo contrario, si hay más de un cable azul, corta el último cable azul.
@@ -127,7 +127,7 @@ export default class HumorTypes extends BasePuzzle {
     // primer cable.
     if (
       this.selectedHumorTypes[this.selectedHumorTypes.length - 1] ===
-        "Amarillo" &&
+      "Amarillo" &&
       !this.selectedHumorTypes.some((h) => h === "Escatológico")
     )
       return 0;
@@ -156,7 +156,7 @@ export default class HumorTypes extends BasePuzzle {
     // amarillo, corta el primer cable.
     if (
       this.selectedHumorTypes.filter((h) => h === "Escatológico").length ===
-        1 &&
+      1 &&
       this.selectedHumorTypes.filter((h) => h === "Amarillo").length > 1
     )
       return 0;
@@ -181,7 +181,7 @@ export default class HumorTypes extends BasePuzzle {
     // blanco, corta el cuarto cable.
     if (
       this.selectedHumorTypes.filter((h) => h === "Amarillo").length === 1 &&
-      this.selectedHumorTypes.filter((h) => h === "De Cuñao").length > 1
+      this.selectedHumorTypes.filter((h) => h === "Blanco").length > 1
     )
       return 3;
 
@@ -216,60 +216,60 @@ export default class HumorTypes extends BasePuzzle {
     const emitZone1 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[0].x + this.container.x - 200,
-        screenPositions[0].y + this.container.y - 48,
-        400,
-        96
+        screenPositions[0].x + this.container.x - 100,
+        screenPositions[0].y + this.container.y - 100,
+        200,
+        200
       ),
       quantity: 42,
     };
     const emitZone2 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[1].x + this.container.x - 200,
-        screenPositions[1].y + this.container.y - 48,
-        400,
-        96
+        screenPositions[1].x + this.container.x - 100,
+        screenPositions[1].y + this.container.y - 100,
+        200,
+        200
       ),
       quantity: 42,
     };
     const emitZone3 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[2].x + this.container.x - 200,
-        screenPositions[2].y + this.container.y - 48,
-        400,
-        96
+        screenPositions[2].x + this.container.x - 100,
+        screenPositions[2].y + this.container.y - 100,
+        200,
+        200
       ),
       quantity: 42,
     };
     const emitZone4 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[3].x + this.container.x - 200,
-        screenPositions[3].y + this.container.y - 48,
-        400,
-        96
+        screenPositions[3].x + this.container.x - 100,
+        screenPositions[3].y + this.container.y - 100,
+        200,
+        200
       ),
       quantity: 42,
     };
     const emitZone5 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[4].x + this.container.x - 200,
-        screenPositions[4].y + this.container.y - 48,
-        400,
-        96
+        screenPositions[4].x + this.container.x - 100,
+        screenPositions[4].y + this.container.y - 100,
+        200,
+        200
       ),
       quantity: 42,
     };
     const emitZone6 = {
       type: "edge",
       source: new Phaser.Geom.Rectangle(
-        screenPositions[5].x + this.container.x - 200,
-        screenPositions[5].y + this.container.y - 48,
-        400,
-        96
+        screenPositions[5].x + this.container.x - 100,
+        screenPositions[5].y + this.container.y - 100,
+        200,
+        200
       ),
       quantity: 42,
     };
@@ -293,14 +293,15 @@ export default class HumorTypes extends BasePuzzle {
     // Instanciamos un botón con el icono de cada uno de los tipos de humor seleccionados.
     this.selectedHumorTypes.forEach((humorType, i) => {
       const characterButton = this.add
-        .text(screenPositions[i].x, screenPositions[i].y, humorType, {
-          color: humorColors[humorType],
-          fontSize: "40px",
-          fontFamily: "minecraftia",
-        })
+        .image(screenPositions[i].x, screenPositions[i].y, `icon${humorType}`)
+        .setDisplaySize(100, 100)
+        .setOrigin(0.5, 0.5);
+      const characterFrame = this.add
+        .image(screenPositions[i].x, screenPositions[i].y, `frame${humorType}`)
+        .setDisplaySize(140, 140)
         .setOrigin(0.5, 0.5);
       this.container.add(characterButton);
-      characterButton.setAlign("center");
+      this.container.add(characterFrame);
 
       characterButton.setInteractive();
       characterButton.on("pointerdown", () => {

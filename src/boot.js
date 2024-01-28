@@ -63,6 +63,23 @@ import babyCry from "../assets/sprites/babyCry.png";
 import babyLaugh from "../assets/sprites/babyLaugh.png";
 /* ----- PERSONAJE BEBÉ PUZZLE SONIDOS FIN*/
 
+/* ---- ICONOS PUZZLE HUMOR TYPES ---- */
+import iconNegro from "../assets/sprites/puzzles/tiposHumor/death.png";
+import iconAmarillo from "../assets/sprites/puzzles/tiposHumor/Torii.png"
+import iconVerde from "../assets/sprites/puzzles/tiposHumor/eggplant.png"
+import iconEscatológico from "../assets/sprites/puzzles/tiposHumor/poop.png"
+import iconBlanco from "../assets/sprites/puzzles/tiposHumor/pegi3.png"
+/* ---- ICONOS PUZZLE HUMOR TYPES ---- */
+
+/* ---- FRAMES PUZZLE HUMOR TYPES ---- */
+import frameNegro from "../assets/sprites/puzzles/tiposHumor/frameNegro.png";
+import frameAmarillo from "../assets/sprites/puzzles/tiposHumor/frameAmarillo.png"
+import frameVerde from "../assets/sprites/puzzles/tiposHumor/frameVerde.png"
+import frameEscatológico from "../assets/sprites/puzzles/tiposHumor/frameMarron.png"
+import frameBlanco from "../assets/sprites/puzzles/tiposHumor/frameBlanco.png"
+/* ---- FRAMES PUZZLE HUMOR TYPES ---- */
+
+
 /* ----- UI -----*/
 import brownFrame from "../assets/ui/brown.png";
 import exitIcon from "../assets/ui/exit2.png";
@@ -193,6 +210,18 @@ export default class Boot extends Phaser.Scene {
     this.load.image("marco", marco);
     this.load.image("pedropablo", pedropablo);
 
+    // HUMOR TYPES
+    this.load.image("iconNegro", iconNegro);
+    this.load.image("iconAmarillo", iconAmarillo);
+    this.load.image("iconVerde", iconVerde);
+    this.load.image("iconEscatológico", iconEscatológico);
+    this.load.image("iconBlanco", iconBlanco);
+
+    this.load.image("frameNegro", frameNegro);
+    this.load.image("frameAmarillo", frameAmarillo);
+    this.load.image("frameVerde", frameVerde);
+    this.load.image("frameEscatológico", frameEscatológico);
+    this.load.image("frameBlanco", frameBlanco);
 
     this.load.spritesheet("characterDerecha", characterDerecha, {
       frameWidth: 48,
