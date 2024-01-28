@@ -582,7 +582,6 @@ export default class Boot extends Phaser.Scene {
     });
 
 
-    this.scene.start("level1");
-     // this.scene.start("menu");
+    this.scene.start("menu");
   }
 }
