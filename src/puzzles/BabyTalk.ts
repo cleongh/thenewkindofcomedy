@@ -22,12 +22,12 @@ export type BabyTalkManualCombination = {
 // Posiciones en las que se van a colocar los iconos de los botones con las acciones.
 // TODO: Poned lo que quede más cuco
 const screenPositions: { x: number; y: number }[] = [
-  { x: 300, y: -250 },
-  { x: 300, y: -150 },
-  { x: 300, y: -50 },
-  { x: 300, y: 50 },
-  { x: 300, y: 150 },
-  { x: 300, y: 250 },
+  { x: 200, y: -250 },
+  { x: 200, y: -150 },
+  { x: 200, y: -50 },
+  { x: 200, y: 50 },
+  { x: 200, y: 150 },
+  { x: 200, y: 250 },
 ];
 
 /**
@@ -189,7 +189,7 @@ export default class BabyTalk extends BasePuzzle {
     this.soundTracks[0].play();
     console.log(this.selectedCombination);
 
-    let baby = this.add.sprite(-350, 0, "babyCry", 0).setScale(9);
+    let baby = this.add.sprite(-300, 0, "babyCry", 0).setScale(7);
     this.container.add(baby);
     baby.play("cry_baby");
 
