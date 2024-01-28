@@ -87,7 +87,8 @@ export default abstract class BasePuzzle extends Phaser.Scene {
     this.container.add(frame);
     let closePuzzleButton = this.add
       .image(this.frameWidth / 2 - 40, -this.frameHeight / 2 + 20, "exitIcon")
-      .setOrigin(1, 0);
+      .setOrigin(1, 0)
+      .setScale(4,4);
 
     closePuzzleButton.setInteractive();
     closePuzzleButton.on("pointerdown", () => {

@@ -65,7 +65,7 @@ import babyLaugh from "../assets/sprites/babyLaugh.png";
 
 /* ----- UI -----*/
 import brownFrame from "../assets/ui/brown.png";
-import exitIcon from "../assets/ui/exit.png";
+import exitIcon from "../assets/ui/exit2.png";
 import flare from "../assets/ui/white-flare.png";
 import backgroundTile from "../assets/ui/bg.png";
 /* ----- UI FIN -----*/
