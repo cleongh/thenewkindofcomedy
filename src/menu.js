@@ -18,7 +18,7 @@ export default class Menu extends Phaser.Scene {
    * Creación de la escena. Tan solo contiene el texto que indica que el juego se ha acabado
    */
   create() {
-    this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'menu');
+    this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'menu').setScale(0.85);
 
     // Ponemos la música una sola vez
     if (!this.music) {
@@ -29,8 +29,8 @@ export default class Menu extends Phaser.Scene {
     }
 
     // Crear botones
-    let startButton = this.add.text(48 * 4, 48 * 10, "Iniciar Juego", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' }).setInteractive();
-    let creditsButton = this.add.text(48 * 4, 48 * 14, "Créditos", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' }).setInteractive();
+    let startButton = this.add.text(48 * 3, 48 * 10, "Iniciar Juego", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' }).setInteractive();
+    let creditsButton = this.add.text(48 * 3, 48 * 14, "Créditos", { fontFamily: 'Minecraftia', fontSize: 62, color: '#222222' }).setInteractive();
 
     // Crear emitters
     let emitter = this.add.particles(0, 0, "flare", {
