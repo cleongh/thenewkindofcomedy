@@ -183,7 +183,7 @@ export default class Level extends Phaser.Scene {
                 
                 player.setBored(false)
 
-                this.minijuego = 'WhoGoesFirst';//zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
+                this.minijuego = zone.puzzle // 'puzzleTest' // ESto tendrá que ser el minijuego correspondiente, creo que comentamos que sería una propiedad de la propia mesa
                 this.player.setEnableInput(false) // al lanzar el puzzle el jugador ya no debe moverse hasta que se cierre o termine el puzzle
                 this.scene.launch(this.minijuego, {
                     bandMembersAmount: this.number_musicians,
