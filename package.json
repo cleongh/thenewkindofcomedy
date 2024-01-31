@@ -2,9 +2,19 @@
     "name": "simplephasergamenode",
     "version": "1.0.0",
     "description": "",
+    "targets":{
+        "game": {
+            "source": "index.html",
+            "distDir": "docs"
+        },
+        "book": {
+            "source": "thebook/index.html",
+            "distDir": "docs/thebook"
+        }
+    },
     "scripts": {
         "start": "npx parcel index.html",
-        "build": "npx parcel build index.html --public-url ./ --dist-dir docs"
+        "build": "npx parcel build"
     },
     "repository": {
         "type": "git",
