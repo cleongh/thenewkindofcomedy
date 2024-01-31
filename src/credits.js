@@ -26,8 +26,10 @@ export default class Credits extends Phaser.Scene {
 
     this.add.text(2 * 48, 2 * 48, "Los responsables de esto:", { fontFamily: 'Minecraftia', fontSize: 48, color: '#222222' });
 
-    let thePeople = this.add.text(2 * 48, 5 * 48, textList.join("\n"), { fontFamily: 'Minecraftia', fontSize: 36, color: '#222222' });
-    thePeople.setLineSpacing(24);
+    let thePeople = this.add.text(2 * 48, 5 * 48, textList.join("\n"), { fontFamily: 'Minecraftia', fontSize: 32, color: '#222222' });
+    thePeople.setLineSpacing(20);
+    this.add.text(2 * 48, this.game.config.height - 2 * 48, "Art by Limezu (https://limezu.itch.io/)", { fontFamily: 'Minecraftia', fontSize: 32, color: '#222222' })
+      .setOrigin(0,1);
 
     let inMemoriamList = [
       'elena',
