@@ -71,3 +71,8 @@ let config = {
 
 new Phaser.Game(config);
 
+let bookLink = document.getElementById("the-book");
+if (bookLink){
+    bookLink.setAttribute("href", "./thebook/index.html");
+}
+

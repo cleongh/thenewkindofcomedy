@@ -5,11 +5,13 @@
     "targets":{
         "game": {
             "source": "index.html",
-            "distDir": "docs"
+            "distDir": "docs",
+            "publicUrl": "./"
         },
         "book": {
             "source": "thebook/index.html",
-            "distDir": "docs/thebook"
+            "distDir": "docs/thebook",
+            "publicUrl": "./"
         }
     },
     "scripts": {
