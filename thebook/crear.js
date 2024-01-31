@@ -514,34 +514,38 @@ const templatePaso2 = `
 
 function crearPaso1PrimeraBase(idElemento){
     let root = $(idElemento);
-    let i = 0;
-    for (let [word, value] of Object.entries(wordLayouts)){
-        html = $.parseHTML(templatePaso1);
+    if (root){
+        let i = 0;
+        for (let [word, value] of Object.entries(wordLayouts)) {
+            html = $.parseHTML(templatePaso1);
 
-        $(html).find(".primera-base-header").html(word);
+            $(html).find(".primera-base-header").html(word);
 
-        root.append(html);
+            root.append(html);
 
-        let seleccionada = $(html).find(".primera-base-row td");// document.querySelectorAll("#primera-base .primera-base-row td");
-        console.log(value)
-        $(seleccionada[value]).html('<i class="fa fa-eye"></i>')//classList.add("selected");
-        i++;
+            let seleccionada = $(html).find(".primera-base-row td");// document.querySelectorAll("#primera-base .primera-base-row td");
+            console.log(value)
+            $(seleccionada[value]).html('<i class="fa fa-eye"></i>')//classList.add("selected");
+            i++;
+        }
     }
 }
 
 function crearPaso2PrimeraBase(idElemento) {
     let root = $(idElemento);
-    let table = $.parseHTML(templatePaso2);
+    if (root){
+        let table = $.parseHTML(templatePaso2);
 
-    for (let [word, sequence] of Object.entries(wordSequences)) {
-        let correctSequence = sequence.join(", ");
-        let newRow = `<tr class="primera-base-row">
+        for (let [word, sequence] of Object.entries(wordSequences)) {
+            let correctSequence = sequence.join(", ");
+            let newRow = `<tr class="primera-base-row">
         <td class="word col-2">${word}</td>
         <td class="sequence col-10">${correctSequence}</td>
         </tr>`
-        $("tbody", table).append($.parseHTML(newRow));
+            $("tbody", table).append($.parseHTML(newRow));
+        }
+        $(root).append(table);
     }
-    $(root).append(table);
 }
 
 window.addEventListener("load", ()=>{
