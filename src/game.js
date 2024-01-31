@@ -28,6 +28,7 @@ let config = {
     type: Phaser.AUTO,
     width: tiles_w * tile_size,
     height: tiles_h * tile_size,
+    parent: "the-game",
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,

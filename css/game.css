@@ -1,9 +1,51 @@
 @font-face {
   font-family: 'minecraftia';
-  src: url('../assets/fonts/Minecraftia.ttf') format('truetype');
+  src: url('../assets/fonts/Minecraftia.ttf') format('truetype');  
+}
+
+body {
+  font-size: 18px;
+  background-image: url("../assets/sprites/menu/fondoMenu.png");
 }
 
 h1 {
   text-align: center;
   font-family: 'minecraftia';
+  margin-top: 5rem;
 }
+
+
+.goal {
+  font-size: 16px;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.row.instrucciones{
+  padding: 2rem 6rem;
+  background-color: azure;
+  margin-bottom: 2rem;
+  h2 {
+      margin-bottom: 1.5rem;
+  }
+  ul{
+    padding-left: 2.5rem;
+    li{
+      line-height: 2.5rem;
+    }
+    
+  };
+}
+
+.footer{
+  text-align: right;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+
+
+
+
+
